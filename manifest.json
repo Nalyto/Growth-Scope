@@ -13,7 +13,7 @@
   "categories": ["business", "productivity", "social"],
   "icons": [
     {
-      "src": "./icon.svg",
+      "src": "./icon.svg?v=20261012b",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
