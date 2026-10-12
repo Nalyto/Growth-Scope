@@ -1258,11 +1258,39 @@ async function ensureWorkspace(){
 }
 async function loadCloudData(){
   if(!workspace)return;
+  // Recovery guard: if the selected workspace unexpectedly returns no content,
+  // check rows visible under the user's existing Supabase/RLS permissions before
+  // rendering an empty dashboard. Never write, delete, or move user data here.
   let {data:rows,error}=await db.from('contents').select('*').eq('workspace_id',workspace.id).order('content_date',{ascending:false}).order('created_at',{ascending:false});
-  if(error) throw error; data=(rows||[]).map(dbToContent);
+  if(error) throw error;
+  if(!(rows||[]).length){
+    const {data:visibleRows,error:scanError}=await db.from('contents').select('workspace_id').limit(5000);
+    if(!scanError && Array.isArray(visibleRows) && visibleRows.length){
+      const counts=new Map();
+      visibleRows.forEach(r=>counts.set(r.workspace_id,(counts.get(r.workspace_id)||0)+1));
+      const currentCount=counts.get(workspace.id)||0;
+      if(!currentCount){
+        const candidates=(workspaces||[]).filter(w=>(counts.get(w.id)||0)>0);
+        candidates.sort((a,b)=>{
+          const sameNameA=a.name===workspace.name?1:0,sameNameB=b.name===workspace.name?1:0;
+          return sameNameB-sameNameA || (counts.get(b.id)||0)-(counts.get(a.id)||0);
+        });
+        if(candidates.length){
+          console.warn('GrowthScope data recovery: selected workspace has no visible content; using existing workspace with content.',{from:workspace.id,to:candidates[0].id});
+          workspace=candidates[0];
+          currentWorkspaceRole=workspace.role||currentWorkspaceRole||'member';
+          window.currentWorkspaceRole=currentWorkspaceRole;
+          const retry=await db.from('contents').select('*').eq('workspace_id',workspace.id).order('content_date',{ascending:false}).order('created_at',{ascending:false});
+          if(retry.error)throw retry.error;
+          rows=retry.data||[];
+        }
+      }
+    }
+  }
+  data=(rows||[]).map(dbToContent);
   let {data:prs,error:pe}=await db.from('content_plans').select('*').eq('workspace_id',workspace.id).order('planned_date',{ascending:true}).order('created_at',{ascending:false});
   if(pe) throw pe; plans=(prs||[]).map(dbToPlan);
-  render(); renderWorkspace();
+  render(); renderWorkspace(); renderWorkspaceSwitcher();
 }
 let bootUserPromise=null;
 let bootUserId=null;
