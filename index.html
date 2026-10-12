@@ -806,7 +806,7 @@ input,select,textarea,button{max-width:100%}
     <button class="btn light" type="button" onclick="resetDatabaseFilters()">Reset Filter</button>
    </div>
   </div>
-  <div id="plannerDeadlineOverview" class="deadline-overview"></div><div class="table-wrap"><table class="table"><thead><tr><th>Date</th><th>Content</th><th>Pillar</th><th>Format</th><th>Instagram Feed</th><th>Preview Konten</th><th>Reach</th><th>ER</th><th>Score</th><th>Diagnosis</th><th></th></tr></thead><tbody id="contentTable"></tbody></table></div>
+  <div id="plannerDeadlineOverview" class="deadline-overview"></div><div class="table-wrap"><table class="table"><thead><tr><th>Date</th><th>Content</th><th>Pillar</th><th>Format</th><th>Instagram Feed</th><th>Preview Konten</th><th>Reach</th><th>Reposts</th><th>ER</th><th>Score</th><th>Diagnosis</th><th></th></tr></thead><tbody id="contentTable"></tbody></table></div>
  </div>
 </section>
 
@@ -1073,14 +1073,13 @@ input,select,textarea,button{max-width:100%}
    <div class="field"><label>Views</label><input type="number" id="fViews" min="0" value="0"></div>
    <div class="field"><label>Likes</label><input type="number" id="fLikes" min="0" value="0"></div>
    <div class="field"><label>Comments</label><input type="number" id="fComments" min="0" value="0"></div>
-   <div class="field"><label>Shares</label><input type="number" id="fShares" min="0" value="0"></div>\n   <div class="field"><label>Reposts / Posting Ulang</label><input type="number" id="fReposts" min="0" value="0"><small style="display:block;color:#98a2b3;margin-top:5px">Jumlah repost dari insight platform, terpisah dari shares.</small></div>
+   <div class="field"><label>Shares</label><input type="number" id="fShares" min="0" value="0"></div>
+   <div class="field"><label>Reposts / Posting Ulang</label><input type="number" id="fReposts" min="0" value="0"><small style="display:block;color:#98a2b3;margin-top:5px">Jumlah repost dari insight platform, terpisah dari shares.</small></div>
    <div class="field"><label>Saves</label><input type="number" id="fSaves" min="0" value="0"></div>
    <div class="field"><label>Profile Visits</label><input type="number" id="fProfile" min="0" value="0"></div>
    <div class="field"><label>Leads / Conversion</label><input type="number" id="fLeads" min="0" value="0"></div>
    <div class="field"><label>Instagram Feed Link <span style="font-weight:400;color:#98a2b3">(Opsional)</span></label><input type="url" id="fInstagramUrl" placeholder="https://www.instagram.com/p/..."></div>
    <div class="field"><label>Preview Konten <span style="font-weight:400;color:#98a2b3">(Opsional)</span></label><input type="url" id="fPreviewUrl" placeholder="Link Google Drive / Canva / preview"></div>
-   <div class="field" id="fOriginalPostDateField" style="display:none"><label>Tanggal Posting Asli</label><input type="date" id="fOriginalPostDate"></div>
-   <div class="field" id="fOriginalPostUrlField" style="display:none"><label>Link Posting Asli (Opsional)</label><input type="url" id="fOriginalPostUrl" placeholder="https://..."></div>
   </div>
   <div class="form-actions"><button type="button" class="btn light" onclick="closeModal()">Cancel</button><button class="btn primary">Save Content</button></div>
  </form>
@@ -1592,14 +1591,14 @@ function renderTable(a){
     <td>${esc(x.pillar)}</td><td>${esc(x.format)}</td>
     <td>${x.instagramUrl?`<a href="${esc(x.instagramUrl)}" target="_blank" rel="noopener" class="btn light" style="padding:6px 9px">↗ Open Feed</a>`:'<span class="mini-stat">Belum ada</span>'}</td>
     <td>${x.previewUrl?`<a href="${esc(x.previewUrl)}" target="_blank" rel="noopener" class="btn light" style="padding:6px 9px">↗ Preview</a>`:'<span class="mini-stat">Belum ada</span>'}</td>
-    <td>${n(x.reach).toLocaleString()}</td><td>${pct(x.er)}</td><td><b>${x.score}</b></td>
+    <td>${n(x.reach).toLocaleString()}</td><td>${n(x.reposts).toLocaleString()}</td><td>${pct(x.er)}</td><td><b>${x.score}</b></td>
     <td><span class="pill ${x.score>=75?'good':x.score>=50?'warn':'bad'}">${diagnosisLabel(x,a)}</span></td>
     <td style="display:flex;gap:5px"><button class="btn light" onclick="editContent('${x.id}')">Edit</button><button class="btn danger" onclick="deleteContent('${x.id}')">Delete</button></td>
   </tr>`).join('');
 }
 function groupStats(key){const map={};data.forEach(x=>{const k=x[key]||'Unknown';(map[k]??=[]).push(x)});return Object.entries(map).sort((A,B)=>avg(B[1].map(x=>x.er))-avg(A[1].map(x=>x.er))).map(([k,v])=>`<tr><td><b>${esc(k)}</b></td><td>${v.length}</td><td>${Math.round(avg(v.map(x=>x.reach))).toLocaleString()}</td><td>${pct(avg(v.map(x=>x.er)))}</td><td>${pct(avg(v.map(x=>x.shareRate)))}</td><td>${pct(avg(v.map(x=>x.saveRate)))}</td></tr>`).join('')}
 function renderGroups(){const h='<table class="table"><thead><tr><th>Category</th><th>Posts</th><th>Avg Reach</th><th>Avg ER</th><th>Share</th><th>Save</th></tr></thead><tbody>';document.getElementById('pillarTable').innerHTML=data.length?h+groupStats('pillar')+'</tbody></table>':'<div class="empty">No data</div>';document.getElementById('formatTable').innerHTML=data.length?h+groupStats('format')+'</tbody></table>':'<div class="empty">No data</div>';renderPostTypeAnalytics()}
-function renderPostTypeAnalytics(){const el=document.getElementById('postTypeAnalytics');if(!el)return;const totalReposts=data.reduce((sum,x)=>sum+n(x.reposts),0);el.innerHTML=data.length?'<div class="table-wrap"><table class="table"><thead><tr><th>Total Reposts</th><th>Avg Reposts / Konten</th><th>Kontribusi ke ER</th></tr></thead><tbody><tr><td><b>'+totalReposts.toLocaleString()+'</b></td><td>'+avg(data.map(x=>n(x.reposts))).toFixed(1)+'</td><td>Termasuk dalam Engagement Rate</td></tr></tbody></table></div>':'<div class="empty">Belum ada data konten.</div>'}
+function renderPostTypeAnalytics(){const el=document.getElementById('postTypeAnalytics');if(!el)return;const totalReposts=data.reduce((sum,x)=>sum+n(x.reposts),0);el.innerHTML=data.length?'<div class="table-wrap"><table class="table"><thead><tr><th>Total Reposts</th><th>Avg Reposts / Konten</th><th>Peran dalam Engagement Rate</th></tr></thead><tbody><tr><td><b>'+totalReposts.toLocaleString()+'</b></td><td>'+avg(data.map(x=>n(x.reposts))).toFixed(1)+'</td><td>Dihitung sebagai interaksi</td></tr></tbody></table></div>':'<div class="empty">Belum ada data konten.</div>'}
 function best(key){if(!data.length)return'No data';const map={};data.forEach(x=>(map[x[key]||'Unknown']??=[]).push(x.er));return Object.entries(map).sort((a,b)=>avg(b[1])-avg(a[1]))[0]?.[0]||'No data'}
 function renderDashboard(){document.getElementById('bestPillar').innerHTML=data.length?'<b>'+esc(best('pillar'))+'</b>':'No data';document.getElementById('bestFormat').innerHTML=data.length?'<b>'+esc(best('format'))+'</b>':'No data';document.getElementById('bestHook').innerHTML=data.length?'<b>'+esc(best('hook'))+'</b>':'No data';const top=data.slice().sort((a,b)=>b.score-a.score).slice(0,5);document.getElementById('topContent').innerHTML=top.length?top.map((x,i)=>`<div style="padding:10px 0;border-bottom:1px solid #e7ebf2"><b>#${i+1} · ${esc(x.title)}</b><div style="font-size:12px;color:#718096">${esc(x.format)} · Score ${x.score} · ER ${pct(x.er)} ${x.instagramUrl?'· <a href="'+esc(x.instagramUrl)+'" target="_blank" rel="noopener">Instagram</a>':''}</div></div>`).join(''):'<div class="empty">No data</div>';drawChart()}
 function drawChart(){const c=document.getElementById('chart');if(!c)return;const ctx=c.getContext('2d');const d=data.slice().reverse().slice(-12);ctx.clearRect(0,0,c.width,c.height);if(!d.length){ctx.font='14px system-ui';ctx.fillStyle='#718096';ctx.fillText('Tambahkan konten untuk melihat grafik.',20,40);return}const w=c.width,h=c.height,p=25,max=Math.max(...d.map(x=>x.reach),1);ctx.strokeStyle='#e7ebf2';ctx.beginPath();ctx.moveTo(p,10);ctx.lineTo(p,h-25);ctx.lineTo(w-10,h-25);ctx.stroke();const step=(w-p-20)/Math.max(d.length-1,1);ctx.strokeStyle='#635bff';ctx.lineWidth=3;ctx.beginPath();d.forEach((x,i)=>{const X=p+i*step,Y=(h-25)-(x.reach/max)*(h-45);i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)});ctx.stroke();d.forEach((x,i)=>{const X=p+i*step,Y=(h-25)-(x.reach/max)*(h-45);ctx.fillStyle='#635bff';ctx.beginPath();ctx.arc(X,Y,3,0,Math.PI*2);ctx.fill()})}
@@ -2001,7 +2000,7 @@ async function createContentFromPlan(plan){
     id:existing?.id||null,date:plan.date,platform:plan.platform||'Instagram',title:plan.topic||plan.title||'Untitled',
     pillar:plan.pillar||'General',topic:plan.topic||plan.title||'',format:plan.format||'Reels',hook:plan.hook||'Problem',cta:plan.cta||'Save',
     reach:existing?.reach||0,views:existing?.views||0,likes:existing?.likes||0,comments:existing?.comments||0,shares:existing?.shares||0,reposts:existing?.reposts||0,saves:existing?.saves||0,
-    profile:existing?.profile||0,leads:existing?.leads||0,instagramUrl:plan.instagramUrl||existing?.instagramUrl||'',previewUrl:plan.previewUrl||existing?.previewUrl||'',copywriting:plan.copywriting||existing?.copywriting||'',slides:plan.slides||existing?.slides||[],sourcePlanId:plan.id,uploaded:true
+    profile:existing?.profile||0,leads:existing?.leads||0,reposts:existing?.reposts||0,instagramUrl:plan.instagramUrl||existing?.instagramUrl||'',previewUrl:plan.previewUrl||existing?.previewUrl||'',copywriting:plan.copywriting||existing?.copywriting||'',slides:plan.slides||existing?.slides||[],sourcePlanId:plan.id,uploaded:true
   };
   calc(x);x.score=score(x,averages());x.diagnosis=diagnosis(x,averages());
   let result;
