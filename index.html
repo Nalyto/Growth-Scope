@@ -2509,3 +2509,50 @@ applyGrowthTheme();
 </script>
 </body>
 </html>
+
+<style id="nalyto-ui-polish-20261012">
+/* Content Planner table: keep context visible and reduce clipped controls */
+#planner .table-wrap{position:relative;max-width:100%;overflow-x:auto!important;overflow-y:hidden;scrollbar-gutter:stable;overscroll-behavior-x:contain;border:1px solid var(--line,#283550);border-radius:14px}
+#planner .table-wrap table{min-width:1450px;border-collapse:separate;border-spacing:0}
+#planner .table-wrap th,#planner .table-wrap td{white-space:nowrap;vertical-align:middle}
+#planner .table-wrap th:first-child,#planner .table-wrap td:first-child{position:sticky;left:0;z-index:2;background:#111c30}
+#planner .table-wrap th:first-child{z-index:4;background:#17243a}
+#planner .table-wrap td:last-child{position:sticky;right:0;z-index:2;background:#111c30;box-shadow:-10px 0 16px rgba(2,8,23,.16)}
+#planner .table-wrap th:last-child{position:sticky;right:0;z-index:4;background:#17243a}
+#planner .table-wrap tbody tr:nth-child(even) td{background:#16243a}
+#planner .table-wrap tbody tr:nth-child(even) td:first-child,#planner .table-wrap tbody tr:nth-child(even) td:last-child{background:#16243a}
+#planner .table-wrap td:last-child .btn{margin:2px 3px;min-width:66px}
+#planner .table-wrap::-webkit-scrollbar{height:10px}
+#planner .table-wrap::-webkit-scrollbar-thumb{background:#536783;border-radius:20px;border:2px solid #111c30}
+/* Planner editor modal: consistent dark theme, better contrast, no white flash cards */
+body.gs-night #planModal .modal-box{background:#101a2c!important;border-color:#30415c!important;color:#e7eefb!important}
+body.gs-night #planModal .modal-head{background:linear-gradient(120deg,#111c30 0%,#1b2c4a 62%,#273d68 100%)!important;border-bottom:1px solid #2d405c}
+body.gs-night #planModal .modal-head:before{color:#a8baff!important}
+body.gs-night #planModal #planForm{background:#101a2c!important;color:#e7eefb!important}
+body.gs-night #planModal .plan-schedule-preview{background:#142139!important;border-color:#2e4261!important;box-shadow:none}
+body.gs-night #planModal .plan-preview-main{background:#1b2b46!important;border:1px solid #354b6b}
+body.gs-night #planModal .plan-preview-kicker{color:#b6c4ff!important}
+body.gs-night #planModal .plan-preview-title{color:#f4f7ff!important}
+body.gs-night #planModal .plan-preview-sub{color:#b8c5d9!important}
+body.gs-night #planModal .plan-preview-stat{background:#1a2941!important;border-color:#354862!important}
+body.gs-night #planModal .plan-preview-stat small{color:#a5b5cc!important}
+body.gs-night #planModal .plan-preview-stat b{color:#f1f5fb!important}
+body.gs-night #planModal .plan-preview-stat span{color:#b2bfd2!important}
+body.gs-night #planModal .plan-section-field,body.gs-night #planModal .plan-links-field,body.gs-night #planModal .plan-content-field{background:#142139!important;border-color:#30435e!important;color:#e7eefb!important}
+body.gs-night #planModal .plan-section-field label,body.gs-night #planModal label{color:#bdcbe0!important}
+body.gs-night #planModal input,body.gs-night #planModal select,body.gs-night #planModal textarea{background:#0c1628!important;color:#f1f5fb!important;border-color:#3a4d69!important;color-scheme:dark}
+body.gs-night #planModal input::placeholder,body.gs-night #planModal textarea::placeholder{color:#8294ae!important}
+body.gs-night #planModal .plan-deadline-field{background:#1b2440!important;border-color:#514b91!important}
+body.gs-night #planModal .plan-deadline-field input,body.gs-night #planModal .plan-deadline-field select{background:#0c1628!important}
+body.gs-night #planModal .form-actions{background:rgba(13,23,40,.97)!important;border-top-color:#30415c!important}
+body.gs-night #planModal .form-actions .btn.light{background:#1c2b43!important;border-color:#3a4d69!important;color:#e7eefb!important}
+body.gs-night #planModal .form-actions .btn.primary{background:linear-gradient(135deg,#6c63ff,#5549e8)!important;color:#fff!important}
+@media(max-width:760px){
+ #planner .table-wrap table{min-width:1300px}
+ #planner .table-wrap th:first-child,#planner .table-wrap td:first-child{left:0}
+ #planner .table-wrap td:last-child .btn{min-width:58px;padding:7px 9px}
+ body.gs-night #planModal .modal-head{padding:20px 16px 16px}
+ body.gs-night #planModal .plan-schedule-preview{grid-template-columns:1fr 1fr}
+ body.gs-night #planModal .plan-preview-main{grid-column:1/-1}
+}
+</style>
