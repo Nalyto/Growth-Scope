@@ -2558,3 +2558,17 @@ body.gs-night #planModal .form-actions .btn.primary{background:linear-gradient(1
 </style>
 
 <style id="planner-scroll-visibility-fix">#planner .table-wrap{display:block!important;width:100%!important;max-width:100%!important;overflow-x:auto!important;overflow-y:hidden!important;scrollbar-width:thin;scrollbar-color:#7186a8 #101a2c}#planner .table-wrap table{width:max-content!important;min-width:1550px!important;table-layout:auto!important}#planner .table-wrap th:nth-child(12),#planner .table-wrap td:nth-child(12){min-width:190px!important}#planner .table-wrap th:last-child,#planner .table-wrap td:last-child{min-width:100px!important;position:sticky!important;right:0!important;z-index:5!important;background:#111c30!important;box-shadow:-10px 0 18px rgba(2,8,23,.28)!important}#planner .table-wrap th:last-child{background:#17243a!important}#planner .table-wrap td:last-child .btn{display:inline-flex!important;margin:3px 2px!important;min-width:62px!important;justify-content:center}#planner .table-wrap::-webkit-scrollbar{height:12px!important}#planner .table-wrap::-webkit-scrollbar-track{background:#101a2c!important}#planner .table-wrap::-webkit-scrollbar-thumb{background:#7186a8!important;border:3px solid #101a2c!important;border-radius:20px}</style>
+
+
+<style id="planner-deadline-visibility-final">
+/* Deadline Validasi is important: allocate enough width and make it readable */
+#planner .table-wrap table{min-width:1680px!important}
+#planner .table-wrap th:nth-child(12),#planner .table-wrap td:nth-child(12){width:230px!important;min-width:230px!important;max-width:230px!important;padding-left:12px!important;padding-right:12px!important;overflow:visible!important}
+#planner .table-wrap td:nth-child(12) .planner-deadline{width:100%!important;min-width:0!important;max-width:none!important;box-sizing:border-box!important;white-space:normal!important;gap:8px!important;padding:10px 11px!important}
+#planner .table-wrap td:nth-child(12) .planner-deadline-icon{flex:0 0 18px!important}
+#planner .table-wrap td:nth-child(12) .planner-deadline>div{min-width:0!important;flex:1 1 auto!important}
+#planner .table-wrap td:nth-child(12) .planner-deadline-main{display:block!important;white-space:normal!important;overflow:visible!important;text-overflow:clip!important;overflow-wrap:anywhere!important;font-size:12px!important;line-height:1.35!important}
+#planner .table-wrap td:nth-child(12) .planner-deadline-sub{display:block!important;white-space:normal!important;overflow:visible!important;text-overflow:clip!important;overflow-wrap:anywhere!important;font-size:10px!important;line-height:1.4!important;color:#b4c4dc!important;margin-top:4px!important}
+#planner .table-wrap th:nth-child(12){white-space:normal!important}
+@media(max-width:760px){#planner .table-wrap table{min-width:1600px!important}#planner .table-wrap th:nth-child(12),#planner .table-wrap td:nth-child(12){width:220px!important;min-width:220px!important;max-width:220px!important}}
+</style>
