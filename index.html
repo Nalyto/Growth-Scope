@@ -1293,24 +1293,27 @@ async function loadCloudData(){
   data=(rows||[]).map(dbToContent);
   let {data:prs,error:pe}=await db.from('content_plans').select('*').eq('workspace_id',workspace.id).order('planned_date',{ascending:true}).order('created_at',{ascending:false});
   if(pe) throw pe; plans=(prs||[]).map(dbToPlan);
-  render(); renderWorkspace(); renderWorkspaceSwitcher();
+  // Show a diagnostic before rendering, so a separate UI rendering error cannot hide it.
+  const banner=document.getElementById('dataRecoveryNotice');
+  if(banner && !data.length){
+    banner.style.display='block';
+    banner.textContent='Data konten belum terbaca dari workspace "'+(workspace.name||'')+'". Sedang memeriksa akses Supabase… Workspace ID: '+workspace.id;
+  }
   if(!data.length){
-    const {data:probe, error:probeError}=await db.from('contents').select('id,workspace_id,created_by').limit(5000);
+    const {data:probe, error:probeError}=await db.from('contents').select('id,workspace_id').limit(5000);
     const count=Array.isArray(probe)?probe.length:0;
     const distinct=[...new Set((probe||[]).map(r=>r.workspace_id||'tanpa workspace'))];
     console.warn('GrowthScope empty-data diagnostic',{activeWorkspaceId:workspace.id,activeWorkspaceName:workspace.name,visibleContentRows:count,visibleWorkspaceIds:distinct,probeError:probeError?.message||null});
-    const banner=document.getElementById('dataRecoveryNotice');
     if(banner){
       banner.style.display='block';
       banner.textContent=probeError
-        ? 'Data belum tampil. Pemeriksaan Supabase gagal: '+probeError.message
+        ? 'Data belum tampil. Pemeriksaan Supabase gagal: '+probeError.message+' | Workspace ID: '+workspace.id
         : count
-          ? 'Data masih terlihat di Supabase ('+count+' baris), tetapi tidak terhubung ke workspace aktif. Workspace ID aktif: '+workspace.id+'. Tidak ada data yang dihapus.'
-          : 'Supabase tidak mengembalikan baris konten yang bisa diakses akun ini. Data belum tentu terhapus; perlu cek tabel contents dan workspace_id di Supabase. Workspace ID aktif: '+workspace.id+'.';
+          ? 'Ada '+count+' konten yang masih terlihat di Supabase, pada workspace ID: '+distinct.join(', ')+'. Workspace aktif: '+workspace.id+'. Data belum dihapus; masalahnya kemungkinan pemetaan workspace.'
+          : 'Query Supabase untuk tabel contents mengembalikan 0 baris untuk akun ini. Data belum tentu terhapus; perlu periksa tabel contents dan workspace_id di Supabase. Workspace aktif: '+workspace.id+'.';
     }
-  }else{
-    const banner=document.getElementById('dataRecoveryNotice');if(banner)banner.style.display='none';
-  }
+  }else if(banner){banner.style.display='none';}
+  render(); renderWorkspace(); renderWorkspaceSwitcher();
 }
 let bootUserPromise=null;
 let bootUserId=null;
