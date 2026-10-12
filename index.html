@@ -779,6 +779,7 @@ input,select,textarea,button{max-width:100%}
 </header>
 
 <section id="dashboard" class="page active">
+ <div id="dataRecoveryNotice" role="status" style="display:none;margin:0 0 16px;padding:14px 16px;border:1px solid #f5c36a;border-radius:12px;background:#fff8e7;color:#7c4a03;font-size:12px;line-height:1.6"></div>
   <div class="notice" style="margin-bottom:15px"><b>☁️ Data Cloud:</b> data konten, planner, dan workspace tersimpan di Supabase dan terikat pada workspace yang sedang aktif.</div>
   <div class="grid">
     <div class="card metric"><div class="label">TOTAL CONTENT</div><div class="value" id="mContent">0</div><div class="up">Tracked posts</div></div>
@@ -1267,22 +1268,24 @@ async function loadCloudData(){
     const {data:visibleRows,error:scanError}=await db.from('contents').select('workspace_id').limit(5000);
     if(!scanError && Array.isArray(visibleRows) && visibleRows.length){
       const counts=new Map();
-      visibleRows.forEach(r=>counts.set(r.workspace_id,(counts.get(r.workspace_id)||0)+1));
-      const currentCount=counts.get(workspace.id)||0;
-      if(!currentCount){
-        const candidates=(workspaces||[]).filter(w=>(counts.get(w.id)||0)>0);
-        candidates.sort((a,b)=>{
-          const sameNameA=a.name===workspace.name?1:0,sameNameB=b.name===workspace.name?1:0;
-          return sameNameB-sameNameA || (counts.get(b.id)||0)-(counts.get(a.id)||0);
-        });
-        if(candidates.length){
-          console.warn('GrowthScope data recovery: selected workspace has no visible content; using existing workspace with content.',{from:workspace.id,to:candidates[0].id});
-          workspace=candidates[0];
-          currentWorkspaceRole=workspace.role||currentWorkspaceRole||'member';
-          window.currentWorkspaceRole=currentWorkspaceRole;
-          const retry=await db.from('contents').select('*').eq('workspace_id',workspace.id).order('content_date',{ascending:false}).order('created_at',{ascending:false});
-          if(retry.error)throw retry.error;
-          rows=retry.data||[];
+      visibleRows.forEach(r=>counts.set(r.workspace_id||'__NULL__',(counts.get(r.workspace_id||'__NULL__')||0)+1));
+      const ids=[...counts.keys()].filter(id=>id!=='__NULL__');
+      if(ids.length){
+        // Resolve workspace IDs directly from Supabase, even if the local switcher list is incomplete.
+        const {data:resolved,error:resolveError}=await db.from('workspaces').select('*').in('id',ids);
+        if(!resolveError && Array.isArray(resolved) && resolved.length){
+          const candidates=resolved.map(w=>({...w,role:w.owner_id===currentUser?.id?'owner':((workspaces||[]).find(x=>x.id===w.id)?.role||'member'),_visibleContentCount:counts.get(w.id)||0}));
+          candidates.sort((a,b)=>(a.name===workspace.name?1:0)===(b.name===workspace.name?1:0)?b._visibleContentCount-a._visibleContentCount:(a.name===workspace.name?-1:1));
+          const best=candidates[0];
+          if(best && best._visibleContentCount>0){
+            console.warn('GrowthScope recovery selected workspace containing existing visible content.',{from:workspace.id,to:best.id,count:best._visibleContentCount});
+            workspace=best;
+            currentWorkspaceRole=best.role||'member';
+            window.currentWorkspaceRole=currentWorkspaceRole;
+            const retry=await db.from('contents').select('*').eq('workspace_id',workspace.id).order('content_date',{ascending:false}).order('created_at',{ascending:false});
+            if(retry.error)throw retry.error;
+            rows=retry.data||[];
+          }
         }
       }
     }
@@ -1291,6 +1294,23 @@ async function loadCloudData(){
   let {data:prs,error:pe}=await db.from('content_plans').select('*').eq('workspace_id',workspace.id).order('planned_date',{ascending:true}).order('created_at',{ascending:false});
   if(pe) throw pe; plans=(prs||[]).map(dbToPlan);
   render(); renderWorkspace(); renderWorkspaceSwitcher();
+  if(!data.length){
+    const {data:probe, error:probeError}=await db.from('contents').select('id,workspace_id,created_by').limit(5000);
+    const count=Array.isArray(probe)?probe.length:0;
+    const distinct=[...new Set((probe||[]).map(r=>r.workspace_id||'tanpa workspace'))];
+    console.warn('GrowthScope empty-data diagnostic',{activeWorkspaceId:workspace.id,activeWorkspaceName:workspace.name,visibleContentRows:count,visibleWorkspaceIds:distinct,probeError:probeError?.message||null});
+    const banner=document.getElementById('dataRecoveryNotice');
+    if(banner){
+      banner.style.display='block';
+      banner.textContent=probeError
+        ? 'Data belum tampil. Pemeriksaan Supabase gagal: '+probeError.message
+        : count
+          ? 'Data masih terlihat di Supabase ('+count+' baris), tetapi tidak terhubung ke workspace aktif. Workspace ID aktif: '+workspace.id+'. Tidak ada data yang dihapus.'
+          : 'Supabase tidak mengembalikan baris konten yang bisa diakses akun ini. Data belum tentu terhapus; perlu cek tabel contents dan workspace_id di Supabase. Workspace ID aktif: '+workspace.id+'.';
+    }
+  }else{
+    const banner=document.getElementById('dataRecoveryNotice');if(banner)banner.style.display='none';
+  }
 }
 let bootUserPromise=null;
 let bootUserId=null;
