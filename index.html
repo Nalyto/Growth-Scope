@@ -7,7 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="GrowthScope">
+<meta name="apple-mobile-web-app-title" content="Nalyto">
 <link rel="manifest" href="./manifest.json">
 <link rel="icon" href="./icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="./icon.svg"><script>
@@ -26,7 +26,7 @@
       location.reload();
       return;
     }
-  }catch(e){console.warn('GrowthScope cache reset:',e)}
+  }catch(e){console.warn('Nalyto cache reset:',e)}
 })();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -36,7 +36,7 @@
 /* AI Studio + Growth Intelligence */
 .ai-hero{background:linear-gradient(135deg,#171f38,#635bff);color:#fff;border:0}.ai-hero h2{margin:0 0 6px}.ai-hero p{color:#dfe3ff;margin:0;line-height:1.6}.ai-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.ai-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:15px}.ai-result{min-height:160px;background:#f8f9ff;border:1px solid #e7e9ff;border-radius:12px;padding:15px;line-height:1.65}.ai-result h3{margin:0 0 8px}.ai-list{margin:8px 0 0;padding-left:20px}.idea-card{border:1px solid var(--line);border-radius:10px;padding:12px;margin-top:9px;background:#fff}.score-big{font-size:44px;font-weight:900}.score-meter{height:10px;background:#edf0f5;border-radius:99px;overflow:hidden;margin:10px 0}.score-meter i{display:block;height:100%;background:var(--accent);border-radius:99px}.mini-stat{font-size:12px;color:var(--muted)}.ai-field-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.ai-field-grid .full{grid-column:1/-1}@media(max-width:950px){.ai-grid,.ai-field-grid{grid-template-columns:1fr}}
 
-/* GrowthScope Mobile UI - Phase 1 */
+/* Nalyto Mobile UI - Phase 1 */
 .mobile-bottom-nav{display:none}
 .mobile-more-panel{display:none}
 @media(max-width:760px){
@@ -133,7 +133,7 @@
 @media(max-width:760px){#planModal .modal-box{width:calc(100vw - 20px);max-height:94vh;border-radius:19px}#planModal .modal-head{border-radius:19px 19px 0 0;padding:18px 16px}#planModal .modal-head:before{left:16px}#planModal #planForm{padding:14px 16px 16px}#planModal .form{grid-template-columns:1fr!important}.plan-schedule-preview{grid-template-columns:1fr 1fr}.plan-preview-main{grid-column:1/-1}.plan-schedule-preview .plan-preview-stat:first-of-type{grid-column:1/-1}}
 /* Content Planner Deadline UI */
 .planner-deadline{display:flex;align-items:center;gap:7px;min-width:150px;padding:7px 9px;border:1px solid #e8ebf2;border-radius:11px;background:#fafbff}.planner-deadline-icon{font-size:14px}.planner-deadline-main{font-size:11px;font-weight:900;color:#172033}.planner-deadline-sub{font-size:9px;color:#8a95a8;margin-top:2px}.planner-deadline.soon{background:#fff8ed;border-color:#f8d8a6}.planner-deadline.soon .planner-deadline-main{color:#b45309}.planner-deadline.due{background:#fff1f2;border-color:#fecdd3}.planner-deadline.due .planner-deadline-main{color:#be123c}.planner-deadline.done{background:#f1f5f9;border-color:#e2e8f0}.planner-deadline.done .planner-deadline-main{color:#64748b}.planner-deadline.validating{background:#f0fdf4;border-color:#bbf7d0}.planner-deadline.validating .planner-deadline-main{color:#15803d}.deadline-overview{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:10px;margin:0 0 14px}.deadline-card{padding:13px 15px;border:1px solid #e8ebf2;border-radius:14px;background:linear-gradient(135deg,#fff,#fafaff);box-shadow:0 8px 24px rgba(23,32,51,.04)}.deadline-card .kicker{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#98a2b3;font-weight:900}.deadline-card .big{font-size:19px;font-weight:900;margin-top:4px}.deadline-card .small{font-size:10px;color:#7b8799;margin-top:3px}@media(max-width:950px){.deadline-overview{grid-template-columns:1fr 1fr}}@media(max-width:760px){.deadline-overview{grid-template-columns:1fr 1fr}.deadline-card:first-child{grid-column:1/-1}.planner-deadline{min-width:145px}}
-/* GrowthScope Modern UI Refresh */
+/* Nalyto Modern UI Refresh */
 :root{--gs-bg:#f5f7fb;--gs-panel:#fff;--gs-ink:#172033;--gs-muted:#7b8799;--gs-purple:#635bff;--gs-purple2:#7c72ff;--gs-line:#e8ebf2}
 body{background:var(--gs-bg)}
 .side{background:linear-gradient(180deg,#0c1324 0%,#101a2e 55%,#0d1526 100%);border-right:1px solid rgba(255,255,255,.06);padding:20px 13px 16px;box-shadow:18px 0 45px rgba(15,23,42,.08)}
@@ -195,7 +195,7 @@ body{background:var(--gs-bg)}
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<link rel="icon" type="image/png" href="./icon.svg"><link rel="apple-touch-icon" href="./icon.svg"><title>GrowthScope — Social Media Growth Analyzer</title>
+<link rel="icon" type="image/png" href="./icon.svg"><link rel="apple-touch-icon" href="./icon.svg"><title>Nalyto — Social Media Growth Analyzer</title>
 <style>
 :root{--bg:#f5f7fb;--card:#fff;--text:#172033;--muted:#718096;--line:#e7ebf2;--accent:#635bff;--green:#16a34a;--red:#dc2626;--orange:#d97706;--shadow:0 10px 30px rgba(23,32,51,.07)}
 *{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:var(--text)}
@@ -216,7 +216,7 @@ body{background:var(--gs-bg)}
 @media(max-width:800px){.matrix-guide{grid-template-columns:1fr}.user-name-top{display:none}}
 .logo-mark{width:38px;height:38px;object-fit:contain;vertical-align:middle;flex:0 0 auto}.brand-logo{display:flex;align-items:center;gap:9px;margin:0 10px 28px}.brand-logo .brand-text{font-weight:800;font-size:18px}.brand-logo .brand-text span{display:block;color:#aab3c5;font-size:11px;font-weight:500;margin-top:4px}.auth-brand{display:flex;align-items:center;gap:10px}.auth-brand img{width:46px;height:46px;object-fit:contain}.sidebar-logo-img{width:38px;height:38px;object-fit:contain}.login-logo-img{width:52px;height:52px;object-fit:contain}.user-avatar-top img,.profile-avatar img{object-fit:cover}
 
-/* GrowthScope Workspace Switcher */
+/* Nalyto Workspace Switcher */
 .workspace-switcher{position:relative}
 .workspace-chip{cursor:pointer;text-align:left}
 .workspace-chip .workspace-chevron{color:#98a2b3;font-size:12px;margin-left:2px}
@@ -238,7 +238,7 @@ body{background:var(--gs-bg)}
 .workspace-modal-icon{width:46px;height:46px;border-radius:14px;background:#eeedff;color:#635bff;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:10px}
 @media(max-width:760px){.workspace-popover{position:fixed;left:12px;right:12px;top:72px;width:auto}.workspace-chip{display:none}}
 
-/* GrowthScope Modern UI */
+/* Nalyto Modern UI */
 :root{--accent:#635bff;--accent-2:#4f46e5;--sidebar:#0b1220;--sidebar-soft:#121b2d;--ink:#142033;--muted:#718096;--line:#e8edf5;--bg:#f7f9fc;--shadow-soft:0 14px 38px rgba(15,23,42,.07)}
 body{background:var(--bg)}
 .app{transition:filter .55s ease,transform .55s ease}
@@ -332,7 +332,7 @@ body{background:var(--bg)}
 }
 </style>
 <style>
-/* GrowthScope Mobile UI Refresh */
+/* Nalyto Mobile UI Refresh */
 @media(max-width:760px){
   html,body{width:100%;max-width:100%;overflow-x:hidden}
   body{font-size:14px;-webkit-tap-highlight-color:transparent}
@@ -777,9 +777,9 @@ body.gs-night #calendarGrid>div>div{background:#121e32!important;color:#dce5f3!i
 <body>
 <div id="authScreen">
   <div class="auth-box">
-    <div class="auth-logo auth-brand"><img class="login-logo-img" src="./icon.svg" alt="GrowthScope Logo"><div>GrowthScope <span>Social Media Growth Analyzer · Cloud</span></div></div>
+    <div class="auth-logo auth-brand"><img class="login-logo-img" src="./icon.svg" alt="Nalyto Logo"><div>Nalyto <span>Social Media Growth Analyzer · Cloud</span></div></div>
     <div id="loginPanel">
-      <h2>Login ke GrowthScope</h2><p>Masuk untuk mengakses workspace dan data analitik yang tersimpan di cloud.</p>
+      <h2>Login ke Nalyto</h2><p>Masuk untuk mengakses workspace dan data analitik yang tersimpan di cloud.</p>
       <form id="loginForm" class="auth-form" onsubmit="login(event); return false;">
         <div class="auth-field"><label>Email</label><input id="loginEmail" type="email" required placeholder="nama@email.com"></div>
         <div class="auth-field"><label>Password</label><input id="loginPassword" type="password" required placeholder="••••••••"></div>
@@ -789,7 +789,7 @@ body.gs-night #calendarGrid>div>div{background:#121e32!important;color:#dce5f3!i
       <div class="auth-switch">Belum punya akun? <button type="button" onclick="showRegister()">Daftar sekarang</button></div>
     </div>
     <div id="registerPanel" style="display:none">
-      <h2>Buat akun GrowthScope</h2><p>Buat akun untuk mengakses SMGA. Untuk testing saat ini, akun tidak perlu verifikasi email.</p>
+      <h2>Buat akun Nalyto</h2><p>Buat akun untuk mengakses SMGA. Untuk testing saat ini, akun tidak perlu verifikasi email.</p>
       <form id="registerForm" class="auth-form" onsubmit="register(event); return false;">
         <div class="auth-field"><label>Nama</label><input id="registerName" required placeholder="Nama kamu"></div>
         <div class="auth-field"><label>Email</label><input id="registerEmail" type="email" required placeholder="nama@email.com"></div>
@@ -806,7 +806,7 @@ body.gs-night #calendarGrid>div>div{background:#121e32!important;color:#dce5f3!i
   <div class="welcome-glow welcome-glow-one"></div>
   <div class="welcome-glow welcome-glow-two"></div>
   <div class="welcome-card">
-    <div class="welcome-logo-wrap"><img src="./icon.svg" alt="GrowthScope"></div>
+    <div class="welcome-logo-wrap"><img src="./icon.svg" alt="Nalyto"></div>
     <div class="welcome-kicker">WELCOME BACK</div>
     <h2>Halo, <span id="welcomeName">Syarief</span> 👋</h2>
     <p>Siap melihat perkembangan kontenmu?</p>
@@ -828,8 +828,8 @@ body.gs-night #calendarGrid>div>div{background:#121e32!important;color:#dce5f3!i
 <div class="app">
 <aside class="side">
   <div class="brand-logo">
-    <img class="sidebar-logo-img" src="./icon.svg" alt="GrowthScope Logo">
-    <div class="brand-text">GrowthScope <span>Social Media Growth Analyzer</span></div>
+    <img class="sidebar-logo-img" src="./icon.svg" alt="Nalyto Logo">
+    <div class="brand-text">Nalyto <span>Social Media Growth Analyzer</span></div>
   </div>
 
   <div class="sidebar-section-label">WORKSPACE</div>
@@ -861,7 +861,7 @@ body.gs-night #calendarGrid>div>div{background:#121e32!important;color:#dce5f3!i
 <main class="main">
 <header class="top">
   <div class="top-heading">
-    <div class="eyebrow"><span class="eyebrow-dot"></span> GrowthScope Intelligence</div>
+    <div class="eyebrow"><span class="eyebrow-dot"></span> Nalyto Intelligence</div>
     <h1 id="pageTitle">Dashboard</h1>
     <p id="pageSubtitle">Measure. Understand. Improve.</p>
   </div>
@@ -984,7 +984,7 @@ body.gs-night #calendarGrid>div>div{background:#121e32!important;color:#dce5f3!i
 
 <section id="ai" class="page">
  <div class="card ai-hero">
-  <h2>✨ GrowthScope AI Studio</h2>
+  <h2>✨ Nalyto AI Studio</h2>
   <p>Gunakan data workspace untuk mendapatkan analisis, rekomendasi, ide konten, dan caption yang benar-benar digenerate AI berdasarkan data kamu.</p>
   <div class="ai-actions">
    <button class="btn" style="background:#fff;color:#4f46e5" onclick="aiAnalyze()">Analyze My Content</button>
@@ -1038,7 +1038,7 @@ body.gs-night #calendarGrid>div>div{background:#121e32!important;color:#dce5f3!i
 <section id="ranking" class="page">
  <div class="card">
   <div class="section-title"><div><h2>Content Ranking</h2><div style="font-size:12px;color:#718096;margin-top:4px">Urut otomatis dari konten dengan performa terbaik sampai terendah berdasarkan Score.</div></div><span class="pill good" id="rankingCount">0 konten</span></div>
-  <div class="notice" style="margin-bottom:12px"><b>Scoring:</b> Ranking memakai formula Score GrowthScope yang sama dengan Dashboard & Performance Matrix. Semakin tinggi score, semakin tinggi posisi konten.</div>
+  <div class="notice" style="margin-bottom:12px"><b>Scoring:</b> Ranking memakai formula Score Nalyto yang sama dengan Dashboard & Performance Matrix. Semakin tinggi score, semakin tinggi posisi konten.</div>
   <div class="table-wrap">
    <table class="table">
     <thead><tr><th>Rank</th><th>Content</th><th>Date</th><th>Platform</th><th>Pillar</th><th>Format</th><th>Reach</th><th>ER</th><th>Score</th><th>Diagnosis</th><th>Instagram Feed</th></tr></thead>
@@ -1139,7 +1139,7 @@ body.gs-night #calendarGrid>div>div{background:#121e32!important;color:#dce5f3!i
   <button onclick="document.getElementById('importFile').click();toggleMobileMore()">⇧ Import Backup</button>
   <button onclick="document.getElementById('importCSVFile').click();toggleMobileMore()">⇧ Import CSV</button>
   <button onclick="downloadCSVTemplate();toggleMobileMore()">▤ CSV Template</button>
-  <button id="installAppBtn" onclick="installGrowthScope()">📲 Install GrowthScope</button>
+  <button id="installAppBtn" onclick="installNalyto()">📲 Install Nalyto</button>
   <button onclick="exportCSV();toggleMobileMore()">⇩ Export CSV</button>
   <button onclick="clearAllData();toggleMobileMore()">🗑 Clear Data</button>
   <button class="mobile-close-action" onclick="toggleMobileMore()">✕ Tutup</button>
@@ -1271,7 +1271,7 @@ function checkValidationReminders(){
       localStorage.setItem(key,'1');
       const msg='Validasi konten "'+(p.topic||p.title||'Konten')+'" akan selesai '+(ready.toLocaleString('id-ID',{dateStyle:'medium',timeStyle:'short'}))+'. Siapkan Final Analysis.';
       showValidationReminder(msg);
-      if('Notification' in window&&Notification.permission==='granted')new Notification('GrowthScope — Validasi Hampir Selesai',{body:msg});
+      if('Notification' in window&&Notification.permission==='granted')new Notification('Nalyto — Validasi Hampir Selesai',{body:msg});
     }
   });
 }
@@ -1397,7 +1397,7 @@ async function loadCloudData(){
     if(!scanError && Array.isArray(visibleRows) && visibleRows.length){
       const counts=new Map();
       visibleRows.forEach(r=>counts.set(r.workspace_id||'__NULL__',(counts.get(r.workspace_id||'__NULL__')||0)+1));
-      console.info('GrowthScope workspace check: selected workspace has no content; keeping selection.',{
+      console.info('Nalyto workspace check: selected workspace has no content; keeping selection.',{
         activeWorkspaceId:workspace.id,
         activeWorkspaceName:workspace.name,
         visibleWorkspaceCounts:Object.fromEntries(counts)
@@ -1417,7 +1417,7 @@ async function loadCloudData(){
     const {data:probe, error:probeError}=await db.from('contents').select('id,workspace_id').limit(5000);
     const count=Array.isArray(probe)?probe.length:0;
     const distinct=[...new Set((probe||[]).map(r=>r.workspace_id||'tanpa workspace'))];
-    console.warn('GrowthScope empty-data diagnostic',{activeWorkspaceId:workspace.id,activeWorkspaceName:workspace.name,visibleContentRows:count,visibleWorkspaceIds:distinct,probeError:probeError?.message||null});
+    console.warn('Nalyto empty-data diagnostic',{activeWorkspaceId:workspace.id,activeWorkspaceName:workspace.name,visibleContentRows:count,visibleWorkspaceIds:distinct,probeError:probeError?.message||null});
     if(banner){
       banner.style.display='block';
       banner.textContent=probeError
@@ -1571,7 +1571,7 @@ async function bootUser(user,showIntro=false){
       if(showIntro) await showWelcomeIntro(user);
       return true;
     }catch(e){
-      console.error('GrowthScope boot error:',e);
+      console.error('Nalyto boot error:',e);
       currentUser=null;
       workspace=null;
       currentWorkspaceRole=null;
@@ -1630,7 +1630,7 @@ async function init(){
       }
     });
   }catch(err){
-    console.error('GrowthScope auth init error:',err);
+    console.error('Nalyto auth init error:',err);
     setAuthVisible(true);
     showMsg('loginMsg','Auth belum siap: '+(err?.message||'Gagal terhubung ke layanan login.'),'error');
   }
@@ -1647,7 +1647,7 @@ async function login(e){
   }
 
   if(btn) btn.disabled=true;
-  showMsg('loginMsg','Sedang masuk ke GrowthScope...','success');
+  showMsg('loginMsg','Sedang masuk ke Nalyto...','success');
 
   try{
     const {data,error}=await db.auth.signInWithPassword({email,password});
@@ -1660,7 +1660,7 @@ async function login(e){
 
     showMsg('loginMsg','Login berhasil.','success');
   }catch(err){
-    console.error('GrowthScope login error:',err);
+    console.error('Nalyto login error:',err);
     showMsg('loginMsg',friendlyAuthError(err?.message||'Login gagal.'),'error');
   }finally{
     if(btn) btn.disabled=false;
@@ -1671,24 +1671,24 @@ async function register(e){
   try{
     const email=registerEmail.value.trim(),password=registerPassword.value,name=registerName.value.trim();
     const {data,error}=await db.auth.signUp({email,password,options:{data:{full_name:name}}}); if(error)throw error;
-    showMsg('registerMsg','Akun berhasil dibuat. Silakan login ke GrowthScope.','success'); e.target.reset();
+    showMsg('registerMsg','Akun berhasil dibuat. Silakan login ke Nalyto.','success'); e.target.reset();
   }catch(err){showMsg('registerMsg',friendlyAuthError(err.message))}finally{btn.disabled=false}
 }
 function friendlyAuthError(msg){const m=String(msg||'');if(m.toLowerCase().includes('invalid login'))return'Email atau password salah.';if(m.toLowerCase().includes('already registered'))return'Email ini sudah terdaftar. Silakan login.';if(m.toLowerCase().includes('email not confirmed'))return'Email belum diverifikasi. Cek inbox email kamu.';return m}
 function getSavedAccounts(){
-  try{return JSON.parse(localStorage.getItem('growthscope_accounts')||'[]').filter(x=>x&&x.email)}
+  try{return JSON.parse(localStorage.getItem('nalyto_accounts')||'[]').filter(x=>x&&x.email)}
   catch{return[]}
 }
 function saveAccountEmail(email){
   if(!email)return;
   const list=getSavedAccounts().filter(x=>x.email.toLowerCase()!==email.toLowerCase());
   list.unshift({email});
-  localStorage.setItem('growthscope_accounts',JSON.stringify(list.slice(0,6)));
+  localStorage.setItem('nalyto_accounts',JSON.stringify(list.slice(0,6)));
 }
 function removeSavedAccount(email,event){
   event?.stopPropagation();
   const list=getSavedAccounts().filter(x=>x.email.toLowerCase()!==String(email).toLowerCase());
-  localStorage.setItem('growthscope_accounts',JSON.stringify(list));
+  localStorage.setItem('nalyto_accounts',JSON.stringify(list));
   renderAccountMenu();
 }
 function accountInitial(email){
@@ -1798,7 +1798,7 @@ function renderSmartRecommendation(){
   if(!rec.length)rec.push('Data masih terbatas. Tambahkan beberapa konten lagi agar pola yang muncul lebih kuat.');
   box.innerHTML='<ul class="ai-list">'+rec.slice(0,3).map(x=>'<li>'+x+'</li>').join('')+'</ul>';
 }
-async function callGrowthScopeAI(mode, extra={}){
+async function callNalytoAI(mode, extra={}){
   const payload={
     mode,
     workspace:{name:workspace?.name||'Workspace',description:workspace?.description||''},
@@ -1809,7 +1809,7 @@ async function callGrowthScopeAI(mode, extra={}){
     })),
     ...extra
   };
-  const {data:result,error}=await db.functions.invoke('growthscope-ai',{body:payload});
+  const {data:result,error}=await db.functions.invoke('nalyto-ai',{body:payload});
   if(error) throw new Error(error.message||'AI request gagal.');
   if(result?.error) throw new Error(result.error);
   return result;
@@ -1827,7 +1827,7 @@ async function aiAnalyze(){
   if(!data.length){box.innerHTML='<div class="empty">Belum ada data untuk dianalisis.</div>';return}
   aiLoading(box,'AI sedang membaca pola konten workspace kamu...');
   try{
-    const r=await callGrowthScopeAI('analysis');
+    const r=await callNalytoAI('analysis');
     const j=parseAIJson(r.text);
     if(!j){box.innerHTML=`<div style="white-space:pre-wrap">${esc(r.text)}</div>`;return}
     box.innerHTML=`<h3>${esc(j.summary||'Workspace Performance Insight')}</h3>
@@ -1843,7 +1843,7 @@ async function aiIdeas(){
   const tone=document.getElementById('aiTone')?.value||'Gen Z';
   const pillar=data.length?best('pillar'):'Education';
   try{
-    const r=await callGrowthScopeAI('ideas',{platform,goal,tone,pillar});
+    const r=await callNalytoAI('ideas',{platform,goal,tone,pillar});
     const j=parseAIJson(r.text);
     if(!j?.ideas){box.innerHTML=`<div style="white-space:pre-wrap">${esc(r.text)}</div>`;return}
     box.innerHTML=j.ideas.map((v,i)=>`<div class="idea-card"><b>${i+1}. ${esc(v.title)}</b><div class="mini-stat">${esc(platform)} · ${esc(v.format)} · Pillar: ${esc(pillar)}</div><div style="margin-top:6px"><b>Angle:</b> ${esc(v.angle)}<br><b>Hook:</b> ${esc(v.hook)}<br><b>CTA:</b> ${esc(v.cta)}</div><div class="mini-stat" style="margin-top:6px">${esc(v.why_it_fits)}</div></div>`).join('');
@@ -1858,7 +1858,7 @@ async function aiCaption(){
   if(!topic){box.innerHTML='<div class="empty">Masukkan topik dulu supaya AI bisa membuat caption yang spesifik.</div>';return}
   aiLoading(box,'AI sedang menulis caption original...');
   try{
-    const r=await callGrowthScopeAI('caption',{topic,platform,goal,tone});
+    const r=await callNalytoAI('caption',{topic,platform,goal,tone});
     const j=parseAIJson(r.text);
     if(!j){box.innerHTML=`<div style="white-space:pre-wrap">${esc(r.text)}</div>`;return}
     const hashtags=Array.isArray(j.hashtags)?j.hashtags.join(' '):'';
@@ -2270,9 +2270,9 @@ window.addEventListener('appinstalled',()=>{
   deferredInstallPrompt=null;
   updateInstallButton();
 });
-async function installGrowthScope(){
+async function installNalyto(){
   if(!deferredInstallPrompt){
-    alert('GrowthScope belum menampilkan prompt install. Di Chrome Android, buka menu ⋮ lalu pilih "Tambahkan ke layar utama" atau "Install app".');
+    alert('Nalyto belum menampilkan prompt install. Di Chrome Android, buka menu ⋮ lalu pilih "Tambahkan ke layar utama" atau "Install app".');
     return;
   }
   deferredInstallPrompt.prompt();
@@ -2298,12 +2298,12 @@ function triggerCsvDownload(filename,headers,rows){
 function downloadCSVTemplate(){
   const headers=['Date','Platform','Content','Pillar','Format','Hook','CTA','Reach','Views','Likes','Comments','Shares','Saves','Profile Visits','Leads'];
   const example=['2026-10-05','Instagram','Contoh Konten','Education','Carousel','Problem','Save',1000,1500,80,5,20,30,40,3];
-  triggerCsvDownload('GrowthScope_Content_Template.csv',headers,[example]);
+  triggerCsvDownload('Nalyto_Content_Template.csv',headers,[example]);
 }
 function downloadPlannerCSVTemplate(){
   const headers=['Date','Time','Platform','Topic','Pillar','Format','Hook','CTA','Status','Notes'];
   const example=['2026-10-05','10:00','Instagram','Contoh Topik','Education','Carousel','Problem','Save','Idea','Contoh catatan'];
-  triggerCsvDownload('GrowthScope_Planner_Template.csv',headers,[example]);
+  triggerCsvDownload('Nalyto_Planner_Template.csv',headers,[example]);
 }
 async function clearAllData(){
   if(!workspace || !currentUser){
@@ -2433,7 +2433,7 @@ async function importCSV(event){
     const required=['date','platform'];
     const missing=required.filter(key=>idx[key]===-1);
     const hasTextField=idx.content!==-1||idx.topic!==-1;
-    if(!hasTextField) throw new Error('Kolom Content/Topic belum terbaca. Tambahkan salah satu kolom tersebut atau gunakan Template CSV GrowthScope.');
+    if(!hasTextField) throw new Error('Kolom Content/Topic belum terbaca. Tambahkan salah satu kolom tersebut atau gunakan Template CSV Nalyto.');
 
     const valueAt=(r,key,fallback='')=>idx[key]===-1?fallback:String(r[idx[key]]??fallback).trim();
     const num=v=>{
