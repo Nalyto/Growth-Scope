@@ -13,7 +13,7 @@
 <link rel="apple-touch-icon" href="./icon.svg"><script>
 (async function(){
   try{
-    if(!sessionStorage.getItem('gs_cache_reset_20261006')){
+    if(!sessionStorage.getItem('gs_cache_reset_20261012')){
       sessionStorage.setItem('gs_cache_reset_20261006','1');
       if('serviceWorker' in navigator){
         const regs=await navigator.serviceWorker.getRegistrations();
@@ -1122,7 +1122,7 @@ function score(x,a){
   return Math.max(0,Math.min(100,Math.round(reach*.30+eng*.35+share*.15+save*.20)));
 }
 function diagnosis(x,a){const hr=x.reach>=a.reach,he=x.er>=a.er;return hr&&he?'SCALE':!hr&&he?'HIDDEN GEM':hr&&!he?'OPTIMIZE':'REWORK'}
-function diagnosis(x,a){const base=diagnosis(x,a);return x.postType==='repost'?base+' · REPOST':base}
+function diagnosisLabel(x,a){const base=diagnosis(x,a);return x.postType==='repost'?base+' · REPOST':base}
 const GS_META='__GROWTHSCOPE_META__';
 function validationToMinutes(value,unit){const v=Math.max(1,Number(value)||24);if(unit==='days')return Math.round(v*1440);if(unit==='minutes')return Math.round(v);return Math.round(v*60)}
 function minutesToValidation(minutes){const m=Math.max(1,Number(minutes)||1440);if(m%1440===0)return {value:m/1440,unit:'days'};if(m%60===0)return {value:m/60,unit:'hours'};return {value:m,unit:'minutes'}}
@@ -2153,7 +2153,7 @@ async function installGrowthScope(){
 }
 if('serviceWorker' in navigator){
   window.addEventListener('load',()=>{
-    navigator.serviceWorker.register('./sw.js?ver=20261006').catch(err=>console.warn('PWA service worker:',err));
+    navigator.serviceWorker.register('./sw.js?ver=20261012').catch(err=>console.warn('PWA service worker:',err));
   });
 }
 updateInstallButton();
