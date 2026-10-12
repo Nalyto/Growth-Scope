@@ -713,6 +713,46 @@ body.gs-night ::-webkit-scrollbar{width:10px;height:10px}
 body.gs-night ::-webkit-scrollbar-track{background:#0a1020}
 body.gs-night ::-webkit-scrollbar-thumb{background:#33435e;border-radius:99px;border:2px solid #0a1020}
 @media(max-width:760px){body.gs-night .top{background:rgba(13,21,38,.96)!important}body.gs-night .mobile-bottom-nav{backdrop-filter:blur(18px)}}
+
+/* UI repair: matrix contrast and responsive calendar */
+#matrix .matrix{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:stretch}
+#matrix .matrix>div{min-width:0;min-height:190px;padding:16px;border-radius:16px;overflow-wrap:anywhere}
+#matrix .matrix>div>b{display:block;font-size:14px;margin-bottom:7px}
+#matrix .matrix>div>span{display:block;font-size:12px;line-height:1.5;margin-bottom:12px}
+#matrix .matrix .tag{display:block;width:100%;max-width:100%;margin:7px 0;padding:10px 12px;border-radius:11px;white-space:normal;overflow-wrap:anywhere;line-height:1.45}
+#matrix .matrix .scale{background:#e0f8eb;color:#14532d;border:1px solid #b4e9ca}
+#matrix .matrix .gem{background:#e5eaff;color:#253778;border:1px solid #c8d1ff}
+#matrix .matrix .opt{background:#fff1d8;color:#854d0e;border:1px solid #f3d39b}
+#matrix .matrix .rework{background:#ffe4e8;color:#9f1239;border:1px solid #f4becb}
+#matrix .matrix .scale>span,#matrix .matrix .gem>span,#matrix .matrix .opt>span,#matrix .matrix .rework>span{color:inherit;opacity:.82}
+#matrix .matrix .scale .tag{background:#fff;color:#16452e;border:1px solid #c7e8d3}
+#matrix .matrix .gem .tag{background:#fff;color:#28376e;border:1px solid #cbd4ff}
+#matrix .matrix .opt .tag{background:#fff;color:#854d0e;border:1px solid #f0d6aa}
+#matrix .matrix .rework .tag{background:#fff;color:#9f1239;border:1px solid #f2c5ce}
+#matrix .matrix [id$="List"]>div:only-child:not(.tag){color:#64748b}
+#calendar .section-title{align-items:center;gap:12px;flex-wrap:wrap}
+#calendar .section-title>div:last-child{min-width:0}
+#calendarGrid{width:100%;max-width:100%;min-width:0;overflow-x:auto}
+#calendarGrid>div{width:100%;min-width:0;box-sizing:border-box}
+#calendarGrid>div[style*="grid"]{grid-template-columns:repeat(7,minmax(0,1fr))!important;gap:6px!important}
+#calendarGrid>div>div{min-width:0!important;max-width:100%;box-sizing:border-box;overflow:hidden}
+#calendarGrid>div>div>div{min-width:0;max-width:100%;box-sizing:border-box;overflow-wrap:anywhere}
+#calendarGrid button,#calendarGrid a{max-width:100%;overflow-wrap:anywhere}
+#calendarStats{align-items:center}
+body.gs-night #matrix .matrix .scale{background:#15372e!important;color:#b9f3d5!important;border-color:#28614d!important}
+body.gs-night #matrix .matrix .gem{background:#202b50!important;color:#d5ddff!important;border-color:#394a80!important}
+body.gs-night #matrix .matrix .opt{background:#3a2c1c!important;color:#ffdfa3!important;border-color:#6b502a!important}
+body.gs-night #matrix .matrix .rework{background:#3b202c!important;color:#ffc3ce!important;border-color:#6a3445!important}
+body.gs-night #matrix .matrix .scale .tag,body.gs-night #matrix .matrix .gem .tag,body.gs-night #matrix .matrix .opt .tag,body.gs-night #matrix .matrix .rework .tag{background:#111c30!important;color:#edf2fc!important;border-color:#35445f!important}
+body.gs-night #matrix .matrix [id$="List"]>div:only-child:not(.tag){color:#c1ccde!important}
+body.gs-night #calendarGrid>div>div{background:#121e32!important;color:#dce5f3!important}
+@media(max-width:760px){
+ #matrix .matrix{grid-template-columns:1fr}
+ #matrix .matrix>div{min-height:140px}
+ #calendar .section-title{align-items:flex-start}
+ #calendarGrid>div[style*="grid"]{gap:4px!important}
+ #calendarGrid>div>div{padding:5px!important}
+}
 </style>
 </head>
 <body>
