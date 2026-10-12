@@ -821,6 +821,7 @@ input,select,textarea,button{max-width:100%}
   <div class="card"><div class="section-title"><h2>Performance by Pillar</h2></div><div id="pillarTable"></div></div>
   <div class="card"><div class="section-title"><h2>Performance by Format</h2></div><div id="formatTable"></div></div>
  </div>
+ <div class="card section"><div class="section-title"><h2>Original vs Posting Ulang</h2><span class="mini-stat">Perbandingan performa</span></div><div id="postTypeAnalytics"></div></div>
 </section>
 
 <section id="matrix" class="page">
@@ -1121,6 +1122,7 @@ function score(x,a){
   return Math.max(0,Math.min(100,Math.round(reach*.30+eng*.35+share*.15+save*.20)));
 }
 function diagnosis(x,a){const hr=x.reach>=a.reach,he=x.er>=a.er;return hr&&he?'SCALE':!hr&&he?'HIDDEN GEM':hr&&!he?'OPTIMIZE':'REWORK'}
+function diagnosisLabel(x,a){const base=diagnosis(x,a);return x.postType==='repost'?base+' · REPOST':base}
 const GS_META='__GROWTHSCOPE_META__';
 function validationToMinutes(value,unit){const v=Math.max(1,Number(value)||24);if(unit==='days')return Math.round(v*1440);if(unit==='minutes')return Math.round(v);return Math.round(v*60)}
 function minutesToValidation(minutes){const m=Math.max(1,Number(minutes)||1440);if(m%1440===0)return {value:m/1440,unit:'days'};if(m%60===0)return {value:m/60,unit:'hours'};return {value:m,unit:'minutes'}}
@@ -1591,12 +1593,13 @@ function renderTable(a){
     <td>${x.instagramUrl?`<a href="${esc(x.instagramUrl)}" target="_blank" rel="noopener" class="btn light" style="padding:6px 9px">↗ Open Feed</a>`:'<span class="mini-stat">Belum ada</span>'}</td>
     <td>${x.previewUrl?`<a href="${esc(x.previewUrl)}" target="_blank" rel="noopener" class="btn light" style="padding:6px 9px">↗ Preview</a>`:'<span class="mini-stat">Belum ada</span>'}</td>
     <td>${n(x.reach).toLocaleString()}</td><td>${pct(x.er)}</td><td><b>${x.score}</b></td>
-    <td><span class="pill ${x.score>=75?'good':x.score>=50?'warn':'bad'}">${diagnosis(x,a)}</span></td>
+    <td><span class="pill ${x.score>=75?'good':x.score>=50?'warn':'bad'}">${diagnosisLabel(x,a)}</span></td>
     <td style="display:flex;gap:5px"><button class="btn light" onclick="editContent('${x.id}')">Edit</button><button class="btn danger" onclick="deleteContent('${x.id}')">Delete</button></td>
   </tr>`).join('');
 }
 function groupStats(key){const map={};data.forEach(x=>{const k=x[key]||'Unknown';(map[k]??=[]).push(x)});return Object.entries(map).sort((A,B)=>avg(B[1].map(x=>x.er))-avg(A[1].map(x=>x.er))).map(([k,v])=>`<tr><td><b>${esc(k)}</b></td><td>${v.length}</td><td>${Math.round(avg(v.map(x=>x.reach))).toLocaleString()}</td><td>${pct(avg(v.map(x=>x.er)))}</td><td>${pct(avg(v.map(x=>x.shareRate)))}</td><td>${pct(avg(v.map(x=>x.saveRate)))}</td></tr>`).join('')}
-function renderGroups(){const h='<table class="table"><thead><tr><th>Category</th><th>Posts</th><th>Avg Reach</th><th>Avg ER</th><th>Share</th><th>Save</th></tr></thead><tbody>';document.getElementById('pillarTable').innerHTML=data.length?h+groupStats('pillar')+'</tbody></table>':'<div class="empty">No data</div>';document.getElementById('formatTable').innerHTML=data.length?h+groupStats('format')+'</tbody></table>':'<div class="empty">No data</div>'}
+function renderGroups(){const h='<table class="table"><thead><tr><th>Category</th><th>Posts</th><th>Avg Reach</th><th>Avg ER</th><th>Share</th><th>Save</th></tr></thead><tbody>';document.getElementById('pillarTable').innerHTML=data.length?h+groupStats('pillar')+'</tbody></table>':'<div class="empty">No data</div>';document.getElementById('formatTable').innerHTML=data.length?h+groupStats('format')+'</tbody></table>':'<div class="empty">No data</div>';renderPostTypeAnalytics()}
+function renderPostTypeAnalytics(){const el=document.getElementById('postTypeAnalytics');if(!el)return;const rows=[{key:'original',label:'Posting Original'},{key:'repost',label:'Posting Ulang'}].map(t=>{const arr=data.filter(x=>(x.postType||'original')===t.key);return '<tr><td><b>'+t.label+'</b></td><td>'+arr.length+'</td><td>'+Math.round(avg(arr.map(x=>x.reach))).toLocaleString()+'</td><td>'+pct(avg(arr.map(x=>x.er)))+'</td><td>'+Math.round(avg(arr.map(x=>x.score)))+'</td></tr>'}).join('');el.innerHTML=data.length?'<div class="table-wrap"><table class="table"><thead><tr><th>Jenis</th><th>Konten</th><th>Avg Reach</th><th>Avg ER</th><th>Avg Score</th></tr></thead><tbody>'+rows+'</tbody></table></div>':'<div class="empty">Belum ada data konten.</div>'}
 function best(key){if(!data.length)return'No data';const map={};data.forEach(x=>(map[x[key]||'Unknown']??=[]).push(x.er));return Object.entries(map).sort((a,b)=>avg(b[1])-avg(a[1]))[0]?.[0]||'No data'}
 function renderDashboard(){document.getElementById('bestPillar').innerHTML=data.length?'<b>'+esc(best('pillar'))+'</b>':'No data';document.getElementById('bestFormat').innerHTML=data.length?'<b>'+esc(best('format'))+'</b>':'No data';document.getElementById('bestHook').innerHTML=data.length?'<b>'+esc(best('hook'))+'</b>':'No data';const top=data.slice().sort((a,b)=>b.score-a.score).slice(0,5);document.getElementById('topContent').innerHTML=top.length?top.map((x,i)=>`<div style="padding:10px 0;border-bottom:1px solid #e7ebf2"><b>#${i+1} · ${esc(x.title)}</b><div style="font-size:12px;color:#718096">${esc(x.format)} · Score ${x.score} · ER ${pct(x.er)} ${x.instagramUrl?'· <a href="'+esc(x.instagramUrl)+'" target="_blank" rel="noopener">Instagram</a>':''}</div></div>`).join(''):'<div class="empty">No data</div>';drawChart()}
 function drawChart(){const c=document.getElementById('chart');if(!c)return;const ctx=c.getContext('2d');const d=data.slice().reverse().slice(-12);ctx.clearRect(0,0,c.width,c.height);if(!d.length){ctx.font='14px system-ui';ctx.fillStyle='#718096';ctx.fillText('Tambahkan konten untuk melihat grafik.',20,40);return}const w=c.width,h=c.height,p=25,max=Math.max(...d.map(x=>x.reach),1);ctx.strokeStyle='#e7ebf2';ctx.beginPath();ctx.moveTo(p,10);ctx.lineTo(p,h-25);ctx.lineTo(w-10,h-25);ctx.stroke();const step=(w-p-20)/Math.max(d.length-1,1);ctx.strokeStyle='#635bff';ctx.lineWidth=3;ctx.beginPath();d.forEach((x,i)=>{const X=p+i*step,Y=(h-25)-(x.reach/max)*(h-45);i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)});ctx.stroke();d.forEach((x,i)=>{const X=p+i*step,Y=(h-25)-(x.reach/max)*(h-45);ctx.fillStyle='#635bff';ctx.beginPath();ctx.arc(X,Y,3,0,Math.PI*2);ctx.fill()})}
@@ -1770,7 +1773,7 @@ function renderRanking(){
   tb.innerHTML=ranked.map((x,i)=>`<tr>
     <td><b>#${i+1}</b></td><td><b>${esc(x.title)}</b>${x.postType==='repost'?'<div><span class="pill warn">↻ Repost</span></div>':''}</td><td>${esc(x.date||'-')}</td><td>${esc(x.platform)}</td><td>${esc(x.pillar)}</td><td>${esc(x.format)}</td>
     <td>${n(x.reach).toLocaleString()}</td><td>${pct(x.er)}</td><td><b>${x.score}</b></td>
-    <td><span class="pill ${x.score>=75?'good':x.score>=50?'warn':'bad'}">${diagnosis(x,averages())}</span></td>
+    <td><span class="pill ${x.score>=75?'good':x.score>=50?'warn':'bad'}">${diagnosisLabel(x,averages())}</span></td>
     <td>${x.instagramUrl?`<a href="${esc(x.instagramUrl)}" target="_blank" rel="noopener" class="btn light" style="padding:6px 9px">↗ Open Feed</a>`:'<span class="mini-stat">—</span>'}</td>
   </tr>`).join('');
 }
