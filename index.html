@@ -647,16 +647,72 @@ input,select,textarea,button{max-width:100%}
 .field input,.field select,.field textarea{box-sizing:border-box;min-width:0}
 .actions{min-width:0}
 .actions>*{min-width:0}
-body.gs-night{--gs-bg:#0b1220;--gs-panel:#111c2e;--gs-ink:#e5eaf4;--gs-muted:#9aa8bd;--gs-line:#26344a;background:var(--gs-bg);color:var(--gs-ink)}
-body.gs-night .main,body.gs-night .top{color:var(--gs-ink)}
-body.gs-night .card,body.gs-night .metric,body.gs-night .deadline-card,body.gs-night .idea-card,body.gs-night .plan-section-field,body.gs-night .plan-content-field,body.gs-night .plan-links-field{background:var(--gs-panel)!important;color:var(--gs-ink);border-color:var(--gs-line)!important}
-body.gs-night .top,body.gs-night .workspace-chip,body.gs-night .profile-menu .user-chip{background:#111c2e!important;border-color:var(--gs-line)!important;color:var(--gs-ink)}
-body.gs-night h1,body.gs-night h2,body.gs-night h3,body.gs-night b,body.gs-night .label,body.gs-night .value,body.gs-night .section-title{color:var(--gs-ink)}
-body.gs-night input,body.gs-night select,body.gs-night textarea{background:#0b1424!important;color:#e5eaf4!important;border-color:#33435c!important}
-body.gs-night .table th{background:#162238;color:#cbd5e1}body.gs-night .table td{border-color:#26344a;color:#dbe4f2}
-body.gs-night .modal-box,body.gs-night .modal-head,body.gs-night .account-popover{background:#111c2e!important;color:#e5eaf4!important;border-color:#26344a!important}
-body.gs-night .account-item,body.gs-night .account-action,body.gs-night .mobile-more-panel button{background:#162238;color:#e5eaf4;border-color:#26344a}
-body.gs-night .notice,body.gs-night .ai-result{background:#162238!important;color:#dbe4f2;border-color:#26344a}
+/* Night Mode UI refresh: unified surfaces, contrast, states, and overlays */
+body.gs-night{
+  --bg:#0a1020;--card:#111a2d;--line:#26334a;--text:#e8edf7;--muted:#9aa9bf;
+  --accent:#8b83ff;--shadow:0 10px 30px rgba(0,0,0,.22);
+  background:var(--bg)!important;color:var(--text)!important;color-scheme:dark;
+}
+body.gs-night .app,body.gs-night .main,body.gs-night .page,body.gs-night .section{background:transparent!important;color:var(--text)!important}
+body.gs-night .side{background:#0d1526!important;border-right:1px solid #202c42!important;box-shadow:8px 0 28px rgba(0,0,0,.12)}
+body.gs-night .brand,body.gs-night .sidebar-section-label{color:#9eacc3!important}
+body.gs-night .nav button{color:#aab7cb!important}
+body.gs-night .nav button:hover{background:#17233a!important;color:#f4f6ff!important}
+body.gs-night .nav button.active{background:linear-gradient(90deg,rgba(124,113,255,.24),rgba(124,113,255,.07))!important;color:#f7f7ff!important;box-shadow:inset 3px 0 #8b83ff}
+body.gs-night .nav-icon{background:#1a2740!important;color:#dbe3f4!important}
+body.gs-night .top{background:rgba(13,21,38,.92)!important;border-color:#25324a!important;color:var(--text)!important;box-shadow:0 8px 28px rgba(0,0,0,.13);backdrop-filter:blur(16px)}
+body.gs-night .top h1,body.gs-night .top h2,body.gs-night .top p,body.gs-night .top small{color:var(--text)!important}
+body.gs-night .workspace-chip,body.gs-night .profile-menu .user-chip{background:#17233a!important;border-color:#2b3952!important;color:#e8edf7!important;box-shadow:none!important}
+body.gs-night .card,body.gs-night .metric,body.gs-night .deadline-card,body.gs-night .idea-card,body.gs-night .plan-section-field,body.gs-night .plan-content-field,body.gs-night .plan-links-field,body.gs-night .account-card{
+  background:linear-gradient(145deg,#121d31,#10192b)!important;color:var(--text)!important;border:1px solid #27354d!important;box-shadow:var(--shadow)!important
+}
+body.gs-night .card:hover{border-color:#394966!important}
+body.gs-night h1,body.gs-night h2,body.gs-night h3,body.gs-night h4,body.gs-night strong,body.gs-night b,body.gs-night .label,body.gs-night .value,body.gs-night .section-title,body.gs-night .kicker{color:#edf2fc!important}
+body.gs-night p,body.gs-night small,body.gs-night .muted,body.gs-night .subtext,body.gs-night .up,body.gs-night .down{color:#a7b5ca}
+body.gs-night a:not(.btn){color:#aaa4ff}
+body.gs-night .btn{transition:background .18s ease,border-color .18s ease,transform .18s ease;box-shadow:none}
+body.gs-night .btn.light,body.gs-night button.btn.light{background:#1a2740!important;border:1px solid #33425d!important;color:#e1e8f5!important}
+body.gs-night .btn.light:hover{background:#22324f!important;border-color:#596b91!important}
+body.gs-night .btn.primary{background:linear-gradient(135deg,#786eff,#5c53e8)!important;border:1px solid #8a82ff!important;color:#fff!important}
+body.gs-night .btn.primary:hover{filter:brightness(1.1)}
+body.gs-night .btn.danger{background:#3a202d!important;border:1px solid #643246!important;color:#ffb9c5!important}
+body.gs-night .btn:focus-visible,body.gs-night input:focus-visible,body.gs-night select:focus-visible,body.gs-night textarea:focus-visible{outline:2px solid #8b83ff!important;outline-offset:2px}
+body.gs-night input,body.gs-night select,body.gs-night textarea,body.gs-night .field input,body.gs-night .field select,body.gs-night .field textarea{
+  background:#0b1425!important;color:#e7edf8!important;border:1px solid #30405b!important;box-shadow:inset 0 1px 2px rgba(0,0,0,.12)
+}
+body.gs-night input::placeholder,body.gs-night textarea::placeholder{color:#7788a2!important;opacity:1}
+body.gs-night input:disabled,body.gs-night input[readonly]{background:#131f34!important;color:#9eacc3!important}
+body.gs-night input[type="checkbox"],body.gs-night input[type="radio"]{accent-color:#8b83ff}
+body.gs-night .table,body.gs-night table{background:transparent!important;color:#dce5f3!important}
+body.gs-night .table th,body.gs-night table th{background:#1a2740!important;color:#aebbd0!important;border-color:#2b3952!important}
+body.gs-night .table td,body.gs-night table td{background:transparent;color:#dce5f3!important;border-color:#26344b!important}
+body.gs-night .table tr:hover td,body.gs-night table tr:hover td{background:#17243a!important}
+body.gs-night .empty{color:#91a1b8!important}
+body.gs-night .pill{border:1px solid transparent}
+body.gs-night .good{background:#15382f!important;color:#8ee3bf!important;border-color:#245a49!important}
+body.gs-night .warn{background:#3b3020!important;color:#f5d58b!important;border-color:#66502a!important}
+body.gs-night .bad{background:#40232d!important;color:#ffb6c1!important;border-color:#713444!important}
+body.gs-night .notice,body.gs-night .ai-result{background:#1a2440!important;color:#dce3ff!important;border-color:#343f70!important}
+body.gs-night .tag,body.gs-night .rec,body.gs-night .matrix-guide>div,body.gs-night .score-guide>div{background:#17243a!important;color:#dce5f3!important;border-color:#2c3b55!important}
+body.gs-night .bar,body.gs-night .progress-track{background:#26344b!important}
+body.gs-night .modal{background:rgba(2,6,16,.76)!important;backdrop-filter:blur(5px)}
+body.gs-night .modal-box,body.gs-night .modal-head,body.gs-night .account-popover,body.gs-night .account-menu,body.gs-night .profile-menu .account-popover{
+  background:#111b2e!important;color:#e8edf7!important;border-color:#2b3952!important;box-shadow:0 24px 70px rgba(0,0,0,.48)!important
+}
+body.gs-night .modal-box p,body.gs-night .modal-box label,body.gs-night .account-popover small{color:#aab8cc!important}
+body.gs-night .account-item,body.gs-night .account-action,body.gs-night .mobile-more-panel,body.gs-night .mobile-more-panel button{background:#17243a!important;color:#e5ecf8!important;border-color:#2b3b55!important}
+body.gs-night .account-item:hover,body.gs-night .account-action:hover{background:#22324f!important}
+body.gs-night .mobile-bottom-nav{background:rgba(13,21,38,.96)!important;border-color:#2a3851!important;box-shadow:0 12px 36px rgba(0,0,0,.42)!important}
+body.gs-night .mobile-bottom-nav button{color:#b7c3d7!important}
+body.gs-night .mobile-bottom-nav button.active{color:#fff!important;background:#273258!important}
+body.gs-night .plan-schedule-preview,body.gs-night .planner-deadline,body.gs-night .deadline-card{background:#17243a!important;border-color:#2b3b55!important;color:#e5edf9!important}
+body.gs-night .planner-deadline-sub,body.gs-night .mini-stat{color:#9cacc3!important}
+body.gs-night .calendar-day,body.gs-night #calendarGrid>div>div{background:#121e32!important;border-color:#2b3952!important;color:#dce5f3!important}
+body.gs-night ::selection{background:#5d55bf;color:#fff}
+body.gs-night ::-webkit-scrollbar{width:10px;height:10px}
+body.gs-night ::-webkit-scrollbar-track{background:#0a1020}
+body.gs-night ::-webkit-scrollbar-thumb{background:#33435e;border-radius:99px;border:2px solid #0a1020}
+@media(max-width:760px){body.gs-night .top{background:rgba(13,21,38,.96)!important}body.gs-night .mobile-bottom-nav{backdrop-filter:blur(18px)}}
 </style>
 </head>
 <body>
