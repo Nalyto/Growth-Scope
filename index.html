@@ -647,6 +647,16 @@ input,select,textarea,button{max-width:100%}
 .field input,.field select,.field textarea{box-sizing:border-box;min-width:0}
 .actions{min-width:0}
 .actions>*{min-width:0}
+body.gs-night{--gs-bg:#0b1220;--gs-panel:#111c2e;--gs-ink:#e5eaf4;--gs-muted:#9aa8bd;--gs-line:#26344a;background:var(--gs-bg);color:var(--gs-ink)}
+body.gs-night .main,body.gs-night .top{color:var(--gs-ink)}
+body.gs-night .card,body.gs-night .metric,body.gs-night .deadline-card,body.gs-night .idea-card,body.gs-night .plan-section-field,body.gs-night .plan-content-field,body.gs-night .plan-links-field{background:var(--gs-panel)!important;color:var(--gs-ink);border-color:var(--gs-line)!important}
+body.gs-night .top,body.gs-night .workspace-chip,body.gs-night .profile-menu .user-chip{background:#111c2e!important;border-color:var(--gs-line)!important;color:var(--gs-ink)}
+body.gs-night h1,body.gs-night h2,body.gs-night h3,body.gs-night b,body.gs-night .label,body.gs-night .value,body.gs-night .section-title{color:var(--gs-ink)}
+body.gs-night input,body.gs-night select,body.gs-night textarea{background:#0b1424!important;color:#e5eaf4!important;border-color:#33435c!important}
+body.gs-night .table th{background:#162238;color:#cbd5e1}body.gs-night .table td{border-color:#26344a;color:#dbe4f2}
+body.gs-night .modal-box,body.gs-night .modal-head,body.gs-night .account-popover{background:#111c2e!important;color:#e5eaf4!important;border-color:#26344a!important}
+body.gs-night .account-item,body.gs-night .account-action,body.gs-night .mobile-more-panel button{background:#162238;color:#e5eaf4;border-color:#26344a}
+body.gs-night .notice,body.gs-night .ai-result{background:#162238!important;color:#dbe4f2;border-color:#26344a}
 </style>
 </head>
 <body>
@@ -953,7 +963,7 @@ input,select,textarea,button{max-width:100%}
  </div>
 
  <div class="card section">
-  <div class="section-title"><h2>User Settings</h2></div>  <div class="two">
+  <div class="section-title"><h2>User Settings</h2><button type="button" class="btn light" id="themeModeBtn" onclick="toggleGrowthTheme()">🌙 Night Mode</button></div><div class="notice" style="margin-bottom:14px">Day & Night Mode tersimpan di browser ini dan tidak mengubah data workspace.</div><div class="two">
    <div>
     <div class="field"><label>Nama Tampilan</label><input id="profileNameInput" placeholder="Nama kamu"></div>
     <div class="field" style="margin-top:12px"><label>Email</label><input id="profileEmailDisplay" disabled></div>
@@ -1041,7 +1051,7 @@ input,select,textarea,button{max-width:100%}
    <div class="field"><label>Instagram Feed Link <span style="font-weight:400;color:#98a2b3">(Opsional)</span></label><input id="planInstagramUrl" type="url" placeholder="https://www.instagram.com/p/..."></div>
    <div class="field"><label>Preview Konten <span style="font-weight:400;color:#98a2b3">(Opsional)</span></label><input id="planPreviewUrl" type="url" placeholder="Link Google Drive / Canva / preview"></div>
    <div class="field plan-content-field" style="grid-column:1/-1"><label>✍️ Copywriting</label><textarea id="planCopywriting" rows="6" placeholder="Tulis caption / copywriting konten di sini..."></textarea></div>
-   <div class="field plan-section-field plan-deadline-field"><label>⏱ Waktu Validasi</label><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><input id="planValidationValue" type="number" min="1" value="24"><select id="planValidationUnit"><option value="hours">Jam</option><option value="minutes">Menit</option><option value="days">Hari</option></select></div><small style="display:block;color:#98a2b3;margin-top:5px">Durasi pengumpulan data setelah konten di-upload.</small></div>
+   <div class="field plan-section-field plan-deadline-field"><label>⏱ Jadwal Data Validation</label><select id="planValidationMode" style="margin-bottom:8px"><option value="duration">Durasi sejak upload</option><option value="next_day_time">Jam tertentu di hari berikutnya</option></select><div id="planValidationDurationFields" style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><input id="planValidationValue" type="number" min="1" value="24"><select id="planValidationUnit"><option value="hours">Jam</option><option value="minutes">Menit</option><option value="days">Hari</option></select></div><div id="planValidationTimeFields" style="display:none"><label style="display:block;margin:5px 0">Jam deadline hari berikutnya</label><input id="planValidationTime" type="time" value="16:00"></div><small style="display:block;color:#98a2b3;margin-top:5px">Bisa diatur per konten. Contoh: upload Senin 17.00, validasi Selasa 16.00.</small></div>
    <div class="field plan-section-field"><label>🚀 Published At</label><input id="planPublishedAt" type="text" value="Otomatis saat Upload" readonly><small style="display:block;color:#98a2b3;margin-top:5px">Terisi otomatis ketika checkbox Upload dicentang.</small></div>
    <div class="field plan-section-field"><label>🔔 Reminder Validasi</label><select id="planReminderBefore"><option value="1h">1 jam sebelum selesai</option><option value="30m">30 menit sebelum selesai</option><option value="15m">15 menit sebelum selesai</option><option value="none">Tidak ada reminder</option></select><small style="display:block;color:#98a2b3;margin-top:5px">Reminder muncul saat waktu validasi sudah mendekat.</small></div>
    <div class="field" id="planSlidesField" style="grid-column:1/-1;display:none">
@@ -1087,6 +1097,7 @@ input,select,textarea,button{max-width:100%}
 </div>
 </div>
 
+<div class="modal" id="validationMetricsModal"><div class="modal-box"><div class="modal-head"><div><h2>Data Validation</h2><p id="validationMetricsSubtitle" style="margin:5px 0 0;color:#718096;font-size:12px">Masukkan performa konten setelah upload.</p></div><button class="btn light" type="button" onclick="closeValidationMetrics()">✕</button></div><form id="validationMetricsForm" onsubmit="saveValidationMetrics(event)"><input type="hidden" id="validationPlanId"><div class="form" style="grid-template-columns:repeat(3,1fr);gap:12px"><div class="field"><label>Reach</label><input id="vmReach" type="number" min="0" step="1"></div><div class="field"><label>Views / Impressions</label><input id="vmViews" type="number" min="0" step="1"></div><div class="field"><label>Likes</label><input id="vmLikes" type="number" min="0" step="1"></div><div class="field"><label>Comments</label><input id="vmComments" type="number" min="0" step="1"></div><div class="field"><label>Shares</label><input id="vmShares" type="number" min="0" step="1"></div><div class="field"><label>Saves</label><input id="vmSaves" type="number" min="0" step="1"></div><div class="field"><label>Profile Visits</label><input id="vmProfile" type="number" min="0" step="1"></div><div class="field"><label>Leads</label><input id="vmLeads" type="number" min="0" step="1"></div></div><div class="notice" style="margin-top:12px">Isi sesuai data yang tersedia di platform. Metrik yang tidak tersedia boleh dikosongkan.</div><div class="form-actions"><button class="btn light" type="button" onclick="closeValidationMetrics()">Batal</button><button class="btn primary" id="validationMetricsSaveBtn">Simpan Metrics</button></div></form></div></div>
 <script>
 const SUPABASE_URL = "https://urkvojeapkynydvnfxzr.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_46VQ4kFktg5AJauL-0j5xg_TZNdpwmM";
@@ -1128,7 +1139,7 @@ function validationToMinutes(value,unit){const v=Math.max(1,Number(value)||24);i
 function minutesToValidation(minutes){const m=Math.max(1,Number(minutes)||1440);if(m%1440===0)return {value:m/1440,unit:'days'};if(m%60===0)return {value:m/60,unit:'hours'};return {value:m,unit:'minutes'}}
 function localDateTimeLabel(iso){if(!iso)return 'Otomatis saat Upload';const d=new Date(iso);return Number.isNaN(d.getTime())?'Otomatis saat Upload':d.toLocaleString('id-ID',{dateStyle:'medium',timeStyle:'short'})}
 function reminderToMinutes(value){return value==='30m'?30:value==='15m'?15:value==='none'?0:60}
-function validationReadyAt(item){if(!item?.publishedAt)return null;const published=new Date(item.publishedAt).getTime();if(!Number.isFinite(published))return null;return new Date(published+Math.max(1,Number(item.validationMinutes)||1440)*60000)}
+function validationReadyAt(item){if(!item?.publishedAt)return null;const published=new Date(item.publishedAt);if(!Number.isFinite(published.getTime()))return null;if(item.validationMode==="next_day_time"&&/^\d{2}:\d{2}$/.test(item.validationTime||"")){const due=new Date(published);due.setDate(due.getDate()+1);const [hh,mm]=item.validationTime.split(":").map(Number);due.setHours(hh,mm,0,0);return due}return new Date(published.getTime()+Math.max(1,Number(item.validationMinutes)||1440)*60000)}
 function reminderAt(item){const ready=validationReadyAt(item);if(!ready)return null;return new Date(ready.getTime()-reminderToMinutes(item.reminderBefore||'1h')*60000)}
 function reminderLabel(v){return v==='30m'?'30 menit sebelum':v==='15m'?'15 menit sebelum':v==='none'?'Tidak ada':'1 jam sebelum'}
 function requestGrowthNotifications(){if('Notification' in window&&Notification.permission==='default')Notification.requestPermission().catch(()=>{})}
@@ -1174,7 +1185,7 @@ function contentToDb(x){
 }
 function dbToPlan(r){
   const meta=readGsMeta(r.notes);
-  return {id:r.id,date:r.planned_date||'',time:r.planned_time||'',platform:r.platform||'Instagram',title:r.title||'',topic:r.topic||'',pillar:r.pillar||'General',format:r.format||'Carousel',hook:r.hook||'Problem',cta:r.cta||'Save',status:(meta.uploaded?'publish':(meta.uiStatus||r.status||'idea')),notes:cleanGsNotes(r.notes),instagramUrl:r.instagram_url||meta.instagramUrl||'',previewUrl:r.preview_url||meta.previewUrl||'',copywriting:meta.copywriting||'',slides:Array.isArray(meta.slides)?meta.slides:[],uploaded:r.uploaded??meta.uploaded??false,linkedContentId:r.linked_content_id||meta.linkedContentId||null,validationMinutes:Math.max(1,Number(meta.validationMinutes)||1440),publishedAt:meta.publishedAt||null,_meta:meta}
+  return {id:r.id,date:r.planned_date||'',time:r.planned_time||'',platform:r.platform||'Instagram',title:r.title||'',topic:r.topic||'',pillar:r.pillar||'General',format:r.format||'Carousel',hook:r.hook||'Problem',cta:r.cta||'Save',status:(meta.uploaded?'publish':(meta.uiStatus||r.status||'idea')),notes:cleanGsNotes(r.notes),instagramUrl:r.instagram_url||meta.instagramUrl||'',previewUrl:r.preview_url||meta.previewUrl||'',copywriting:meta.copywriting||'',slides:Array.isArray(meta.slides)?meta.slides:[],uploaded:r.uploaded??meta.uploaded??false,linkedContentId:r.linked_content_id||meta.linkedContentId||null,validationMinutes:Math.max(1,Number(meta.validationMinutes)||1440),validationMode:meta.validationMode||'duration',validationTime:meta.validationTime||'16:00',publishedAt:meta.publishedAt||null,_meta:meta}
 }
 function showMsg(id,text,type='error'){const el=document.getElementById(id);el.textContent=text;el.className='auth-msg show '+type}
 function showLogin(){document.getElementById('loginPanel').style.display='block';document.getElementById('registerPanel').style.display='none';document.getElementById('loginMsg').className='auth-msg';document.getElementById('registerMsg').className='auth-msg'}
@@ -1809,7 +1820,7 @@ function renderPlanner(){
     <td><input type="checkbox" ${x.uploaded?'checked':''} onchange="togglePlanUploaded('${x.id}',this.checked)" aria-label="Tandai sudah upload"></td>
     <td><span class="pill ${x.uploaded?'good':'warn'}">${x.uploaded?'Uploaded':'Belum Upload'} · ${esc(x.status)}</span></td>
     <td><div data-upload-countdown="${x.id}" class="planner-deadline ${c.state}"><span class="planner-deadline-icon">${x.uploaded?'📊':'⏰'}</span><div><div class="planner-deadline-main">${esc(c.text)}</div><div class="planner-deadline-sub">${d?'Upload · '+d.toLocaleString('id-ID',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}):'Atur tanggal & jam'}</div></div></div></td>
-    <td style="display:flex;gap:5px"><button class="btn light" onclick="editPlan('${x.id}')">Edit</button><button class="btn danger" onclick="deletePlan('${x.id}')">Delete</button></td>
+    <td style="display:flex;gap:5px;flex-wrap:wrap">${x.uploaded&&x.linkedContentId?'<button class="btn primary" onclick="openValidationMetrics(\''+x.id+'\')">Input Metrics</button>':''}<button class="btn light" onclick="editPlan('${x.id}')">Edit</button><button class="btn danger" onclick="deletePlan('${x.id}')">Delete</button></td>
   </tr>`}).join('');
   updatePlannerDeadlines();
 }
@@ -1856,6 +1867,9 @@ function openPlanModal(plan){
   const validation=minutesToValidation(plan?.validationMinutes||1440);
   document.getElementById('planValidationValue').value=validation.value;
   document.getElementById('planValidationUnit').value=validation.unit;
+  document.getElementById('planValidationMode').value=plan?._meta?.validationMode||'duration';
+  document.getElementById('planValidationTime').value=plan?._meta?.validationTime||'16:00';
+  updatePlanValidationMode();
   document.getElementById('planReminderBefore').value=plan?._meta?.reminderBefore||'1h';
   document.getElementById('planPublishedAt').value=localDateTimeLabel(plan?._meta?.publishedAt);
   renderPlanSlides(plan?.slides||[]);
@@ -1865,7 +1879,9 @@ function openPlanModal(plan){
   updatePlanSchedulePreview();
 }
 document.getElementById('planFormat')?.addEventListener('change',updatePlanFormatFields);
-['planDate','planTime','planTopic','planValidationValue','planValidationUnit'].forEach(id=>document.getElementById(id)?.addEventListener('input',updatePlanSchedulePreview));
+function updatePlanValidationMode(){const mode=document.getElementById('planValidationMode')?.value||'duration';const d=document.getElementById('planValidationDurationFields'),t=document.getElementById('planValidationTimeFields');if(d)d.style.display=mode==='duration'?'grid':'none';if(t)t.style.display=mode==='next_day_time'?'block':'none';updatePlanSchedulePreview()}
+document.getElementById('planValidationMode')?.addEventListener('change',updatePlanValidationMode);
+['planDate','planTime','planTopic','planValidationValue','planValidationUnit','planValidationTime'].forEach(id=>document.getElementById(id)?.addEventListener('input',updatePlanSchedulePreview));
 ['planValidationUnit'].forEach(id=>document.getElementById(id)?.addEventListener('change',updatePlanSchedulePreview));
 function closePlanModal(){document.getElementById('planModal').classList.remove('open')}
 function isFeedSlideFormat(format){return String(format||'').toLowerCase()==='carousel'}
@@ -1913,8 +1929,10 @@ async function savePlan(e){
   if(previewUrl && !/^https?:\/\//i.test(previewUrl)){alert('Link Preview harus diawali http:// atau https://');return}
   const previous=plans.find(p=>String(p.id)===String(id));
   const validationMinutes=validationToMinutes(document.getElementById('planValidationValue').value,document.getElementById('planValidationUnit').value);
+  const validationMode=document.getElementById('planValidationMode').value||'duration';
+  const validationTime=document.getElementById('planValidationTime').value||'16:00';
   const reminderBefore=document.getElementById('planReminderBefore').value||'1h';
-  const meta={instagramUrl:instagramUrl||'',previewUrl:previewUrl||'',copywriting,slides,uploaded:previous?.uploaded||false,linkedContentId:previous?.linkedContentId||null,previousStatus:previous?._meta?.previousStatus||previous?.status||selectedStatus,uiStatus:selectedStatus,validationMinutes,publishedAt:previous?._meta?.publishedAt||null,reminderBefore};
+  const meta={instagramUrl:instagramUrl||'',previewUrl:previewUrl||'',copywriting,slides,uploaded:previous?.uploaded||false,linkedContentId:previous?.linkedContentId||null,previousStatus:previous?._meta?.previousStatus||previous?.status||selectedStatus,uiStatus:selectedStatus,validationMinutes,validationMode,validationTime,publishedAt:previous?._meta?.publishedAt||null,reminderBefore};
   const payload={workspace_id:workspace.id,created_by:currentUser.id,planned_date:document.getElementById('planDate').value||null,planned_time:document.getElementById('planTime').value||null,platform:document.getElementById('planPlatform').value,title:topic,topic,pillar:document.getElementById('planPillar').value.trim()||'General',format:document.getElementById('planFormat').value,hook:document.getElementById('planHook').value,cta:document.getElementById('planCTA').value.trim()||'Save',status:statusForDb,notes:writeGsMeta(document.getElementById('planNotes').value.trim(),meta)};
   const result=id?await db.from('content_plans').update(payload).eq('id',id).eq('workspace_id',workspace.id):await db.from('content_plans').insert(payload);
   if(result.error){alert('Gagal menyimpan planner: '+result.error.message);return}
@@ -2076,7 +2094,7 @@ async function togglePlanUploaded(id,checked){
       plan.validationMinutes=Math.max(1,Number(plan.validationMinutes)||1440);
       const publishedAt=plan._meta?.publishedAt||new Date().toISOString();
       requestGrowthNotifications();
-      const meta={...(plan._meta||{}),instagramUrl:plan.instagramUrl||'',previewUrl:plan.previewUrl||'',uploaded:true,linkedContentId:linkedId,previousStatus:plan._meta?.previousStatus||plan.status,publishedAt,validationMinutes:Math.max(1,Number(plan.validationMinutes)||1440),reminderBefore:plan._meta?.reminderBefore||'1h'};
+      const meta={...(plan._meta||{}),instagramUrl:plan.instagramUrl||'',previewUrl:plan.previewUrl||'',uploaded:true,linkedContentId:linkedId,previousStatus:plan._meta?.previousStatus||plan.status,publishedAt,validationMinutes:Math.max(1,Number(plan.validationMinutes)||1440),validationMode:plan._meta?.validationMode||'duration',validationTime:plan._meta?.validationTime||'16:00',reminderBefore:plan._meta?.reminderBefore||'1h'};
       const {error}=await db.from('content_plans').update({notes:writeGsMeta(plan.notes,meta)}).eq('id',id).eq('workspace_id',workspace.id);
       if(error)throw error;
     }else{
@@ -2352,6 +2370,12 @@ init();
 setInterval(checkValidationReminders,30000);
 setInterval(updatePlannerDeadlines,1000);
 setTimeout(checkValidationReminders,3000);
+function applyGrowthTheme(){const night=localStorage.getItem('gs_theme_mode')==='night';document.body.classList.toggle('gs-night',night);const b=document.getElementById('themeModeBtn');if(b)b.textContent=night?'☀️ Day Mode':'🌙 Night Mode';const meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.content=night?'#0b1220':'#101828'}
+function toggleGrowthTheme(){const night=document.body.classList.contains('gs-night');localStorage.setItem('gs_theme_mode',night?'day':'night');applyGrowthTheme()}
+function openValidationMetrics(planId){const p=plans.find(x=>String(x.id)===String(planId));if(!p||!p.linkedContentId){alert('Konten belum terhubung ke Content Database. Tandai Upload terlebih dahulu.');return}const x=data.find(v=>String(v.id)===String(p.linkedContentId));if(!x){alert('Konten database tidak ditemukan. Coba refresh data workspace.');return}document.getElementById('validationPlanId').value=String(planId);document.getElementById('validationMetricsSubtitle').textContent=(p.topic||p.title||'Konten')+' · '+(p.platform||'')+' · deadline '+(validationReadyAt(p)?.toLocaleString('id-ID',{dateStyle:'medium',timeStyle:'short'})||'belum ditentukan');[['vmReach','reach'],['vmViews','views'],['vmLikes','likes'],['vmComments','comments'],['vmShares','shares'],['vmSaves','saves'],['vmProfile','profile'],['vmLeads','leads']].forEach(([id,k])=>document.getElementById(id).value=x[k]??'');document.getElementById('validationMetricsModal').classList.add('open')}
+function closeValidationMetrics(){document.getElementById('validationMetricsModal')?.classList.remove('open')}
+async function saveValidationMetrics(e){e.preventDefault();const id=document.getElementById('validationPlanId').value,p=plans.find(x=>String(x.id)===String(id));if(!p?.linkedContentId){alert('Relasi konten tidak ditemukan.');return}const vals={};[['vmReach','reach'],['vmViews','views'],['vmLikes','likes'],['vmComments','comments'],['vmShares','shares'],['vmSaves','saves'],['vmProfile','profile'],['vmLeads','leads']].forEach(([field,key])=>{const raw=document.getElementById(field).value;if(raw.trim()!=='')vals[key]=Math.max(0,Number(raw)||0)});if(!Object.keys(vals).length){alert('Isi minimal satu metrik.');return}const {error}=await db.from('contents').update(vals).eq('id',p.linkedContentId).eq('workspace_id',workspace.id);if(error){alert('Gagal menyimpan metrics: '+error.message);return}closeValidationMetrics();await loadCloudData();showPage('planner');alert('Data Validation berhasil disimpan. Metrik konten sudah diperbarui.')}
+applyGrowthTheme();
 </script>
 </body>
 </html>
