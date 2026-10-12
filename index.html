@@ -1065,6 +1065,7 @@ input,select,textarea,button{max-width:100%}
    <div class="field"><label>Content Title</label><input id="fTitle" required placeholder="e.g. Tips CV ATS"></div>
    <div class="field"><label>Content Pillar</label><input id="fPillar" required placeholder="e.g. Career"></div>
    <div class="field"><label>Format</label><select id="fFormat"><option>Reels</option><option>Carousel</option><option>Single Image</option><option>Story</option><option>Video</option></select></div>
+   <div class="field"><label>Jenis Publikasi</label><select id="fPostType"><option value="original">Posting Original</option><option value="repost">Posting Ulang (Repost)</option></select><small style="display:block;color:#98a2b3;margin-top:5px">Tandai jika konten ini merupakan repost dari konten yang sudah pernah dipublikasikan.</small></div>
    <div class="field"><label>Hook</label><select id="fHook"><option>Problem</option><option>Question</option><option>Storytelling</option><option>Data/Fakta</option><option>Listicle</option><option>Tutorial</option><option>Direct Statement</option></select></div>
    <div class="field"><label>CTA</label><select id="fCTA"><option>Save</option><option>Comment</option><option>Share</option><option>DM</option><option>Link Click</option><option>None</option></select></div>
    <div class="field"><label>Reach</label><input type="number" id="fReach" min="0" value="0"></div>
@@ -1077,6 +1078,8 @@ input,select,textarea,button{max-width:100%}
    <div class="field"><label>Leads / Conversion</label><input type="number" id="fLeads" min="0" value="0"></div>
    <div class="field"><label>Instagram Feed Link <span style="font-weight:400;color:#98a2b3">(Opsional)</span></label><input type="url" id="fInstagramUrl" placeholder="https://www.instagram.com/p/..."></div>
    <div class="field"><label>Preview Konten <span style="font-weight:400;color:#98a2b3">(Opsional)</span></label><input type="url" id="fPreviewUrl" placeholder="Link Google Drive / Canva / preview"></div>
+   <div class="field" id="fOriginalPostDateField" style="display:none"><label>Tanggal Posting Asli</label><input type="date" id="fOriginalPostDate"></div>
+   <div class="field" id="fOriginalPostUrlField" style="display:none"><label>Link Posting Asli (Opsional)</label><input type="url" id="fOriginalPostUrl" placeholder="https://..."></div>
   </div>
   <div class="form-actions"><button type="button" class="btn light" onclick="closeModal()">Cancel</button><button class="btn primary">Save Content</button></div>
  </form>
@@ -1161,10 +1164,10 @@ function writeGsMeta(notes,meta){
 function cleanGsNotes(notes){return String(notes||'').split(GS_META)[0].trim()||''}
 function dbToContent(r){
   const meta=readGsMeta(r.notes);
-  return calc({id:r.id,date:r.content_date||'',platform:r.platform||'Instagram',title:r.title||'',pillar:r.pillar||'',topic:r.topic||'',format:r.format||'Reels',hook:r.hook||'Problem',cta:r.cta||'None',reach:n(r.reach),impressions:n(r.impressions),views:n(r.views),likes:n(r.likes),comments:n(r.comments),shares:n(r.shares),saves:n(r.saves),profile:n(r.profile_visits),linkClicks:n(r.link_clicks),leads:n(r.leads),notes:cleanGsNotes(r.notes),instagramUrl:r.instagram_url||meta.instagramUrl||'',previewUrl:r.preview_url||meta.previewUrl||'',copywriting:meta.copywriting||'',slides:Array.isArray(meta.slides)?meta.slides:[],sourcePlanId:r.source_plan_id||meta.sourcePlanId||null,uploaded:r.uploaded??meta.uploaded??true})
+  return calc({id:r.id,date:r.content_date||'',platform:r.platform||'Instagram',title:r.title||'',pillar:r.pillar||'',topic:r.topic||'',format:r.format||'Reels',hook:r.hook||'Problem',cta:r.cta||'None',reach:n(r.reach),impressions:n(r.impressions),views:n(r.views),likes:n(r.likes),comments:n(r.comments),shares:n(r.shares),saves:n(r.saves),profile:n(r.profile_visits),linkClicks:n(r.link_clicks),leads:n(r.leads),notes:cleanGsNotes(r.notes),instagramUrl:r.instagram_url||meta.instagramUrl||'',previewUrl:r.preview_url||meta.previewUrl||'',copywriting:meta.copywriting||'',slides:Array.isArray(meta.slides)?meta.slides:[],sourcePlanId:r.source_plan_id||meta.sourcePlanId||null,postType:meta.postType||'original',originalPostDate:meta.originalPostDate||'',originalPostUrl:meta.originalPostUrl||'',uploaded:r.uploaded??meta.uploaded??true})
 }
 function contentToDb(x){
-  const meta={instagramUrl:x.instagramUrl||'',previewUrl:x.previewUrl||'',copywriting:x.copywriting||'',slides:Array.isArray(x.slides)?x.slides:[],sourcePlanId:x.sourcePlanId||null,uploaded:x.uploaded!==false};
+  const meta={instagramUrl:x.instagramUrl||'',previewUrl:x.previewUrl||'',copywriting:x.copywriting||'',slides:Array.isArray(x.slides)?x.slides:[],sourcePlanId:x.sourcePlanId||null,uploaded:x.uploaded!==false,postType:x.postType||'original',originalPostDate:x.originalPostDate||'',originalPostUrl:x.originalPostUrl||''};
   return {workspace_id:workspace.id,created_by:currentUser.id,content_date:x.date||null,platform:x.platform,title:x.title,pillar:x.pillar,topic:x.topic||null,format:x.format,hook:x.hook,cta:x.cta,reach:n(x.reach),impressions:n(x.impressions),views:n(x.views),likes:n(x.likes),comments:n(x.comments),shares:n(x.shares),saves:n(x.saves),profile_visits:n(x.profile),link_clicks:n(x.linkClicks),leads:n(x.leads),engagement_rate:n(x.er),like_rate:n(x.likeRate),comment_rate:n(x.commentRate),share_rate:n(x.shareRate),save_rate:n(x.saveRate),content_score:n(x.score),diagnosis:x.diagnosis||null,notes:writeGsMeta(x.notes,meta)}
 }
 function dbToPlan(r){
@@ -1584,7 +1587,7 @@ function renderTable(a){
   tb.innerHTML=ranked.map(x=>`<tr>
     <td>${esc(x.date)}</td>
     <td><b>${esc(x.title)}</b><br><span style="color:#718096">${esc(x.platform)}</span></td>
-    <td>${esc(x.pillar)}</td><td>${esc(x.format)}</td>
+    <td>${esc(x.pillar)}</td><td>${esc(x.format)}${x.postType==='repost'?'<div><span class="pill warn">↻ Repost</span></div>':''}</td>
     <td>${x.instagramUrl?`<a href="${esc(x.instagramUrl)}" target="_blank" rel="noopener" class="btn light" style="padding:6px 9px">↗ Open Feed</a>`:'<span class="mini-stat">Belum ada</span>'}</td>
     <td>${x.previewUrl?`<a href="${esc(x.previewUrl)}" target="_blank" rel="noopener" class="btn light" style="padding:6px 9px">↗ Preview</a>`:'<span class="mini-stat">Belum ada</span>'}</td>
     <td>${n(x.reach).toLocaleString()}</td><td>${pct(x.er)}</td><td><b>${x.score}</b></td>
@@ -1765,7 +1768,7 @@ function renderRanking(){
   if(count)count.textContent=ranked.length+' konten';
   if(!ranked.length){tb.innerHTML='<tr><td colspan="11" class="empty">Belum ada konten yang bisa diranking.</td></tr>';return}
   tb.innerHTML=ranked.map((x,i)=>`<tr>
-    <td><b>#${i+1}</b></td><td><b>${esc(x.title)}</b></td><td>${esc(x.date||'-')}</td><td>${esc(x.platform)}</td><td>${esc(x.pillar)}</td><td>${esc(x.format)}</td>
+    <td><b>#${i+1}</b></td><td><b>${esc(x.title)}</b>${x.postType==='repost'?'<div><span class="pill warn">↻ Repost</span></div>':''}</td><td>${esc(x.date||'-')}</td><td>${esc(x.platform)}</td><td>${esc(x.pillar)}</td><td>${esc(x.format)}</td>
     <td>${n(x.reach).toLocaleString()}</td><td>${pct(x.er)}</td><td><b>${x.score}</b></td>
     <td><span class="pill ${x.score>=75?'good':x.score>=50?'warn':'bad'}">${diagnosis(x,averages())}</span></td>
     <td>${x.instagramUrl?`<a href="${esc(x.instagramUrl)}" target="_blank" rel="noopener" class="btn light" style="padding:6px 9px">↗ Open Feed</a>`:'<span class="mini-stat">—</span>'}</td>
@@ -1984,10 +1987,15 @@ async function inviteMember(){
     alert('Gagal mengirim invitation: '+(err.message||'Terjadi kesalahan.'));
   }
 }
-function openModal(){document.getElementById('modal').classList.add('open');document.getElementById('contentForm').reset();document.getElementById('editId').value='';document.querySelector('#modal h2').textContent='Add Social Media Content';document.getElementById('fDate').value=new Date().toISOString().slice(0,10)}
+function openModal(){document.getElementById('contentForm').reset();document.getElementById('modal').classList.add('open');document.getElementById('editId').value='';document.querySelector('#modal h2').textContent='Add Social Media Content';document.getElementById('fDate').value=new Date().toISOString().slice(0,10);document.getElementById('fPostType').value='original';toggleRepostFields()}
 function closeModal(){document.getElementById('modal').classList.remove('open')}
-function editContent(id){const x=data.find(v=>String(v.id)===String(id));if(!x)return;document.getElementById('editId').value=x.id;fDate.value=x.date;fPlatform.value=x.platform;fTitle.value=x.title;fPillar.value=x.pillar;fFormat.value=x.format;fHook.value=x.hook;fCTA.value=x.cta;fReach.value=x.reach;fViews.value=x.views;fLikes.value=x.likes;fComments.value=x.comments;fShares.value=x.shares;fSaves.value=x.saves;fProfile.value=x.profile;fLeads.value=x.leads;document.getElementById('fInstagramUrl').value=x.instagramUrl||'';document.getElementById('fPreviewUrl').value=x.previewUrl||'';document.querySelector('#modal h2').textContent='Edit Social Media Content';document.getElementById('modal').classList.add('open')}
-async function saveContent(e){e.preventDefault();if(!workspace)return;const editId=document.getElementById('editId').value;const x={id:editId||null,date:fDate.value,platform:fPlatform.value,title:fTitle.value.trim(),pillar:fPillar.value.trim(),format:fFormat.value,hook:fHook.value,cta:fCTA.value,reach:n(fReach.value),views:n(fViews.value),likes:n(fLikes.value),comments:n(fComments.value),shares:n(fShares.value),saves:n(fSaves.value),profile:n(fProfile.value),leads:n(fLeads.value),instagramUrl:document.getElementById('fInstagramUrl').value.trim(),previewUrl:document.getElementById('fPreviewUrl').value.trim(),uploaded:true};calc(x);x.score=score(x,averages());x.diagnosis=diagnosis(x,averages());let error;if(editId){({error}=await db.from('contents').update(contentToDb(x)).eq('id',editId).eq('workspace_id',workspace.id))}else{({error}=await db.from('contents').insert(contentToDb(x)))}if(error){alert(error.message);return}closeModal();await loadCloudData();showPage('database')}
+function toggleRepostFields(){
+ const type=document.getElementById('fPostType')?.value||'original',oldDate=document.getElementById('fOriginalPostDateField'),oldUrl=document.getElementById('fOriginalPostUrlField');
+ if(oldDate)oldDate.style.display=type==='repost'?'block':'none';if(oldUrl)oldUrl.style.display=type==='repost'?'block':'none';
+}
+document.getElementById('fPostType')?.addEventListener('change',toggleRepostFields);
+function editContent(id){const x=data.find(v=>String(v.id)===String(id));if(!x)return;document.getElementById('editId').value=x.id;fDate.value=x.date;fPlatform.value=x.platform;fTitle.value=x.title;fPillar.value=x.pillar;fFormat.value=x.format;fHook.value=x.hook;fCTA.value=x.cta;fReach.value=x.reach;fViews.value=x.views;fLikes.value=x.likes;fComments.value=x.comments;fShares.value=x.shares;fSaves.value=x.saves;fProfile.value=x.profile;fLeads.value=x.leads;document.getElementById('fInstagramUrl').value=x.instagramUrl||'';document.getElementById('fPreviewUrl').value=x.previewUrl||'';document.getElementById('fPostType').value=x.postType||'original';document.getElementById('fOriginalPostDate').value=x.originalPostDate||'';document.getElementById('fOriginalPostUrl').value=x.originalPostUrl||'';toggleRepostFields();document.querySelector('#modal h2').textContent='Edit Social Media Content';document.getElementById('modal').classList.add('open')}
+async function saveContent(e){e.preventDefault();if(!workspace)return;const editId=document.getElementById('editId').value;const postType=document.getElementById('fPostType').value;const originalPostDate=document.getElementById('fOriginalPostDate').value;const originalPostUrl=document.getElementById('fOriginalPostUrl').value.trim();const x={id:editId||null,date:fDate.value,platform:fPlatform.value,title:fTitle.value.trim(),pillar:fPillar.value.trim(),format:fFormat.value,hook:fHook.value,cta:fCTA.value,reach:n(fReach.value),views:n(fViews.value),likes:n(fLikes.value),comments:n(fComments.value),shares:n(fShares.value),saves:n(fSaves.value),profile:n(fProfile.value),leads:n(fLeads.value),instagramUrl:document.getElementById('fInstagramUrl').value.trim(),previewUrl:document.getElementById('fPreviewUrl').value.trim(),postType,originalPostDate,originalPostUrl,uploaded:true};calc(x);x.score=score(x,averages());x.diagnosis=diagnosis(x,averages());let error;if(editId){({error}=await db.from('contents').update(contentToDb(x)).eq('id',editId).eq('workspace_id',workspace.id))}else{({error}=await db.from('contents').insert(contentToDb(x)))}if(error){alert(error.message);return}closeModal();await loadCloudData();showPage('database')}
 async function deleteContent(id){if(!confirm('Hapus konten ini?'))return;const {error}=await db.from('contents').delete().eq('id',id).eq('workspace_id',workspace.id);if(error)alert(error.message);else await loadCloudData()}
 async function createContentFromPlan(plan){
   const existing=plan.linkedContentId?data.find(x=>String(x.id)===String(plan.linkedContentId)):null;
