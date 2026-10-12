@@ -1391,29 +1391,17 @@ async function loadCloudData(){
   let {data:rows,error}=await db.from('contents').select('*').eq('workspace_id',workspace.id).order('content_date',{ascending:false}).order('created_at',{ascending:false});
   if(error) throw error;
   if(!(rows||[]).length){
+    // An empty workspace is valid (especially immediately after creation).
+    // Never silently switch the user's selected workspace just because it has no content.
     const {data:visibleRows,error:scanError}=await db.from('contents').select('workspace_id').limit(5000);
     if(!scanError && Array.isArray(visibleRows) && visibleRows.length){
       const counts=new Map();
       visibleRows.forEach(r=>counts.set(r.workspace_id||'__NULL__',(counts.get(r.workspace_id||'__NULL__')||0)+1));
-      const ids=[...counts.keys()].filter(id=>id!=='__NULL__');
-      if(ids.length){
-        // Resolve workspace IDs directly from Supabase, even if the local switcher list is incomplete.
-        const {data:resolved,error:resolveError}=await db.from('workspaces').select('*').in('id',ids);
-        if(!resolveError && Array.isArray(resolved) && resolved.length){
-          const candidates=resolved.map(w=>({...w,role:w.owner_id===currentUser?.id?'owner':((workspaces||[]).find(x=>x.id===w.id)?.role||'member'),_visibleContentCount:counts.get(w.id)||0}));
-          candidates.sort((a,b)=>(a.name===workspace.name?1:0)===(b.name===workspace.name?1:0)?b._visibleContentCount-a._visibleContentCount:(a.name===workspace.name?-1:1));
-          const best=candidates[0];
-          if(best && best._visibleContentCount>0){
-            console.warn('GrowthScope recovery selected workspace containing existing visible content.',{from:workspace.id,to:best.id,count:best._visibleContentCount});
-            workspace=best;
-            currentWorkspaceRole=best.role||'member';
-            window.currentWorkspaceRole=currentWorkspaceRole;
-            const retry=await db.from('contents').select('*').eq('workspace_id',workspace.id).order('content_date',{ascending:false}).order('created_at',{ascending:false});
-            if(retry.error)throw retry.error;
-            rows=retry.data||[];
-          }
-        }
-      }
+      console.info('GrowthScope workspace check: selected workspace has no content; keeping selection.',{
+        activeWorkspaceId:workspace.id,
+        activeWorkspaceName:workspace.name,
+        visibleWorkspaceCounts:Object.fromEntries(counts)
+      });
     }
   }
   data=(rows||[]).map(dbToContent);
