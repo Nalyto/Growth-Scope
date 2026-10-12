@@ -9,8 +9,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Nalyto">
 <link rel="manifest" href="./manifest.json">
-<link rel="icon" href="./icon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="./icon.svg"><script>
+<link rel="icon" href="./icon.svg?v=20261012b" type="image/svg+xml">
+<link rel="apple-touch-icon" href="./icon.svg?v=20261012b"><script>
 (async function(){
   try{
     if(!sessionStorage.getItem('gs_cache_reset_20261012')){
@@ -195,7 +195,7 @@ body{background:var(--gs-bg)}
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<link rel="icon" type="image/png" href="./icon.svg"><link rel="apple-touch-icon" href="./icon.svg"><title>Nalyto — Social Media Growth Analyzer</title>
+<link rel="icon" type="image/png" href="./icon.svg?v=20261012b"><link rel="apple-touch-icon" href="./icon.svg?v=20261012b"><title>Nalyto — Social Media Growth Analyzer</title>
 <style>
 :root{--bg:#f5f7fb;--card:#fff;--text:#172033;--muted:#718096;--line:#e7ebf2;--accent:#635bff;--green:#16a34a;--red:#dc2626;--orange:#d97706;--shadow:0 10px 30px rgba(23,32,51,.07)}
 *{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:var(--text)}
@@ -773,11 +773,30 @@ body.gs-night #calendarGrid>div>div{background:#121e32!important;color:#dce5f3!i
 .workspace-action{background:#25234a!important;border-color:#4b4588!important;color:#d5d0ff!important}
 .workspace-action:hover{background:#302d60!important}
 </style>
+
+<style id="nalyto-auth-refresh">
+/* Nalyto login contrast and refreshed brand */
+#authScreen{background:radial-gradient(ellipse at 80% 15%,rgba(47,115,255,.18),transparent 35%),linear-gradient(135deg,#0b1220 0%,#15233d 58%,#253b70 100%)!important}
+#authScreen .auth-box{width:min(480px,100%);padding:34px 32px 30px;border:1px solid rgba(255,255,255,.7);box-shadow:0 28px 80px rgba(2,8,23,.32);color:#172033}
+#authScreen .auth-logo{color:#101828!important;gap:12px}
+#authScreen .auth-logo>div{color:#101828!important;font-size:25px;font-weight:850;letter-spacing:-.7px}
+#authScreen .auth-logo span{color:#64748b!important;font-size:12px;font-weight:500;letter-spacing:0}
+#authScreen .auth-brand img{width:52px;height:52px;object-fit:contain}
+#authScreen .auth-box h2{color:#172033!important;font-size:25px;letter-spacing:-.5px;margin-top:26px}
+#authScreen .auth-box p{color:#526078!important;font-size:13px}
+#authScreen .auth-field label{color:#475569!important;font-weight:600}
+#authScreen .auth-field input{background:#fff!important;color:#172033!important;border:1px solid #cbd5e1!important;border-radius:10px;padding:13px 12px}
+#authScreen .auth-field input:focus{border-color:#635bff!important;box-shadow:0 0 0 3px rgba(99,91,255,.14)!important}
+#authScreen input:-webkit-autofill,#authScreen input:-webkit-autofill:hover,#authScreen input:-webkit-autofill:focus{-webkit-text-fill-color:#172033!important;box-shadow:0 0 0 1000px #fff inset!important;transition:background-color 9999s ease-in-out 0s}
+#authScreen .auth-switch{color:#526078!important}
+#authScreen .auth-switch button{color:#5145e5!important}
+@media(max-width:520px){#authScreen{padding:14px!important}#authScreen .auth-box{padding:26px 21px 24px;border-radius:18px}#authScreen .auth-logo>div{font-size:23px}}
+</style>
 </head>
 <body>
 <div id="authScreen">
   <div class="auth-box">
-    <div class="auth-logo auth-brand"><img class="login-logo-img" src="./icon.svg" alt="Nalyto Logo"><div>Nalyto <span>Social Media Growth Analyzer · Cloud</span></div></div>
+    <div class="auth-logo auth-brand"><img class="login-logo-img" src="./icon.svg?v=20261012b" alt="Nalyto Logo"><div>Nalyto <span>Social Media Growth Analyzer · Cloud</span></div></div>
     <div id="loginPanel">
       <h2>Login ke Nalyto</h2><p>Masuk untuk mengakses workspace dan data analitik yang tersimpan di cloud.</p>
       <form id="loginForm" class="auth-form" onsubmit="login(event); return false;">
@@ -806,7 +825,7 @@ body.gs-night #calendarGrid>div>div{background:#121e32!important;color:#dce5f3!i
   <div class="welcome-glow welcome-glow-one"></div>
   <div class="welcome-glow welcome-glow-two"></div>
   <div class="welcome-card">
-    <div class="welcome-logo-wrap"><img src="./icon.svg" alt="Nalyto"></div>
+    <div class="welcome-logo-wrap"><img src="./icon.svg?v=20261012b" alt="Nalyto"></div>
     <div class="welcome-kicker">WELCOME BACK</div>
     <h2>Halo, <span id="welcomeName">Syarief</span> 👋</h2>
     <p>Siap melihat perkembangan kontenmu?</p>
@@ -828,7 +847,7 @@ body.gs-night #calendarGrid>div>div{background:#121e32!important;color:#dce5f3!i
 <div class="app">
 <aside class="side">
   <div class="brand-logo">
-    <img class="sidebar-logo-img" src="./icon.svg" alt="Nalyto Logo">
+    <img class="sidebar-logo-img" src="./icon.svg?v=20261012b" alt="Nalyto Logo">
     <div class="brand-text">Nalyto <span>Social Media Growth Analyzer</span></div>
   </div>
 
