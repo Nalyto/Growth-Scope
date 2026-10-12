@@ -753,6 +753,25 @@ body.gs-night #calendarGrid>div>div{background:#121e32!important;color:#dce5f3!i
  #calendarGrid>div[style*="grid"]{gap:4px!important}
  #calendarGrid>div>div{padding:5px!important}
 }
+
+/* Workspace menu repair: keep dropdown above dashboard cards and match night theme */
+.top{position:relative!important;z-index:500!important;overflow:visible!important;isolation:isolate}
+.top-actions{position:relative;z-index:501;overflow:visible!important}
+.workspace-switcher{position:relative;z-index:520}
+.workspace-switcher.open{z-index:900}
+.workspace-popover{z-index:901!important;background:#111b2e!important;color:#e8edf7!important;border:1px solid #2b3952!important;box-shadow:0 24px 70px rgba(0,0,0,.48)!important}
+.workspace-popover-head{border-bottom-color:#2b3952!important}
+.workspace-popover-head small{color:#9aa9bf!important}
+.workspace-popover-head b{color:#edf2fc!important}
+.workspace-item{background:#17243a!important;color:#e5ecf8!important}
+.workspace-item:hover{background:#22324f!important}
+.workspace-item.active{background:#29264f!important;box-shadow:inset 0 0 0 1px #6259c7}
+.workspace-item .ws-icon{background:#29264f!important;color:#c9c4ff!important}
+.workspace-item-text b{color:#edf2fc!important}
+.workspace-item-text span{color:#a3b0c5!important}
+.workspace-role{color:#b3acff!important}
+.workspace-action{background:#25234a!important;border-color:#4b4588!important;color:#d5d0ff!important}
+.workspace-action:hover{background:#302d60!important}
 </style>
 </head>
 <body>
