@@ -1470,14 +1470,22 @@ async function selectWorkspace(id){
   closeWorkspaceMenu();
   const selected=workspaces.find(w=>w.id===id);
   if(!selected || selected.id===workspace?.id)return;
+  const previousWorkspace=workspace;
+  const previousRole=currentWorkspaceRole;
   try{
     document.body.classList.add('loading');
     workspace=selected;
     currentWorkspaceRole=selected.role||'member';
     window.currentWorkspaceRole=currentWorkspaceRole;
+    renderWorkspaceSwitcher();
     await loadCloudData();
     renderWorkspaceSwitcher();
   }catch(err){
+    // Roll back only the in-memory selection if loading fails; never alter workspace data.
+    workspace=previousWorkspace;
+    currentWorkspaceRole=previousRole;
+    window.currentWorkspaceRole=previousRole;
+    renderWorkspaceSwitcher();
     alert('Gagal mengganti workspace: '+(err?.message||'Terjadi kesalahan.'));
   }finally{
     document.body.classList.remove('loading');
