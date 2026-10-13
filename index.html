@@ -2625,3 +2625,48 @@ body.gs-night #planner .planner-deadline.validating .planner-deadline-main{color
 body.gs-night .planner-deadline .planner-deadline-sub,
 body.gs-night #planner .planner-deadline .planner-deadline-sub{color:#c5d3e7!important;-webkit-text-fill-color:#c5d3e7!important;opacity:1!important;font-size:10px!important}
 </style>
+
+
+<style id="nalyto-planner-day-mode-contrast-fix">
+/* Day mode: override dark hard-coded sticky/striped cells in Content Planner */
+body:not(.gs-night) #planner .table-wrap{
+  background:#fff!important;
+  border-color:#e3e8f1!important;
+}
+body:not(.gs-night) #planner .table-wrap th{
+  background:#f3f6fb!important;
+  color:#526078!important;
+  border-color:#e3e8f1!important;
+}
+body:not(.gs-night) #planner .table-wrap td{
+  background:#fff!important;
+  color:#172033!important;
+  border-color:#e3e8f1!important;
+}
+body:not(.gs-night) #planner .table-wrap tbody tr:nth-child(even) td{
+  background:#f7f9fc!important;
+  color:#172033!important;
+}
+body:not(.gs-night) #planner .table-wrap th:first-child,
+body:not(.gs-night) #planner .table-wrap th:last-child{
+  background:#edf1f8!important;
+  color:#344054!important;
+}
+body:not(.gs-night) #planner .table-wrap td:first-child,
+body:not(.gs-night) #planner .table-wrap td:last-child{
+  background:#fff!important;
+  color:#172033!important;
+}
+body:not(.gs-night) #planner .table-wrap tbody tr:nth-child(even) td:first-child,
+body:not(.gs-night) #planner .table-wrap tbody tr:nth-child(even) td:last-child{
+  background:#f7f9fc!important;
+  color:#172033!important;
+}
+body:not(.gs-night) #planner .table-wrap td:last-child{
+  box-shadow:-10px 0 16px rgba(23,32,51,.08)!important;
+}
+body:not(.gs-night) #planner .table-wrap::-webkit-scrollbar-track{background:#edf1f7!important}
+body:not(.gs-night) #planner .table-wrap::-webkit-scrollbar-thumb{background:#aab6c8!important;border-color:#edf1f7!important}
+body:not(.gs-night) #planner .table-wrap .muted,
+body:not(.gs-night) #planner .table-wrap small{color:#66758c!important}
+</style>
