@@ -37,6 +37,24 @@
     @media(max-width:767px) {
       .mobile-links[hidden] { display:none; }
       .mock { transform:none; }
+      .hero .display { font-size:clamp(2rem,8vw,2.5rem)!important; line-height:1.12; }
+      .hero .eyebrow { font-size:11px!important; letter-spacing:.12em; }
+      .hero .action { min-height:46px; padding:11px 16px; }
+      .hero .flex.flex-wrap { gap:.65rem; }
+      section[id] { scroll-margin-top:76px; }
+      .section-title { font-size:clamp(1.75rem,7vw,2.35rem)!important; }
+      .feature-card { padding:1.25rem!important; }
+      .mock { width:100%; }
+      footer .canva-link { align-self:flex-start; }
+    }
+    @media(min-width:768px) and (max-width:1023px) {
+      .mobile-links[hidden] { display:none; }
+    }
+    img { max-width:100%; }
+    a, button { -webkit-tap-highlight-color:transparent; }
+    @media(max-width:360px) {
+      .hero .action { width:100%; }
+      .hero > div { padding-left:1rem; padding-right:1rem; }
     }
     @media(prefers-reduced-motion:reduce) {
       html { scroll-behavior:auto; }
@@ -57,9 +75,9 @@
       <a href="#beranda" class="flex items-center gap-3 text-white shrink-0" aria-label="Growth Scope — kembali ke atas"> <span data-template-id="nav-logo-mark" class="canva-container grid place-items-center h-10 w-14 sm:w-16 rounded-xl bg-white px-2 overflow-hidden" aria-label="Logo resmi Nalyto" style="background: rgb(255, 255, 255);"><img data-template-id="nav-logo-image" class="canva-image max-h-8 w-full object-contain" loading="lazy" src="./brand-logo.svg" alt="Logo resmi Nalyto"></span> <span data-template-id="brand-name" class="canva-text font-bold tracking-tight" style="color: rgb(255, 255, 255);">Nalyto</span> </a>
       <div class="hidden lg:flex items-center gap-7 text-sm font-semibold">
        <a data-template-id="nav-process" class="canva-link nav-link" href="#cara-kerja" style="color: rgb(217, 230, 232); font-weight: 400; font-style: normal; font-size: 16px;">Cara Kerja</a> <a data-template-id="nav-features" class="canva-link nav-link" href="#fitur" style="color: rgb(217, 230, 232); font-weight: 400; font-style: normal; font-size: 16px;">Fitur</a> <a data-template-id="nav-matrix" class="canva-link nav-link" href="#matrix" style="color: rgb(217, 230, 232); font-weight: 400; font-style: normal; font-size: 16px;">Performance Matrix</a> <a data-template-id="nav-workspace" class="canva-link nav-link" href="#workspace" style="color: rgb(217, 230, 232); font-weight: 400; font-style: normal; font-size: 16px;">Workspace</a> <a class="canva-link nav-link" href="#panduan-login" style="color: rgb(217, 230, 232); font-size: 16px;">Panduan</a>
-      </div><a data-template-id="nav-cta" class="canva-button action hidden md:inline-flex bg-[#baf272] text-[#101d2c] text-sm" href="http://lynk.id/sayasyh18/84qz6r0q138p/checkout" target="_blank" rel="noopener noreferrer" style="background: rgb(186, 242, 114); color: rgb(16, 29, 44); font-weight: 400; font-style: normal; font-size: 16px;">Beli Sekarang</a> <button id="menu-toggle" type="button" aria-label="Buka menu navigasi" aria-controls="mobile-menu" aria-expanded="false" class="lg:hidden md:hidden text-white border border-white/30 rounded-lg p-2.5"> <span aria-hidden="true" class="block w-5 h-0.5 bg-white mb-1.5"></span><span aria-hidden="true" class="block w-5 h-0.5 bg-white mb-1.5"></span><span aria-hidden="true" class="block w-5 h-0.5 bg-white"></span> </button>
+      </div><a data-template-id="nav-cta" class="canva-button action hidden md:inline-flex bg-[#baf272] text-[#101d2c] text-sm" href="http://lynk.id/sayasyh18/84qz6r0q138p/checkout" target="_blank" rel="noopener noreferrer" style="background: rgb(186, 242, 114); color: rgb(16, 29, 44); font-weight: 400; font-style: normal; font-size: 16px;">Beli Sekarang</a> <button id="menu-toggle" type="button" aria-label="Buka menu navigasi" aria-controls="mobile-menu" aria-expanded="false" class="lg:hidden text-white border border-white/30 rounded-lg p-2.5"> <span aria-hidden="true" class="block w-5 h-0.5 bg-white mb-1.5"></span><span aria-hidden="true" class="block w-5 h-0.5 bg-white mb-1.5"></span><span aria-hidden="true" class="block w-5 h-0.5 bg-white"></span> </button>
      </div>
-     <div id="mobile-menu" class="mobile-links lg:hidden md:hidden pb-5 space-y-1" hidden="">
+     <div id="mobile-menu" class="mobile-links lg:hidden pb-5 space-y-1" hidden="">
       <a data-template-id="mobile-process" class="canva-link nav-link block py-2" href="#cara-kerja" style="color: rgb(217, 230, 232); font-weight: 400; font-style: normal; font-size: 16px;">Cara Kerja</a> <a data-template-id="mobile-features" class="canva-link nav-link block py-2" href="#fitur" style="color: rgb(217, 230, 232); font-weight: 400; font-style: normal; font-size: 16px;">Fitur</a> <a data-template-id="mobile-matrix" class="canva-link nav-link block py-2" href="#matrix" style="color: rgb(217, 230, 232); font-weight: 400; font-style: normal; font-size: 16px;">Performance Matrix</a> <a data-template-id="mobile-workspace" class="canva-link nav-link block py-2" href="#workspace" style="color: rgb(217, 230, 232); font-weight: 400; font-style: normal; font-size: 16px;">Workspace</a> <a class="canva-link nav-link block py-2" href="#panduan-login" style="color: rgb(217, 230, 232); font-size: 16px;">Panduan Login &amp; Member</a> <a data-template-id="mobile-cta" class="canva-button action bg-[#baf272] text-[#101d2c] mt-3 w-full" href="http://lynk.id/sayasyh18/84qz6r0q138p/checkout" target="_blank" rel="noopener noreferrer" style="background: rgb(186, 242, 114); color: rgb(16, 29, 44); font-weight: 400; font-style: normal; font-size: 16px;">Beli Sekarang</a>
      </div>
     </nav>
@@ -398,7 +416,7 @@
     menuToggle.setAttribute('aria-label', 'Buka menu navigasi');
   }));
   window.addEventListener('resize', () => {
-    if (window.innerWidth >= 768) {
+    if (window.innerWidth >= 1024) {
       mobileMenu.hidden = true;
       menuToggle.setAttribute('aria-expanded', 'false');
       menuToggle.setAttribute('aria-label', 'Buka menu navigasi');
