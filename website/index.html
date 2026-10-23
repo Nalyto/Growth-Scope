@@ -1,73 +1,368 @@
 <!doctype html>
-<html lang="id">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#0b1020">
-<link rel="icon" type="image/svg+xml" href="./brand-logo.svg?v=20261012b">
-<meta name="description" content="Nalyto membantu bisnis dan agensi merencanakan konten, membaca performa, dan menemukan peluang pertumbuhan media sosial dalam satu workspace.">
-<title>Nalyto — Turn Content Into Growth</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#090e1c;--panel:#10182b;--panel2:#141e34;--line:#283550;--text:#f3f5ff;--muted:#a1aec5;--purple:#8175ff;--purple2:#5c4df0;--mint:#74e0bb;--radius:22px;--max:1160px}
-*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;background:radial-gradient(ellipse at 78% 0%,rgba(98,82,255,.15),transparent 36%),var(--bg);color:var(--text);font-family:"DM Sans",sans-serif;line-height:1.6}a{color:inherit;text-decoration:none}button,input,select{font:inherit}button{cursor:pointer}.container{width:min(var(--max),calc(100% - 40px));margin:auto}.display,h1,h2,h3{font-family:"Space Grotesk",sans-serif;letter-spacing:-.035em;line-height:1.12}h1{font-size:clamp(2.8rem,6.2vw,5.5rem);margin:20px 0}h2{font-size:clamp(2rem,4vw,3.2rem);margin:0 0 16px}h3{font-size:1.25rem}.muted{color:var(--muted)}.eyebrow{display:inline-flex;align-items:center;gap:9px;border:1px solid #39365f;background:#171934;color:#c9c5ff;border-radius:999px;padding:7px 12px;font-size:.8rem;font-weight:700}.dot{width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 14px var(--mint)}.btn{border:1px solid transparent;border-radius:12px;padding:12px 18px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;transition:.2s;white-space:nowrap}.btn:hover{transform:translateY(-2px)}.primary{background:linear-gradient(135deg,var(--purple),var(--purple2));color:white;box-shadow:0 10px 28px #6558f033}.secondary{border-color:#36415c;background:#141e33;color:#f2f4ff}.ghost{color:#c5cde0}.btn.small{padding:9px 13px;font-size:.9rem}.nav-wrap{position:sticky;top:0;z-index:20;background:#090e1ce8;backdrop-filter:blur(18px);border-bottom:1px solid #ffffff0d}.nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:10px;font-family:"Space Grotesk";font-weight:700;font-size:1.25rem;letter-spacing:-.04em}.brand-mark{width:40px;height:40px;display:block;object-fit:contain;flex:none;filter:drop-shadow(0 5px 12px #079cff20)}.nav-links{display:flex;align-items:center;gap:26px;color:#b7c1d5;font-size:.93rem}.nav-links a:hover{color:#fff}.nav-actions{display:flex;gap:8px;align-items:center}.menu-btn{display:none;background:transparent;border:1px solid var(--line);color:white;border-radius:10px;padding:8px 12px}.hero{padding:86px 0 68px;overflow:hidden}.hero-grid{display:grid;grid-template-columns:1fr 1.05fr;align-items:center;gap:48px}.hero-copy .sub{font-size:1.13rem;max-width:560px;color:#b4bfd3}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin:28px 0 18px}.micro-proof{display:flex;align-items:center;gap:10px;font-size:.86rem;color:#98a6bf}.micro-proof b{color:#dfe5f7}.visual{position:relative;min-width:0;padding:14px;border:1px solid #ffffff1c;border-radius:26px;background:linear-gradient(145deg,#1a2440dd,#0e1527f5);box-shadow:0 28px 90px #0008;transform:perspective(1000px) rotateY(-4deg) rotateX(2deg)}.visual:before{content:"";position:absolute;inset:-35px -25px auto auto;width:220px;height:220px;background:#786cff30;filter:blur(60px);z-index:-1}.window-bar{display:flex;align-items:center;gap:6px;padding:4px 4px 14px;border-bottom:1px solid #ffffff10}.window-bar i{width:7px;height:7px;border-radius:50%;background:#45516b}.window-title{margin-left:8px;color:#9aa8c0;font-size:11px}.dash{display:grid;grid-template-columns:42px 1fr;gap:12px;padding-top:13px}.dash-side{display:flex;flex-direction:column;gap:12px;align-items:center;padding-top:8px}.dash-icon{height:27px;width:27px;border-radius:9px;background:#202b45;display:grid;place-items:center;font-size:12px;color:#aeb9ff}.dash-icon.active{background:#6558e9;color:#fff}.dash-main{min-width:0}.dash-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:11px}.dash-top strong{font-size:14px}.dash-tag{background:#173c36;color:#8de6c4;padding:4px 7px;border-radius:7px;font-size:9px}.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{border:1px solid #293651;background:#151f34;border-radius:12px;padding:11px}.stat label{display:block;color:#8e9bb5;font-size:9px}.stat strong{font-family:"Space Grotesk";font-size:19px}.stat em{display:block;font-style:normal;color:#73dcb8;font-size:9px}.chart-card{margin-top:9px;border:1px solid #293651;background:#111a2d;border-radius:12px;padding:12px}.chart-head{display:flex;justify-content:space-between;font-size:10px;color:#a7b3c9}.chart{width:100%;height:118px;margin-top:10px}.chart svg{width:100%;height:100%;overflow:visible}.chart line{stroke:#28344d;stroke-dasharray:3 5}.chart .area{fill:url(#area)}.chart .line{fill:none;stroke:#9287ff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.floating{position:absolute;right:-22px;bottom:25px;border:1px solid #354361;background:#141f34;border-radius:14px;padding:13px 15px;box-shadow:0 15px 40px #0006;font-size:11px}.floating b{display:block;color:#83e6c2;font-size:15px}.trust{padding:22px 0 52px;border-top:1px solid #ffffff0a;border-bottom:1px solid #ffffff0a}.trust-inner{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}.trust-label{font-size:.85rem;color:#8593ad}.trust-pill{border:1px solid #28334b;border-radius:999px;padding:9px 14px;color:#b4bfd4;font-size:.85rem}.section{padding:100px 0}.section-head{max-width:700px;margin-bottom:42px}.section-head p{font-size:1.08rem;color:var(--muted)}.center{text-align:center;margin-left:auto;margin-right:auto}.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.feature{padding:24px;border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(145deg,#111a2d,#0e1525);min-height:235px}.feature-icon{width:46px;height:46px;border-radius:14px;background:#242148;border:1px solid #3d3870;display:grid;place-items:center;color:#c6c0ff;font-size:21px;margin-bottom:23px}.feature p{color:var(--muted);margin-bottom:0}.split{display:grid;grid-template-columns:1fr 1fr;gap:55px;align-items:center}.mini-board{padding:22px;border-radius:24px;border:1px solid #293650;background:#10192b;box-shadow:0 25px 65px #0004}.matrix-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:18px}.matrix-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.matrix-box{min-height:124px;border-radius:15px;padding:14px;color:#eaf1ff}.matrix-box b{display:block;margin-bottom:5px}.matrix-box span{font-size:11px;opacity:.85}.matrix-box.scale{background:#153a31;border:1px solid #28624f}.matrix-box.gem{background:#242d57;border:1px solid #3d4c88}.matrix-box.optimize{background:#3b2d1b;border:1px solid #6d512b}.matrix-box.rework{background:#3a202d;border:1px solid #6b3547}.matrix-item{display:block;margin-top:10px;border-radius:8px;padding:8px;background:#0e1729;font-size:10px}.bullet-list{display:grid;gap:14px;padding:0;list-style:none}.bullet-list li{display:flex;gap:12px;color:#c0cadd}.check{flex:none;display:grid;place-items:center;width:23px;height:23px;border-radius:50%;background:#153b33;color:#7ee2bd;font-size:12px}.audience-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.audience-card{border:1px solid var(--line);border-radius:var(--radius);padding:30px;background:linear-gradient(145deg,#131d32,#0e1525)}.audience-card .big-icon{font-size:28px}.audience-card ul{padding-left:20px;color:var(--muted)}.pricing-toggle{display:inline-flex;padding:5px;border:1px solid #303b55;background:#111a2d;border-radius:13px;gap:4px;margin:8px 0 30px}.pricing-toggle button{border:0;background:transparent;color:#aab6cb;border-radius:9px;padding:9px 13px}.pricing-toggle button.active{background:#6558e9;color:#fff}.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:stretch}.price-card{position:relative;border:1px solid var(--line);background:#10182a;border-radius:22px;padding:25px;display:flex;flex-direction:column}.price-card.featured{border-color:#8378ff;box-shadow:0 0 0 1px #8378ff35,0 22px 60px #4d43c51a;background:linear-gradient(160deg,#1a1d3b,#10182a 55%)}.popular{position:absolute;top:-13px;right:18px;border-radius:999px;padding:5px 10px;background:#8175ff;color:white;font-size:11px;font-weight:700}.price-name{font-weight:700;font-size:1.1rem}.price-desc{font-size:.9rem;color:var(--muted);min-height:48px}.price{font-family:"Space Grotesk";font-size:2.5rem;font-weight:700;letter-spacing:-.06em;margin:18px 0 0}.price small{font-family:"DM Sans";font-size:.88rem;font-weight:500;color:var(--muted);letter-spacing:0}.price-note{font-size:.8rem;color:#8e9bb3;min-height:24px}.price-card .btn{width:100%;margin:18px 0}.price-card ul{padding:18px 0 0;margin:0;border-top:1px solid #ffffff12;list-style:none;display:grid;gap:12px;color:#c0cadd;font-size:.9rem}.price-card li:before{content:"✓";color:#79dfba;margin-right:9px}.agency-note{font-size:.84rem;color:#8e9bb4;margin-top:18px}.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.faq{padding:20px;border:1px solid var(--line);border-radius:16px;background:#10182a}.faq summary{cursor:pointer;font-weight:700}.faq p{color:var(--muted);margin-bottom:0}.cta-band{padding:52px;border:1px solid #4b4686;border-radius:28px;background:radial-gradient(ellipse at 100% 0%,#766aff38,transparent 40%),linear-gradient(130deg,#191d3a,#10182b);display:flex;align-items:center;justify-content:space-between;gap:30px}.cta-band p{color:#b6c1d7;max-width:610px}.footer{padding:40px 0 28px;border-top:1px solid #ffffff12;margin-top:90px}.footer-top{display:flex;justify-content:space-between;gap:25px;flex-wrap:wrap}.footer-links{display:flex;gap:20px;flex-wrap:wrap;color:#a4b0c5;font-size:.9rem}.footer-bottom{margin-top:35px;padding-top:20px;border-top:1px solid #ffffff0e;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;color:#7f8da6;font-size:.82rem}.modal{position:fixed;inset:0;z-index:100;background:#020510c9;backdrop-filter:blur(9px);display:none;align-items:center;justify-content:center;padding:20px}.modal.open{display:flex}.modal-card{width:min(480px,100%);border:1px solid #36425e;border-radius:22px;background:#111a2d;padding:27px;box-shadow:0 30px 90px #000a;position:relative}.modal-close{position:absolute;right:16px;top:13px;background:transparent;border:0;color:#9eabc0;font-size:24px}.modal-card h3{font-size:1.65rem;margin:8px 0}.form-field{display:grid;gap:7px;margin:14px 0}.form-field label{font-size:.88rem;color:#c4cde0}.form-field input,.form-field select{width:100%;border:1px solid #35425c;background:#0b1220;color:white;border-radius:11px;padding:12px}.modal-card .btn{width:100%;margin-top:8px}.notice-box{background:#1d2a43;border:1px solid #344563;border-radius:12px;padding:12px;color:#b9c7dd;font-size:.85rem;margin:14px 0}.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:120;background:#17253b;border:1px solid #415271;border-radius:12px;padding:13px 18px;color:#eff4ff;transition:.25s;max-width:calc(100% - 30px);box-shadow:0 15px 40px #0007}.toast.show{opacity:1;transform:translate(-50%,0)}.legal{font-size:.8rem;color:#77859d}
-@media(max-width:900px){.hero-grid,.split{grid-template-columns:1fr;gap:42px}.hero{padding-top:65px}.visual{max-width:650px;width:100%;margin:auto;transform:none}.features-grid{grid-template-columns:repeat(2,1fr)}.pricing-grid{grid-template-columns:1fr;max-width:520px;margin:auto;gap:22px}.price-desc{min-height:0}.price-card.featured{order:-1}.nav-links{gap:15px}.cta-band{padding:35px;align-items:flex-start;flex-direction:column}}
-@media(max-width:680px){.container{width:min(100% - 28px,var(--max))}.nav{height:66px}.menu-btn{display:block}.nav-links{display:none;position:absolute;left:14px;right:14px;top:66px;padding:16px;border:1px solid var(--line);border-radius:16px;background:#10182b;flex-direction:column;align-items:stretch;gap:0}.nav-links.open{display:flex}.nav-links a{padding:11px}.nav-actions .ghost{display:none}.nav-actions .btn{padding:9px 11px;font-size:.85rem}.brand{font-size:1.1rem}.brand-mark{width:35px;height:35px}.hero{padding:50px 0}.hero-grid{gap:35px}h1{font-size:clamp(2.65rem,13vw,4.1rem)}.hero-copy .sub{font-size:1rem}.hero-actions .btn{flex:1}.visual{padding:10px;border-radius:20px}.dash{grid-template-columns:28px 1fr;gap:8px}.dash-icon{width:24px;height:24px}.stat{padding:8px}.stat strong{font-size:16px}.chart{height:85px}.floating{right:-5px;bottom:10px}.trust-inner{justify-content:center}.trust-label{width:100%;text-align:center}.section{padding:70px 0}.features-grid,.audience-grid,.faq-grid{grid-template-columns:1fr}.feature{min-height:0}.section-head{margin-bottom:28px}.matrix-grid{gap:7px}.matrix-box{padding:10px;min-height:110px}.cta-band{padding:27px 22px}.footer-top{flex-direction:column}.footer-bottom{flex-direction:column}.price{font-size:2.2rem}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
-</style>
-</head>
-<body>
-<header class="nav-wrap"><nav class="nav container" aria-label="Navigasi utama">
-<a class="brand" href="#home"><img class="brand-mark" src="./brand-logo.svg?v=20261012b" alt="Nalyto logo"><span>Nalyto</span></a>
-<div class="nav-links" id="navLinks"><a href="#features">Fitur</a><a href="#solutions">Solusi</a><a href="#roadmap">Pengembangan</a><a href="#faq">FAQ</a></div>
-<div class="nav-actions"><a class="btn ghost" href="https://syh18.github.io/Growth-Scope/">Login</a><a class="btn primary small" href="https://syh18.github.io/Growth-Scope/">Coba Gratis <span>↗</span></a><button class="menu-btn" id="menuBtn" aria-label="Buka navigasi" aria-expanded="false">☰</button></div>
-</nav></header>
-<main>
-<section class="hero" id="home"><div class="container hero-grid">
-<div class="hero-copy"><span class="eyebrow"><span class="dot"></span> SOCIAL MEDIA GROWTH WORKSPACE</span>
-<h1>Stop guessing.<br><span style="color:#a9a2ff">Start growing.</span></h1>
-<p class="sub">Satu workspace untuk merencanakan konten, membaca performa, dan menemukan langkah berikutnya untuk pertumbuhan media sosial bisnismu.</p>
-<div class="hero-actions"><a class="btn primary" href="https://syh18.github.io/Growth-Scope/">Mulai Gratis <span>→</span></a><a class="btn secondary" href="#features">Jelajahi Fitur <span>↓</span></a></div>
-<div class="micro-proof"><span class="dot"></span><span><b>Plan.</b> Measure. Learn. Improve.</span><span>·</span><span>Untuk bisnis & agensi</span></div>
-</div>
-<div class="visual" aria-label="Ilustrasi dashboard Nalyto"><div class="window-bar"><i></i><i></i><i></i><span class="window-title">Nalyto Intelligence / Overview</span></div><div class="dash"><div class="dash-side"><span class="dash-icon active">⌂</span><span class="dash-icon">▦</span><span class="dash-icon">◫</span><span class="dash-icon">✦</span><span class="dash-icon">▤</span></div><div class="dash-main"><div class="dash-top"><strong>Performance overview</strong><span class="dash-tag">● Workspace active</span></div><div class="stat-grid"><div class="stat"><label>Total reach</label><strong>24.8K</strong><em>↗ +18.6%</em></div><div class="stat"><label>Engagement rate</label><strong>6.42%</strong><em>↗ +1.2%</em></div><div class="stat"><label>Content scored</label><strong>32</strong><em>Across channels</em></div></div><div class="chart-card"><div class="chart-head"><span>Reach & engagement trend</span><span>Last 30 days</span></div><div class="chart"><svg viewBox="0 0 440 120" preserveAspectRatio="none" role="img" aria-label="Grafik tren ilustratif"><defs><linearGradient id="area" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#8175ff" stop-opacity=".34"/><stop offset="1" stop-color="#8175ff" stop-opacity="0"/></linearGradient></defs><line x1="0" y1="20" x2="440" y2="20"/><line x1="0" y1="55" x2="440" y2="55"/><line x1="0" y1="90" x2="440" y2="90"/><path class="area" d="M0 95 C25 85 35 90 55 72 S95 82 120 62 S155 68 180 50 S220 63 245 38 S285 52 310 31 S355 44 380 20 S415 29 440 8 L440 120 L0 120Z"/><path class="line" d="M0 95 C25 85 35 90 55 72 S95 82 120 62 S155 68 180 50 S220 63 245 38 S285 52 310 31 S355 44 380 20 S415 29 440 8"/></svg></div></div></div></div><div class="floating">Growth signals<b>↗ Opportunity found</b><span style="color:#9aa8bf">Use data to plan your next move</span></div></div>
-</div></section>
-<section class="trust"><div class="container trust-inner"><span class="trust-label">Dibangun untuk workflow yang lebih terarah</span><span class="trust-pill">✦ Content planning</span><span class="trust-pill">◫ Performance analytics</span><span class="trust-pill">◇ Workspace collaboration</span><span class="trust-pill">↗ Growth insights</span></div></section>
-<section class="section" id="features"><div class="container"><div class="section-head center"><span class="eyebrow">ONE WORKSPACE, CLEARER MOVES</span><h2>Semua konten. Satu pandangan.</h2><p>Nggak cuma mengumpulkan angka. Nalyto membantu menghubungkan perencanaan konten dengan evaluasi performa supaya tim tahu apa yang perlu dilakukan berikutnya.</p></div><div class="features-grid">
-<article class="feature"><div class="feature-icon">▦</div><h3>Content Planner & Calendar</h3><p>Susun ide, jadwal publikasi, format, hook, CTA, dan deadline dalam satu alur kerja yang lebih rapi.</p></article>
-<article class="feature"><div class="feature-icon">⌁</div><h3>Content Performance Analytics</h3><p>Pahami reach, engagement, saves, shares, dan metrik lain untuk membaca performa konten.</p></article>
-<article class="feature"><div class="feature-icon">✦</div><h3>Performance Matrix</h3><p>Kelompokkan konten menjadi SCALE, HIDDEN GEM, OPTIMIZE, atau REWORK berdasarkan benchmark workspace.</p></article>
-<article class="feature"><div class="feature-icon">↕</div><h3>Content Ranking</h3><p>Bandingkan konten berdasarkan skor dan temukan konten yang layak dipelajari lebih lanjut.</p></article>
-<article class="feature"><div class="feature-icon">◎</div><h3>Database & Insights</h3><p>Bangun satu sumber data konten yang bisa dipakai untuk evaluasi, perencanaan, dan pelaporan.</p></article>
-<article class="feature"><div class="feature-icon">♧</div><h3>Workspace untuk Tim</h3><p>Mulai dari satu brand dan kembangkan workflow menuju pengelolaan beberapa klien untuk agensi.</p></article>
-</div></div></section>
-<section class="section" style="padding-top:20px"><div class="container split"><div class="mini-board"><div class="matrix-head"><div><strong>Content Performance Matrix</strong><div class="muted" style="font-size:12px">Contoh tampilan · benchmark workspace</div></div><span class="dash-tag">SMGA</span></div><div class="matrix-grid"><div class="matrix-box scale"><b>🔥 SCALE</b><span>Reach tinggi · ER tinggi</span><span class="matrix-item">Konten edukasi performa tinggi</span></div><div class="matrix-box gem"><b>💎 HIDDEN GEM</b><span>Reach rendah · ER tinggi</span><span class="matrix-item">Topik potensial untuk diuji</span></div><div class="matrix-box optimize"><b>⚠ OPTIMIZE</b><span>Reach tinggi · ER rendah</span><span class="matrix-item">Perbaiki hook & CTA</span></div><div class="matrix-box rework"><b>↻ REWORK</b><span>Reach rendah · ER rendah</span><span class="matrix-item">Evaluasi ide dan format</span></div></div><p class="legal">Ilustrasi konsep, bukan data performa pelanggan.</p></div><div><span class="eyebrow">FROM DATA TO DECISIONS</span><h2>Angka yang punya arah.</h2><p class="muted">Benchmark relatif membantu tim melihat pola di dalam workspace sendiri. Matrix bukan label mutlak kualitas konten—ini titik awal untuk eksperimen yang lebih terarah.</p><ul class="bullet-list"><li><span class="check">✓</span><span>Kenali konten yang patut direplikasi dan diuji ulang.</span></li><li><span class="check">✓</span><span>Temukan konten dengan engagement kuat yang masih perlu distribusi.</span></li><li><span class="check">✓</span><span>Jadikan evaluasi sebagai input untuk kalender konten berikutnya.</span></li></ul><a class="btn secondary" href="https://syh18.github.io/Growth-Scope/">Lihat workspace <span>↗</span></a></div></div></section>
-<section class="section" id="solutions"><div class="container"><div class="section-head"><span class="eyebrow">BUILT FOR YOUR WORKFLOW</span><h2>Untuk brand yang tumbuh.<br>Untuk agensi yang mengelola banyak brand.</h2><p>Mulai dari tim kecil sampai workflow agensi yang membutuhkan proses lebih konsisten.</p></div><div class="audience-grid"><article class="audience-card"><div class="big-icon">◈</div><h3>Untuk bisnis & tim marketing</h3><p class="muted">Kurangi pekerjaan yang tersebar di spreadsheet dan obrolan.</p><ul><li>Rencanakan konten dalam kalender terpusat</li><li>Evaluasi performa berdasarkan data</li><li>Gunakan insight untuk eksperimen berikutnya</li></ul><a href="https://syh18.github.io/Growth-Scope/" class="btn secondary">Jelajahi workspace →</a></article><article class="audience-card"><div class="big-icon">⌘</div><h3>Untuk agensi digital</h3><p class="muted">Bangun workflow yang bisa diulang lintas klien tanpa kehilangan konteks masing-masing brand.</p><ul><li>Rancang alur kerja untuk beberapa klien</li><li>Standarkan analisis dan pelaporan</li><li>Siapkan fondasi untuk layanan co-branding</li></ul><a href="#roadmap" class="btn secondary">Lihat arah pengembangan →</a></article></div></div></section>
-<section class="section" id="roadmap"><div class="container"><div class="section-head center"><span class="eyebrow">EARLY STAGE · BUILDING IN PUBLIC</span><h2>Mulai dari kebutuhan nyata.</h2><p>Nalyto masih terus dikembangkan. Untuk sekarang, fokus kami adalah merapikan workflow inti, memastikan data dan analitik bekerja konsisten, serta memahami kebutuhan bisnis dan agensi sebelum menetapkan paket berbayar.</p></div><div class="features-grid roadmap-grid"><article class="feature"><div class="feature-icon">01</div><h3>Stabilitas produk</h3><p>Merapikan pengalaman penggunaan, validasi data, serta konsistensi Dashboard, Planner, Calendar, dan Analytics.</p><span class="trust-pill" style="display:inline-flex;margin-top:18px">Fokus saat ini</span></article><article class="feature"><div class="feature-icon">02</div><h3>Workflow bisnis & agensi</h3><p>Mempelajari cara tim mengelola konten, mengevaluasi hasil, dan bekerja lintas brand sebelum menetapkan batas paket.</p></article><article class="feature"><div class="feature-icon">03</div><h3>Paket dan billing</h3><p>Harga, paket, dan pembayaran akan diumumkan setelah cakupan fitur, batas penggunaan, dan alur dukungan sudah jelas.</p><span class="trust-pill" style="display:inline-flex;margin-top:18px">Belum tersedia</span></article></div><div class="center" style="margin-top:30px"><a class="btn primary" href="https://syh18.github.io/Growth-Scope/">Jelajahi aplikasi Nalyto ↗</a><p class="agency-note">Belum ada harga atau pembayaran yang ditawarkan melalui website ini.</p></div></div></section>
-<section class="section" id="faq"><div class="container"><div class="section-head center"><span class="eyebrow">FAQ</span><h2>Yang perlu kamu tahu.</h2><p>Jawaban singkat sebelum mulai menggunakan Nalyto.</p></div><div class="faq-grid">
-<details class="faq"><summary>Apa itu Nalyto?</summary><p>Nalyto adalah workspace Social Media Growth Analyzer untuk membantu tim merencanakan konten, membaca performa, dan menemukan peluang optimasi.</p></details>
-<details class="faq"><summary>Apakah cocok untuk agensi?</summary><p>Nalyto dirancang dengan arah penggunaan bisnis dan agensi. Fitur multi-klien, billing, dan co-branding perlu diverifikasi atau dikembangkan sesuai paket sebelum dijual sebagai layanan aktif.</p></details>
-<details class="faq"><summary>Apakah Nalyto otomatis mengambil data Instagram?</summary><p>Jangan anggap semua metrik otomatis tersinkron. Ketersediaan data bergantung pada integrasi yang sudah dikonfigurasi; sebagian metrik mungkin perlu dimasukkan atau diimpor.</p></details>
-<details class="faq"><summary>Apakah pembayaran paket sudah aktif?</summary><p>Belum. Tombol paket berbayar saat ini membuka alur minat paket. Payment gateway, pencatatan langganan, invoice, dan pembatasan fitur harus diintegrasikan sebelum menerima pembayaran.</p></details>
-<details class="faq"><summary>Bagaimana cara mulai?</summary><p>Klik Mulai Gratis untuk membuka aplikasi Nalyto yang sudah ada, lalu daftar atau login di sana.</p></details>
-<details class="faq"><summary>Apakah data aplikasi yang lama berubah?</summary><p>Website ini terpisah di folder website dan tidak mengubah database Supabase maupun file aplikasi utama.</p></details>
-</div></div></section>
-<section class="container"><div class="cta-band"><div><span class="eyebrow">YOUR NEXT MOVE STARTS HERE</span><h2 style="margin-top:18px">Bikin keputusan konten<br>lebih terarah.</h2><p>Mulai dengan workspace Nalyto dan ubah evaluasi konten menjadi proses yang bisa diulang.</p></div><a class="btn primary" href="https://syh18.github.io/Growth-Scope/">Buka Nalyto <span>↗</span></a></div></section>
-</main>
-<footer class="footer"><div class="container"><div class="footer-top"><a class="brand" href="#home"><img class="brand-mark" src="./brand-logo.svg?v=20261012b" alt="Nalyto logo"><span>Nalyto</span></a><div class="footer-links"><a href="#features">Fitur</a><a href="#roadmap">Pengembangan</a><a href="#faq">FAQ</a><a href="https://syh18.github.io/Growth-Scope/">Login aplikasi</a></div></div><div class="footer-bottom"><span>© <span id="year"></span> Nalyto. Built for clearer growth.</span><span>Social Media Growth Analyzer</span></div><p class="legal">Nama dan paket merupakan materi produk Nalyto. Harga dan fitur paket berbayar masih rancangan sampai proses billing dan ketentuan layanan resmi diaktifkan.</p></div></footer>
-<div class="modal" id="planModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-card"><button class="modal-close" id="modalClose" aria-label="Tutup">×</button><span class="eyebrow">PLAN INTEREST</span><h3 id="modalTitle">Diskusikan paket Nalyto</h3><p class="muted" id="modalIntro">Sampaikan kebutuhanmu. Alur ini belum mengaktifkan pembayaran atau langganan otomatis.</p><form id="interestForm"><div class="form-field"><label for="planSelect">Paket yang diminati</label><select id="planSelect"><option>Business</option><option>Agency</option><option>Agency Pro / White-label</option></select></div><div class="form-field"><label for="nameInput">Nama</label><input id="nameInput" name="name" required autocomplete="name" placeholder="Nama kamu"></div><div class="form-field"><label for="emailInput">Email kerja</label><input id="emailInput" name="email" type="email" required autocomplete="email" placeholder="nama@perusahaan.com"></div><div class="form-field"><label for="needInput">Kebutuhan utama (opsional)</label><input id="needInput" name="need" placeholder="Mis. mengelola 8 akun klien"></div><div class="notice-box">Form ini akan menyiapkan draft permintaan di perangkatmu. Belum ada backend penerima lead yang terhubung, jadi belum ada data yang dikirim atau disimpan ke Nalyto.</div><button class="btn primary" type="submit">Siapkan ringkasan permintaan</button></form><p class="legal">Jangan masukkan informasi sensitif.</p></div></div><div class="toast" id="toast" role="status" aria-live="polite"></div>
-<script>
-const appUrl='https://syh18.github.io/Growth-Scope/';
-const menuBtn=document.getElementById('menuBtn'),navLinks=document.getElementById('navLinks');
-menuBtn.addEventListener('click',()=>{const open=navLinks.classList.toggle('open');menuBtn.setAttribute('aria-expanded',String(open));menuBtn.textContent=open?'×':'☰'});
-navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{navLinks.classList.remove('open');menuBtn.setAttribute('aria-expanded','false');menuBtn.textContent='☰'}));
-document.getElementById('year').textContent=new Date().getFullYear();
-function toast(message){const t=document.getElementById('toast');t.textContent=message;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3500)}
-const modal=document.getElementById('planModal'),planSelect=document.getElementById('planSelect');
-function openPlan(plan){planSelect.value=plan;modal.classList.add('open');document.body.style.overflow='hidden';document.getElementById('nameInput').focus()}
-function closePlan(){modal.classList.remove('open');document.body.style.overflow=''}
-document.querySelectorAll('[data-plan]').forEach(b=>b.addEventListener('click',()=>openPlan(b.dataset.plan)));
-document.getElementById('modalClose').addEventListener('click',closePlan);modal.addEventListener('click',e=>{if(e.target===modal)closePlan()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closePlan()});
-document.getElementById('interestForm').addEventListener('submit',e=>{e.preventDefault();const data={plan:planSelect.value,name:document.getElementById('nameInput').value.trim(),email:document.getElementById('emailInput').value.trim(),need:document.getElementById('needInput').value.trim(),createdAt:new Date().toISOString()};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='nalyto-plan-interest.json';a.click();URL.revokeObjectURL(url);closePlan();toast('Ringkasan permintaan diunduh. Belum terkirim ke Nalyto.');});
+<html lang="id"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101d2c">
+  <title>Nalyto — Social Media Growth Analyzer</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <style>
+    :root { --navy:#101d2c; --navy2:#172b3b; --ink:#172b3b; --muted:#536373; --mint:#baf272; --teal:#178c85; --paper:#f5f8f7; }
+    html { scroll-behavior:smooth; }
+    body { font-family:"DM Sans",sans-serif; margin:0; color:var(--ink); }
+    * { box-sizing:border-box; }
+    section[id] { scroll-margin-top:82px; }
+    .page-shell { width:100%; overflow:hidden; }
+    .site-header { background:var(--navy); border-bottom:1px solid rgba(255,255,255,.12); }
+    .nav-link { color:#d9e6e8; transition:color .2s; }
+    .nav-link:hover { color:var(--mint); }
+    .action { display:inline-flex; align-items:center; justify-content:center; min-height:48px; padding:12px 22px; border-radius:12px; font-weight:700; text-align:center; transition:transform .2s,box-shadow .2s,background .2s; }
+    .action:hover { transform:translateY(-2px); box-shadow:0 12px 22px rgba(0,0,0,.16); }
+    :focus-visible { outline:3px solid #75d9d1; outline-offset:4px; }
+    .hero { background:radial-gradient(circle at 80% 35%,#244e55 0%,#101d2c 52%); }
+    .eyebrow { letter-spacing:.15em; text-transform:uppercase; font-size:12px; font-weight:800; }
+    .display { font-size:clamp(2.45rem,5vw,4.7rem); line-height:1.07; letter-spacing:-.055em; }
+    .section-title { font-size:clamp(2rem,3.5vw,3.2rem); line-height:1.13; letter-spacing:-.045em; }
+    .feature-card { transition:transform .2s,box-shadow .2s; }
+    .feature-card:hover { transform:translateY(-4px); box-shadow:0 18px 38px rgba(16,29,44,.09); }
+    .icon-box { display:grid; place-items:center; width:42px; height:42px; border-radius:12px; background:#e2f5e9; color:#086b65; font-size:21px; font-weight:700; flex:none; }
+    .mock { background:#f9fcfb; box-shadow:0 34px 85px rgba(0,0,0,.27); transform:rotate(2deg); }
+    .mock-chart { height:110px; display:flex; align-items:end; gap:10px; }
+    .mock-chart span { flex:1; border-radius:7px 7px 2px 2px; background:linear-gradient(180deg,#70d9bc,#beeec4); }
+    .mock-chart span:nth-child(1){height:32%}.mock-chart span:nth-child(2){height:49%}.mock-chart span:nth-child(3){height:43%}.mock-chart span:nth-child(4){height:66%}.mock-chart span:nth-child(5){height:57%}.mock-chart span:nth-child(6){height:82%}.mock-chart span:nth-child(7){height:72%}
+    .mock-line { height:9px; border-radius:99px; background:#dce8e7; }
+    .matrix-card { border:1px solid rgba(255,255,255,.14); transition:transform .2s; }
+    .matrix-card:hover { transform:translateY(-3px); }
+    @media(max-width:767px) {
+      .mobile-links[hidden] { display:none; }
+      .mock { transform:none; }
+    }
+    @media(prefers-reduced-motion:reduce) {
+      html { scroll-behavior:auto; }
+      *,*::before,*::after { animation-duration:.01ms!important; transition-duration:.01ms!important; }
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
+ </head>
+ <body data-template-id="__page-root" style="background: rgb(245, 248, 247);">
+  <div class="page-shell">
+   <header class="site-header sticky top-0 z-40">
+    <nav aria-label="Navigasi utama" class="max-w-7xl mx-auto px-5 sm:px-8">
+     <div class="flex items-center justify-between gap-5 min-h-[76px]">
+      <a href="#beranda" class="flex items-center gap-3 text-white shrink-0" aria-label="Nalyto — kembali ke atas"> <span data-template-id="nav-logo-mark" class="canva-container grid place-items-center h-10 w-14 sm:w-16 rounded-xl bg-white px-2 overflow-hidden" aria-label="Logo resmi Nalyto" style="background: rgb(255, 255, 255);"><img data-template-id="nav-logo-image" class="canva-image max-h-8 w-full object-contain" loading="lazy" src="./brand-logo.svg?v=20261012b" alt="Logo resmi Nalyto"></span> <span data-template-id="brand-name" class="canva-text font-bold tracking-tight" style="color: rgb(255, 255, 255);">Nalyto</span> </a>
+      <div class="hidden lg:flex items-center gap-7 text-sm font-semibold">
+       <a data-template-id="nav-process" class="canva-link nav-link" href="#cara-kerja" style="color: rgb(217, 230, 232); font-weight: 400; font-style: normal; font-size: 16px;">Cara Kerja</a> <a data-template-id="nav-features" class="canva-link nav-link" href="#fitur" style="color: rgb(217, 230, 232); font-weight: 400; font-style: normal; font-size: 16px;">Fitur</a> <a data-template-id="nav-matrix" class="canva-link nav-link" href="#matrix" style="color: rgb(217, 230, 232); font-weight: 400; font-style: normal; font-size: 16px;">Performance Matrix</a> <a data-template-id="nav-workspace" class="canva-link nav-link" href="#workspace" style="color: rgb(217, 230, 232); font-weight: 400; font-style: normal; font-size: 16px;">Workspace</a>
+      </div><a data-template-id="nav-cta" class="canva-button action hidden md:inline-flex bg-[#baf272] text-[#101d2c] text-sm" href="http://lynk.id/sayasyh18/84qz6r0q138p/checkout" target="_blank" rel="noopener noreferrer" style="background: rgb(186, 242, 114); color: rgb(16, 29, 44); font-weight: 400; font-style: normal; font-size: 16px;">Beli Sekarang</a> <button id="menu-toggle" type="button" aria-label="Buka menu navigasi" aria-controls="mobile-menu" aria-expanded="false" class="lg:hidden md:hidden text-white border border-white/30 rounded-lg p-2.5"> <span aria-hidden="true" class="block w-5 h-0.5 bg-white mb-1.5"></span><span aria-hidden="true" class="block w-5 h-0.5 bg-white mb-1.5"></span><span aria-hidden="true" class="block w-5 h-0.5 bg-white"></span> </button>
+     </div>
+     <div id="mobile-menu" class="mobile-links lg:hidden md:hidden pb-5 space-y-1" hidden="">
+      <a data-template-id="mobile-process" class="canva-link nav-link block py-2" href="#cara-kerja" style="color: rgb(217, 230, 232); font-weight: 400; font-style: normal; font-size: 16px;">Cara Kerja</a> <a data-template-id="mobile-features" class="canva-link nav-link block py-2" href="#fitur" style="color: rgb(217, 230, 232); font-weight: 400; font-style: normal; font-size: 16px;">Fitur</a> <a data-template-id="mobile-matrix" class="canva-link nav-link block py-2" href="#matrix" style="color: rgb(217, 230, 232); font-weight: 400; font-style: normal; font-size: 16px;">Performance Matrix</a> <a data-template-id="mobile-workspace" class="canva-link nav-link block py-2" href="#workspace" style="color: rgb(217, 230, 232); font-weight: 400; font-style: normal; font-size: 16px;">Workspace</a> <a data-template-id="mobile-cta" class="canva-button action bg-[#baf272] text-[#101d2c] mt-3 w-full" href="http://lynk.id/sayasyh18/84qz6r0q138p/checkout" target="_blank" rel="noopener noreferrer" style="background: rgb(186, 242, 114); color: rgb(16, 29, 44); font-weight: 400; font-style: normal; font-size: 16px;">Beli Sekarang</a>
+     </div>
+    </nav>
+   </header>
+   <main>
+    <section id="beranda" class="hero text-white">
+     <div class="max-w-7xl mx-auto px-5 sm:px-8 py-20 lg:py-28 grid lg:grid-cols-[1fr_.94fr] items-center gap-14 lg:gap-16">
+      <div>
+       <div data-template-id="hero-brand" class="canva-container inline-flex items-center gap-2 rounded-full border border-[#baf272]/30 bg-white px-2.5 py-2 mb-6" style="background: rgb(255, 255, 255); color: rgb(232, 247, 208);">
+        <img data-template-id="hero-logo-image" class="canva-image h-6 w-10 object-contain" loading="lazy" src="./brand-logo.svg?v=20261012b" alt="Logo resmi Nalyto"><span data-template-id="hero-brand-name" class="canva-text text-sm font-bold tracking-wide text-[#e8f7d0]" style="color: rgb(16, 29, 44); font-weight: 700; font-style: normal; font-size: 14px;">Nalyto</span>
+       </div>
+       <p data-template-id="hero-eyebrow" class="canva-text eyebrow text-[#baf272] mb-6" style="color: rgb(186, 242, 114); font-weight: 400; font-style: normal; font-size: 16px;">Nalyto Social Media Growth Analyzer</p>
+       <h1 data-template-id="hero-title" class="canva-text display font-extrabold max-w-2xl" style="color: rgb(255, 255, 255); font-weight: 800; font-style: normal; font-size: 32px;">Ubah Data Konten Menjadi Keputusan Pemasaran yang Lebih Jelas</h1>
+       <p data-template-id="hero-description" class="canva-text text-[#cfdee1] text-lg leading-relaxed mt-7 max-w-xl" style="color: rgb(207, 222, 225); font-weight: 400; font-style: normal; font-size: 18px;">Nalyto membantu Anda mencatat performa media sosial, menemukan konten yang layak dikembangkan, dan merencanakan konten berikutnya dalam satu workspace.</p>
+       <div class="flex flex-wrap gap-3 mt-9">
+        <a data-template-id="hero-primary" class="canva-button action bg-[#baf272] text-[#101d2c]" href="http://lynk.id/sayasyh18/84qz6r0q138p/checkout" target="_blank" rel="noopener noreferrer" style="background: rgb(186, 242, 114); color: rgb(16, 29, 44); font-weight: 400; font-style: normal; font-size: 16px;">Beli Sekarang</a> <a data-template-id="hero-secondary" class="canva-button action border border-white/40 text-white hover:bg-white/10" href="http://lynk.id/sayasyh18/84qz6r0q138p/checkout" target="_blank" rel="noopener noreferrer" style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 16px;">Beli Sekarang</a>
+       </div>
+      </div>
+      <div aria-label="Ilustrasi konseptual tampilan analitik, bukan data nyata" class="relative max-w-xl w-full mx-auto">
+       <div class="absolute -inset-5 rounded-[38px] bg-[#baf272]/10 blur-2xl"></div>
+       <div class="mock relative rounded-[22px] overflow-hidden text-[#172b3b]">
+        <div class="grid grid-cols-[82px_1fr] sm:grid-cols-[112px_1fr] min-h-[300px]">
+         <aside class="bg-[#101d2c] text-white p-2 sm:p-3">
+          <div class="flex items-center gap-1.5 mb-5"><span class="w-5 h-5 rounded bg-[#baf272] text-[#101d2c] grid place-items-center text-[10px] font-extrabold">N</span><span class="hidden sm:block text-[9px] font-bold">Nalyto</span>
+          </div>
+          <p class="text-[7px] uppercase tracking-wider text-[#7d929c] mb-2">Workspace</p>
+          <div class="rounded-md bg-[#635bff] px-2 py-1.5 text-[8px] font-bold">
+           ▣ Dashboard
+          </div>
+          <div class="space-y-2 mt-3 text-[7px] text-[#b8c7cb]">
+           <div>
+            ▤ Content Database
+           </div>
+           <div>
+            ◈ Content Analytics
+           </div>
+           <div>
+            ⌁ Performance Matrix
+           </div>
+           <div>
+            ◇ Recommendations
+           </div>
+           <div>
+            ▦ Calendar
+           </div>
+           <div>
+            ◫ Content Planner
+           </div>
+           <div>
+            ▥ Content Ranking
+           </div>
+           <div>
+            ⌘ Workspace
+           </div>
+          </div>
+         </aside>
+         <div class="bg-[#f6f8fb] p-3 sm:p-4">
+          <div class="flex items-start justify-between border-b border-[#e7ebf2] pb-3 mb-3">
+           <div><span data-template-id="mock-heading" class="canva-text block font-bold text-[11px]" style="color: rgb(23, 43, 59); font-weight: 400; font-style: normal; font-size: 16px;">Ringkasan konten</span><span class="text-[7px] text-[#8190a0]">Measure. Understand. Improve.</span>
+           </div><span data-template-id="mock-disclaimer" class="canva-tag rounded-md bg-[#eef1ff] text-[#4c55c9] px-2 py-1 text-[7px] font-bold" style="background: rgb(231, 245, 236); color: rgb(23, 109, 100); font-weight: 400; font-style: normal; font-size: 16px;">Ilustrasi tampilan</span>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
+           <div class="rounded-lg bg-white p-2 shadow-sm"><span data-template-id="mock-content-label" class="canva-text text-[7px] font-semibold text-[#8190a0]" style="color: rgb(83, 99, 115); font-weight: 600; font-size: 12px;">Total Content</span><strong data-template-id="mock-content-value" class="canva-text block text-sm font-extrabold mt-1" style="color: rgb(23, 43, 59); font-weight: 800; font-size: 20px;">24</strong><span class="text-[6px] text-[#26a269]">Tracked posts</span>
+           </div>
+           <div class="rounded-lg bg-white p-2 shadow-sm"><span data-template-id="mock-reach" class="canva-text text-[7px] font-semibold text-[#8190a0]" style="color: rgb(83, 99, 115); font-weight: 400; font-style: normal; font-size: 16px;">Jangkauan</span><strong data-template-id="mock-reach-value" class="canva-text block text-sm font-extrabold mt-1" style="color: rgb(23, 43, 59); font-weight: 800; font-size: 20px;">18,6K</strong><span class="text-[6px] text-[#26a269]">All tracked content</span>
+           </div>
+           <div class="rounded-lg bg-white p-2 shadow-sm"><span data-template-id="mock-engagement" class="canva-text text-[7px] font-semibold text-[#8190a0]" style="color: rgb(83, 99, 115); font-weight: 400; font-style: normal; font-size: 16px;">Engagement</span><strong data-template-id="mock-engagement-value" class="canva-text block text-sm font-extrabold mt-1" style="color: rgb(23, 43, 59); font-weight: 800; font-size: 20px;">8,74%</strong><span class="text-[6px] text-[#26a269]">Average ER</span>
+           </div>
+           <div class="rounded-lg bg-white p-2 shadow-sm"><span data-template-id="mock-score-label" class="canva-text text-[7px] font-semibold text-[#8190a0]" style="color: rgb(23, 43, 59); font-weight: 700; font-size: 12px;">Avg Score</span><strong data-template-id="mock-score-value" class="canva-text block text-sm font-extrabold mt-1" style="color: rgb(23, 43, 59); font-weight: 800; font-size: 24px;">76</strong><span class="text-[6px] text-[#26a269]">Content performance</span>
+           </div>
+          </div>
+          <div class="grid sm:grid-cols-[1.45fr_1fr] gap-2 mt-2">
+           <div class="rounded-lg bg-white p-2 shadow-sm"><span data-template-id="mock-chart-label" class="canva-text text-[8px] font-bold" style="color: rgb(23, 43, 59); font-weight: 400; font-style: normal; font-size: 16px;">Tren performa</span>
+            <svg viewBox="0 0 300 90" class="w-full h-20 mt-1" role="img" aria-label="Grafik garis performa demo"><path d="M8 16 L60 29 L112 42 L164 54 L216 67 L278 80" fill="none" stroke="#5d5cff" stroke-width="2"></path><path d="M8 16 L60 29 L112 42 L164 54 L216 67 L278 80 L278 88 L8 88Z" fill="#5d5cff" opacity=".07"></path>
+            </svg>
+           </div>
+           <div class="rounded-lg bg-white p-2 shadow-sm"><span data-template-id="mock-planning-label" class="canva-text text-[8px] font-bold" style="color: rgb(23, 43, 59); font-weight: 700; font-style: normal; font-size: 12px;">Contoh workspace</span>
+            <p data-template-id="mock-top-one" class="canva-text text-[7px] font-semibold leading-snug mt-3" style="color: rgb(23, 43, 59); font-weight: 600; font-size: 12px;">5 Cara Membaca Performa Konten · 91</p>
+            <p data-template-id="mock-top-two" class="canva-text text-[7px] font-semibold leading-snug mt-2 pt-2 border-t border-[#edf0f4]" style="color: rgb(23, 43, 59); font-weight: 600; font-size: 12px;">Kesalahan Umum Saat Membuat Konten · 84</p>
+           </div>
+          </div>
+          <div class="grid grid-cols-3 gap-2 mt-2">
+           <div class="rounded-lg bg-white p-2 shadow-sm"><span class="text-[7px] font-bold">Best Pillar</span><strong class="block text-center text-[8px] text-[#6670c9] mt-5">Educational</strong>
+           </div>
+           <div class="rounded-lg bg-white p-2 shadow-sm"><span class="text-[7px] font-bold">Best Format</span><strong class="block text-center text-[8px] text-[#6670c9] mt-5">Single Image</strong>
+           </div>
+           <div class="rounded-lg bg-white p-2 shadow-sm"><span class="text-[7px] font-bold">Best Hook</span><strong data-template-id="mock-best" class="canva-text block text-center text-[8px] text-[#6670c9] mt-5" style="color: rgb(23, 109, 100); font-weight: 700; font-size: 11px;">Best: Educational · Single Image · Problem</strong>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section>
+    <section aria-label="Nilai utama" class="bg-white border-b border-[#e5ecea]">
+     <div class="max-w-7xl mx-auto px-5 sm:px-8 py-7 grid sm:grid-cols-3 gap-5 sm:gap-8">
+      <div class="flex items-center gap-3"><span aria-hidden="true" class="icon-box">↗</span>
+       <p data-template-id="value-one" class="canva-text font-bold" style="color: rgb(23, 43, 59); font-weight: 400; font-style: normal; font-size: 16px;">Analisis berbasis data</p>
+      </div>
+      <div class="flex items-center gap-3"><span aria-hidden="true" class="icon-box">◎</span>
+       <p data-template-id="value-two" class="canva-text font-bold" style="color: rgb(23, 43, 59); font-weight: 400; font-style: normal; font-size: 16px;">Perencanaan konten terarah</p>
+      </div>
+      <div class="flex items-center gap-3"><span aria-hidden="true" class="icon-box">▦</span>
+       <p data-template-id="value-three" class="canva-text font-bold" style="color: rgb(23, 43, 59); font-weight: 400; font-style: normal; font-size: 16px;">Workspace untuk brand atau proyek</p>
+      </div>
+     </div>
+    </section>
+    <section id="cara-kerja" class="bg-[#f5f8f7] py-20 lg:py-28">
+     <div class="max-w-7xl mx-auto px-5 sm:px-8 grid lg:grid-cols-[.8fr_1.2fr] gap-12 lg:gap-20 items-center">
+      <div>
+       <p data-template-id="problem-eyebrow" class="canva-text eyebrow text-[#08776e] mb-4" style="color: rgb(8, 119, 110); font-weight: 400; font-style: normal; font-size: 16px;">Masalah → langkah berikutnya</p>
+       <h2 data-template-id="problem-title" class="canva-text section-title font-extrabold" style="color: rgb(23, 43, 59); font-weight: 400; font-style: normal; font-size: 24px;">Dari angka yang tersebar menjadi langkah yang terarah</h2>
+       <p data-template-id="problem-description" class="canva-text text-[#536373] leading-relaxed mt-6" style="color: rgb(83, 99, 115); font-weight: 400; font-style: normal; font-size: 16px;">Saat performa konten tersebar di berbagai catatan, pemilik bisnis bisa kesulitan menentukan apa yang perlu diulang, diperbaiki, atau dikembangkan. Nalyto membantu menyatukan catatan dan membacanya sebagai dasar keputusan berikutnya.</p>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-4">
+       <article class="bg-white rounded-2xl p-6 border border-[#e2ebe8]"><span class="text-[#08776e] font-extrabold text-sm">01 /</span>
+        <h3 data-template-id="step-one" class="canva-text font-bold mt-4" style="color: rgb(23, 43, 59); font-weight: 400; font-style: normal; font-size: 19px;">Masukkan data konten</h3>
+        <p data-template-id="step-one-desc" class="canva-text text-[#536373] mt-2 leading-relaxed" style="color: rgb(83, 99, 115); font-weight: 400; font-style: normal; font-size: 16px;">Catat konten dan metriknya di workspace.</p>
+       </article>
+       <article class="bg-white rounded-2xl p-6 border border-[#e2ebe8]"><span class="text-[#08776e] font-extrabold text-sm">02 /</span>
+        <h3 data-template-id="step-two" class="canva-text font-bold mt-4" style="color: rgb(23, 43, 59); font-weight: 400; font-style: normal; font-size: 19px;">Lihat performa</h3>
+        <p data-template-id="step-two-desc" class="canva-text text-[#536373] mt-2 leading-relaxed" style="color: rgb(83, 99, 115); font-weight: 400; font-style: normal; font-size: 16px;">Baca ringkasan dan bandingkan konten.</p>
+       </article>
+       <article class="bg-white rounded-2xl p-6 border border-[#e2ebe8]"><span class="text-[#08776e] font-extrabold text-sm">03 /</span>
+        <h3 data-template-id="step-three" class="canva-text font-bold mt-4" style="color: rgb(23, 43, 59); font-weight: 400; font-style: normal; font-size: 19px;">Tentukan tindakan</h3>
+        <p data-template-id="step-three-desc" class="canva-text text-[#536373] mt-2 leading-relaxed" style="color: rgb(83, 99, 115); font-weight: 400; font-style: normal; font-size: 16px;">Pilih ide yang perlu dikembangkan atau diubah.</p>
+       </article>
+       <article class="bg-[#e5f6e8] rounded-2xl p-6 border border-[#cbeacb]"><span class="text-[#08776e] font-extrabold text-sm">04 /</span>
+        <h3 data-template-id="step-four" class="canva-text font-bold mt-4" style="color: rgb(23, 43, 59); font-weight: 400; font-style: normal; font-size: 19px;">Rencanakan berikutnya</h3>
+        <p data-template-id="step-four-desc" class="canva-text text-[#536373] mt-2 leading-relaxed" style="color: rgb(83, 99, 115); font-weight: 400; font-style: normal; font-size: 16px;">Susun konten berikutnya dengan arah yang jelas.</p>
+       </article>
+      </div>
+     </div>
+    </section>
+    <section id="fitur" class="bg-white py-20 lg:py-28">
+     <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <p data-template-id="features-eyebrow" class="canva-text eyebrow text-[#08776e] mb-4" style="color: rgb(8, 119, 110); font-weight: 400; font-style: normal; font-size: 16px;">Kemampuan utama</p>
+      <h2 data-template-id="features-title" class="canva-text section-title font-extrabold max-w-2xl" style="color: rgb(23, 43, 59); font-weight: 400; font-style: normal; font-size: 24px;">Semua yang dibutuhkan untuk membaca dan merencanakan konten</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mt-12">
+       <article class="feature-card rounded-2xl border border-[#e2ebe8] p-7"><span aria-hidden="true" class="icon-box">▥</span>
+        <h3 data-template-id="feature-analytics-title" class="canva-text font-bold mt-6" style="color: rgb(23, 43, 59); font-weight: 400; font-style: normal; font-size: 19px;">Dashboard &amp; Content Analytics</h3>
+        <p data-template-id="feature-analytics-desc" class="canva-text text-[#536373] leading-relaxed mt-3" style="color: rgb(83, 99, 115); font-weight: 400; font-style: normal; font-size: 16px;">Pantau jumlah konten, total reach, rata-rata engagement rate, skor performa, serta konten, pilar, format, dan hook terbaik.</p>
+       </article>
+       <article class="feature-card rounded-2xl border border-[#e2ebe8] p-7"><span aria-hidden="true" class="icon-box">⊞</span>
+        <h3 data-template-id="feature-matrix-title" class="canva-text font-bold mt-6" style="color: rgb(23, 43, 59); font-weight: 400; font-style: normal; font-size: 19px;">Performance Matrix</h3>
+        <p data-template-id="feature-matrix-desc" class="canva-text text-[#536373] leading-relaxed mt-3" style="color: rgb(83, 99, 115); font-weight: 400; font-style: normal; font-size: 16px;">Kelompokkan konten sebagai Scale, Hidden Gem, Optimize, atau Rework berdasarkan reach dan engagement relatif terhadap rata-rata workspace aktif.</p>
+       </article>
+       <article class="feature-card rounded-2xl border border-[#e2ebe8] p-7"><span aria-hidden="true" class="icon-box">★</span>
+        <h3 data-template-id="feature-score-title" class="canva-text font-bold mt-6" style="color: rgb(23, 43, 59); font-weight: 400; font-style: normal; font-size: 19px;">Skor &amp; Peringkat Konten</h3>
+        <p data-template-id="feature-score-desc" class="canva-text text-[#536373] leading-relaxed mt-3" style="color: rgb(83, 99, 115); font-weight: 400; font-style: normal; font-size: 16px;">Bandingkan konten dengan bobot skor: reach 30%, engagement rate 35%, share rate 15%, dan save rate 20%.</p>
+       </article>
+       <article class="feature-card rounded-2xl border border-[#e2ebe8] p-7"><span aria-hidden="true" class="icon-box">▦</span>
+        <h3 data-template-id="feature-planner-title" class="canva-text font-bold mt-6" style="color: rgb(23, 43, 59); font-weight: 400; font-style: normal; font-size: 19px;">Content Planner &amp; Kalender</h3>
+        <p data-template-id="feature-planner-desc" class="canva-text text-[#536373] leading-relaxed mt-3" style="color: rgb(83, 99, 115); font-weight: 400; font-style: normal; font-size: 16px;">Catat ide, tanggal dan jam unggah, format, hook, CTA, status, serta jadwal validasi data setelah publikasi.</p>
+       </article>
+       <article class="feature-card rounded-2xl border border-[#e2ebe8] p-7"><span aria-hidden="true" class="icon-box">✧</span>
+        <h3 data-template-id="feature-ai-title" class="canva-text font-bold mt-6" style="color: rgb(23, 43, 59); font-weight: 400; font-style: normal; font-size: 19px;">Rekomendasi &amp; AI Studio</h3>
+        <p data-template-id="feature-ai-desc" class="canva-text text-[#536373] leading-relaxed mt-3" style="color: rgb(83, 99, 115); font-weight: 400; font-style: normal; font-size: 16px;">Membantu analisis performa, menyusun rekomendasi, mencari ide konten, dan membuat draf caption berdasarkan data workspace.</p>
+       </article>
+       <article class="feature-card rounded-2xl border border-[#e2ebe8] p-7"><span aria-hidden="true" class="icon-box">⇄</span>
+        <h3 data-template-id="feature-import-title" class="canva-text font-bold mt-6" style="color: rgb(23, 43, 59); font-weight: 400; font-style: normal; font-size: 19px;">Impor &amp; Ekspor Data</h3>
+        <p data-template-id="feature-import-desc" class="canva-text text-[#536373] leading-relaxed mt-3" style="color: rgb(83, 99, 115); font-weight: 400; font-style: normal; font-size: 16px;">Gunakan impor CSV dan templat CSV untuk mulai mencatat; tersedia pula ekspor JSON dan impor cadangan.</p>
+       </article>
+      </div>
+     </div>
+    </section>
+    <section id="matrix" class="bg-[#101d2c] text-white py-20 lg:py-28">
+     <div class="max-w-7xl mx-auto px-5 sm:px-8 grid lg:grid-cols-[.8fr_1.2fr] gap-12 lg:gap-20 items-center">
+      <div>
+       <p data-template-id="matrix-eyebrow" class="canva-text eyebrow text-[#baf272] mb-4" style="color: rgb(186, 242, 114); font-weight: 400; font-style: normal; font-size: 16px;">Performance Matrix</p>
+       <h2 data-template-id="matrix-title" class="canva-text section-title font-extrabold" style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 24px;">Beri konteks pada setiap performa konten</h2>
+       <p data-template-id="matrix-description" class="canva-text text-[#cfdee1] leading-relaxed mt-6" style="color: rgb(207, 222, 225); font-weight: 400; font-style: normal; font-size: 16px;">Tidak semua konten membutuhkan tindakan yang sama. Matriks membantu Anda melihat mana yang bisa dikembangkan dan mana yang perlu pendekatan baru.</p>
+       <p data-template-id="matrix-note" class="canva-text text-[#b9d2d3] text-sm leading-relaxed mt-7 border-l-2 border-[#baf272] pl-4" style="color: rgb(185, 210, 211); font-weight: 400; font-style: normal; font-size: 16px;">Pengelompokan didasarkan pada perbandingan reach dan engagement terhadap rata-rata konten di workspace aktif.</p>
+      </div>
+      <div class="grid grid-cols-2 gap-3 sm:gap-4">
+       <article class="matrix-card bg-[#183b3d] rounded-2xl p-4 sm:p-6 min-h-36"><span class="text-[#baf272] text-2xl" aria-hidden="true">↗</span>
+        <h3 data-template-id="scale-title" class="canva-text font-bold mt-3" style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 19px;">Scale</h3>
+        <p data-template-id="scale-desc" class="canva-text text-[#d5e6e3] text-sm mt-2" style="color: rgb(213, 230, 227); font-weight: 400; font-style: normal; font-size: 16px;">Layak dikembangkan.</p>
+       </article>
+       <article class="matrix-card bg-[#20394a] rounded-2xl p-4 sm:p-6 min-h-36"><span class="text-[#83e6d7] text-2xl" aria-hidden="true">✦</span>
+        <h3 data-template-id="gem-title" class="canva-text font-bold mt-3" style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 19px;">Hidden Gem</h3>
+        <p data-template-id="gem-desc" class="canva-text text-[#d5e6e3] text-sm mt-2" style="color: rgb(213, 230, 227); font-weight: 400; font-style: normal; font-size: 16px;">Berpotensi dan perlu perhatian.</p>
+       </article>
+       <article class="matrix-card bg-[#253545] rounded-2xl p-4 sm:p-6 min-h-36"><span class="text-[#e4d194] text-2xl" aria-hidden="true">◎</span>
+        <h3 data-template-id="optimize-title" class="canva-text font-bold mt-3" style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 19px;">Optimize</h3>
+        <p data-template-id="optimize-desc" class="canva-text text-[#d5e6e3] text-sm mt-2" style="color: rgb(213, 230, 227); font-weight: 400; font-style: normal; font-size: 16px;">Perlu optimasi.</p>
+       </article>
+       <article class="matrix-card bg-[#303646] rounded-2xl p-4 sm:p-6 min-h-36"><span class="text-[#efbaa9] text-2xl" aria-hidden="true">↺</span>
+        <h3 data-template-id="rework-title" class="canva-text font-bold mt-3" style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 19px;">Rework</h3>
+        <p data-template-id="rework-desc" class="canva-text text-[#d5e6e3] text-sm mt-2" style="color: rgb(213, 230, 227); font-weight: 400; font-style: normal; font-size: 16px;">Perlu dikerjakan ulang.</p>
+       </article>
+      </div>
+     </div>
+    </section>
+    <section class="bg-[#f5f8f7] py-20 lg:py-28">
+     <div class="max-w-7xl mx-auto px-5 sm:px-8">
+      <p data-template-id="workflow-eyebrow" class="canva-text eyebrow text-[#08776e] mb-4" style="color: rgb(8, 119, 110); font-weight: 400; font-style: normal; font-size: 16px;">Alur kerja</p>
+      <h2 data-template-id="workflow-title" class="canva-text section-title font-extrabold max-w-3xl" style="color: rgb(23, 43, 59); font-weight: 400; font-style: normal; font-size: 24px;">Satu alur kerja untuk keputusan konten yang lebih baik</h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-4 mt-12">
+       <div class="bg-white rounded-2xl p-5 border border-[#e2ebe8]"><span class="text-[#08776e] font-bold">01 →</span>
+        <h3 data-template-id="flow-one" class="canva-text font-bold mt-5" style="color: rgb(23, 43, 59); font-weight: 400; font-style: normal; font-size: 19px;">Catat</h3>
+        <p data-template-id="flow-one-desc" class="canva-text text-sm text-[#536373] mt-2" style="color: rgb(83, 99, 115); font-weight: 400; font-style: normal; font-size: 16px;">Masukkan konten dan metrik.</p>
+       </div>
+       <div class="bg-white rounded-2xl p-5 border border-[#e2ebe8]"><span class="text-[#08776e] font-bold">02 →</span>
+        <h3 data-template-id="flow-two" class="canva-text font-bold mt-5" style="color: rgb(23, 43, 59); font-weight: 400; font-style: normal; font-size: 19px;">Analisis</h3>
+        <p data-template-id="flow-two-desc" class="canva-text text-sm text-[#536373] mt-2" style="color: rgb(83, 99, 115); font-weight: 400; font-style: normal; font-size: 16px;">Baca pola performa.</p>
+       </div>
+       <div class="bg-white rounded-2xl p-5 border border-[#e2ebe8]"><span class="text-[#08776e] font-bold">03 →</span>
+        <h3 data-template-id="flow-three" class="canva-text font-bold mt-5" style="color: rgb(23, 43, 59); font-weight: 400; font-style: normal; font-size: 19px;">Prioritaskan</h3>
+        <p data-template-id="flow-three-desc" class="canva-text text-sm text-[#536373] mt-2" style="color: rgb(83, 99, 115); font-weight: 400; font-style: normal; font-size: 16px;">Tentukan tindakan berikutnya.</p>
+       </div>
+       <div class="bg-white rounded-2xl p-5 border border-[#e2ebe8]"><span class="text-[#08776e] font-bold">04 →</span>
+        <h3 data-template-id="flow-four" class="canva-text font-bold mt-5" style="color: rgb(23, 43, 59); font-weight: 400; font-style: normal; font-size: 19px;">Rencanakan</h3>
+        <p data-template-id="flow-four-desc" class="canva-text text-sm text-[#536373] mt-2" style="color: rgb(83, 99, 115); font-weight: 400; font-style: normal; font-size: 16px;">Susun ide dan jadwal.</p>
+       </div>
+       <div class="bg-[#e5f6e8] rounded-2xl p-5 border border-[#cbeacb]"><span class="text-[#08776e] font-bold">05 ✓</span>
+        <h3 data-template-id="flow-five" class="canva-text font-bold mt-5" style="color: rgb(23, 43, 59); font-weight: 400; font-style: normal; font-size: 19px;">Validasi</h3>
+        <p data-template-id="flow-five-desc" class="canva-text text-sm text-[#536373] mt-2" style="color: rgb(83, 99, 115); font-weight: 400; font-style: normal; font-size: 16px;">Tinjau metrik setelah konten dipublikasikan.</p>
+       </div>
+      </div>
+     </div>
+    </section>
+    <section id="workspace" class="bg-white py-20 lg:py-28">
+     <div class="max-w-7xl mx-auto px-5 sm:px-8 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+      <div>
+       <p data-template-id="workspace-eyebrow" class="canva-text eyebrow text-[#08776e] mb-4" style="color: rgb(8, 119, 110); font-weight: 400; font-style: normal; font-size: 16px;">Workspace &amp; peran</p>
+       <h2 data-template-id="workspace-title" class="canva-text section-title font-extrabold" style="color: rgb(23, 43, 59); font-weight: 400; font-style: normal; font-size: 24px;">Ruang kerja yang rapi untuk setiap brand atau proyek</h2>
+       <p data-template-id="workspace-description" class="canva-text text-[#536373] leading-relaxed mt-6" style="color: rgb(83, 99, 115); font-weight: 400; font-style: normal; font-size: 16px;">Pisahkan konteks, konten, dan analisis untuk tiap brand atau proyek. Pengaturan peran mencakup Owner, Analyst, dan Viewer dengan hak akses berbeda.</p>
+       <p data-template-id="workspace-note" class="canva-text text-[#536373] text-sm leading-relaxed mt-6" style="color: rgb(83, 99, 115); font-weight: 400; font-style: normal; font-size: 16px;">Ketersediaan kolaborasi dapat bergantung pada versi dan deployment aplikasi.</p>
+      </div>
+      <div class="rounded-[28px] bg-[#f5f8f7] border border-[#e2ebe8] p-5 sm:p-8">
+       <p data-template-id="roles-label" class="canva-text font-bold mb-5" style="color: rgb(23, 43, 59); font-weight: 400; font-style: normal; font-size: 16px;">Peran dalam workspace</p>
+       <div class="space-y-3">
+        <div class="flex items-center gap-4 bg-white rounded-xl p-4 border border-[#e2ebe8]"><span class="icon-box">O</span>
+         <div>
+          <h3 data-template-id="owner-title" class="canva-text font-bold" style="color: rgb(23, 43, 59); font-weight: 400; font-style: normal; font-size: 19px;">Owner</h3>
+          <p data-template-id="owner-desc" class="canva-text text-sm text-[#536373]" style="color: rgb(83, 99, 115); font-weight: 400; font-style: normal; font-size: 16px;">Pengelolaan workspace dan pengaturan.</p>
+         </div>
+        </div>
+        <div class="flex items-center gap-4 bg-white rounded-xl p-4 border border-[#e2ebe8]"><span class="icon-box">A</span>
+         <div>
+          <h3 data-template-id="analyst-title" class="canva-text font-bold" style="color: rgb(23, 43, 59); font-weight: 400; font-style: normal; font-size: 19px;">Analyst</h3>
+          <p data-template-id="analyst-desc" class="canva-text text-sm text-[#536373]" style="color: rgb(83, 99, 115); font-weight: 400; font-style: normal; font-size: 16px;">Pekerjaan analisis dan pengelolaan konten sesuai hak akses.</p>
+         </div>
+        </div>
+        <div class="flex items-center gap-4 bg-white rounded-xl p-4 border border-[#e2ebe8]"><span class="icon-box">V</span>
+         <div>
+          <h3 data-template-id="viewer-title" class="canva-text font-bold" style="color: rgb(23, 43, 59); font-weight: 400; font-style: normal; font-size: 19px;">Viewer</h3>
+          <p data-template-id="viewer-desc" class="canva-text text-sm text-[#536373]" style="color: rgb(83, 99, 115); font-weight: 400; font-style: normal; font-size: 16px;">Melihat informasi sesuai hak akses.</p>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section>
+    <section class="bg-[#e9f2ee] py-16 lg:py-20">
+     <div class="max-w-7xl mx-auto px-5 sm:px-8 grid lg:grid-cols-[1fr_1fr] gap-8 items-center">
+      <div>
+       <p data-template-id="data-eyebrow" class="canva-text eyebrow text-[#08776e] mb-4" style="color: rgb(8, 119, 110); font-weight: 400; font-style: normal; font-size: 16px;">Data &amp; transparansi</p>
+       <h2 data-template-id="data-title" class="canva-text section-title font-extrabold" style="color: rgb(23, 43, 59); font-weight: 400; font-style: normal; font-size: 24px;">Kenali alur data Anda</h2>
+      </div>
+      <div>
+       <p data-template-id="data-description" class="canva-text text-[#344d54] leading-relaxed" style="color: rgb(52, 77, 84); font-weight: 400; font-style: normal; font-size: 16px;">Sesuai informasi aplikasi, data konten, planner, dan workspace disimpan di Supabase. Nalyto juga menyediakan opsi impor CSV, ekspor JSON, dan impor cadangan agar Anda dapat mengelola salinan data.</p>
+      </div>
+     </div>
+    </section>
+    <section class="bg-[#101d2c] text-white py-20 lg:py-24">
+     <div class="max-w-4xl mx-auto px-5 sm:px-8 text-center">
+      <p data-template-id="final-eyebrow" class="canva-text eyebrow text-[#baf272] mb-4" style="color: rgb(186, 242, 114); font-weight: 400; font-style: normal; font-size: 16px;">Langkah berikutnya</p>
+      <h2 data-template-id="final-title" class="canva-text section-title font-extrabold" style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 24px;">Mulai memahami konten yang benar-benar bekerja</h2>
+      <p data-template-id="final-description" class="canva-text text-[#cfdee1] leading-relaxed mt-5" style="color: rgb(207, 222, 225); font-weight: 400; font-style: normal; font-size: 16px;">Lihat bagaimana Nalyto membantu Anda membaca performa dan menyiapkan rencana konten berikutnya.</p><a data-template-id="final-cta" class="canva-button action bg-[#baf272] text-[#101d2c] mt-8" href="http://lynk.id/sayasyh18/84qz6r0q138p/checkout" target="_blank" rel="noopener noreferrer" style="background: rgb(186, 242, 114); color: rgb(16, 29, 44); font-weight: 400; font-style: normal; font-size: 16px;">Beli Sekarang</a>
+     </div>
+    </section>
+   </main>
+   <footer class="bg-[#0c1622] text-white">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 py-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+     <div>
+      <div data-template-id="footer-brand" class="canva-container inline-flex items-center gap-2 mb-3" style="color: rgb(255, 255, 255);">
+       <span class="grid place-items-center h-7 w-11 rounded-lg bg-white px-1.5 overflow-hidden"><img data-template-id="footer-logo-image" class="canva-image max-h-5 w-full object-contain" loading="lazy" src="./brand-logo.svg?v=20261012b" alt="Logo resmi Nalyto"></span><span data-template-id="footer-brand-name" class="canva-text text-lg font-bold text-white" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 18px;">Nalyto</span>
+      </div>
+      <p data-template-id="footer-name" class="canva-text font-bold" style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 16px;">Nalyto Social Media Growth Analyzer</p>
+      <p data-template-id="footer-tagline" class="canva-text text-[#adc2c7] text-sm mt-2" style="color: rgb(173, 194, 199); font-weight: 400; font-style: normal; font-size: 16px;">Analisis lebih jelas. Rencana lebih terarah.</p>
+     </div><a data-template-id="footer-link" class="canva-link text-[#baf272] font-bold hover:underline" href="http://lynk.id/sayasyh18/84qz6r0q138p/checkout" target="_blank" rel="noopener noreferrer" style="color: rgb(186, 242, 114); font-weight: 400; font-style: normal; font-size: 16px;">Beli Sekarang</a>
+    </div>
+   </footer>
+  </div>
+  <script>
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  menuToggle.addEventListener('click', () => {
+    const opening = mobileMenu.hidden;
+    mobileMenu.hidden = !opening;
+    menuToggle.setAttribute('aria-expanded', String(opening));
+    menuToggle.setAttribute('aria-label', opening ? 'Tutup menu navigasi' : 'Buka menu navigasi');
+  });
+  mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+    mobileMenu.hidden = true;
+    menuToggle.setAttribute('aria-expanded', 'false');
+    menuToggle.setAttribute('aria-label', 'Buka menu navigasi');
+  }));
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 768) {
+      mobileMenu.hidden = true;
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.setAttribute('aria-label', 'Buka menu navigasi');
+    }
+  });
 </script>
+ 
 </body></html>
