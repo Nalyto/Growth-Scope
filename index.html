@@ -1175,6 +1175,7 @@ body.gs-night #calendarGrid>div>div{background:#121e32!important;color:#dce5f3!i
   <div class="form" style="margin-top:18px">
    <div class="field plan-section-field"><label>📅 Upload Date</label><input type="date" id="planDate" required></div>
    <div class="field plan-section-field"><label>⏰ Upload Time</label><input type="time" id="planTime"><small style="display:block;color:#98a2b3;margin-top:5px">Alarm mengikuti tanggal + jam ini.</small></div>
+   <div class="field plan-section-field"><label>🔔 Alarm Upload</label><select id="planUploadReminderBefore"><option value="at">Saat jadwal upload</option><option value="15m">15 menit sebelumnya</option><option value="30m">30 menit sebelumnya</option><option value="1h">1 jam sebelumnya</option><option value="none">Tidak ada alarm</option></select><small style="display:block;color:#98a2b3;margin-top:5px">Notifikasi saat Nalyto terbuka; izinkan notifikasi browser agar muncul di luar tab.</small></div>
    <div class="field plan-section-field"><label>📱 Platform</label><select id="planPlatform"><option>Instagram</option><option>TikTok</option><option>Facebook</option><option>LinkedIn</option><option>YouTube</option></select></div>
    <div class="field"><label>Topic</label><input id="planTopic" required placeholder="Contoh: Tips CV ATS"></div>
    <div class="field"><label>Pillar</label><input id="planPillar" placeholder="Contoh: Career"></div>
@@ -1277,6 +1278,46 @@ function validationReadyAt(item){if(!item?.publishedAt)return null;const publish
 function reminderAt(item){const ready=validationReadyAt(item);if(!ready)return null;return new Date(ready.getTime()-reminderToMinutes(item.reminderBefore||'1h')*60000)}
 function reminderLabel(v){return v==='30m'?'30 menit sebelum':v==='15m'?'15 menit sebelum':v==='none'?'Tidak ada':'1 jam sebelum'}
 function requestGrowthNotifications(){if('Notification' in window&&Notification.permission==='default')Notification.requestPermission().catch(()=>{})}
+function uploadReminderAt(item){
+  const target=uploadDeadline(item);
+  if(!target)return null;
+  const setting=item?._meta?.uploadReminderBefore||'at';
+  if(setting==='none')return null;
+  const mins=setting==='15m'?15:setting==='30m'?30:setting==='1h'?60:0;
+  return new Date(target.getTime()-mins*60000);
+}
+function checkUploadReminders(){
+  if(!Array.isArray(plans)||!plans.length)return;
+  const now=Date.now();
+  plans.forEach(p=>{
+    if(p.uploaded||!p.date||!p.time)return;
+    const setting=p._meta?.uploadReminderBefore||'at';
+    if(setting==='none')return;
+    const target=uploadDeadline(p),at=uploadReminderAt(p);
+    if(!target||!at)return;
+    const key='nalyto_upload_alarm_'+p.id+'_'+at.getTime();
+    const withinWindow=setting==='at'?(now>=at.getTime()&&now<at.getTime()+60000):(now>=at.getTime()&&now<target.getTime());
+    if(withinWindow&&!localStorage.getItem(key)){
+      localStorage.setItem(key,'1');
+      const when=target.toLocaleString('id-ID',{dateStyle:'medium',timeStyle:'short'});
+      const msg='Jadwal upload "'+(p.topic||p.title||'Konten')+'" '+(setting==='at'?'sudah tiba':'dijadwalkan pada '+when)+'. Siapkan konten '+(p.platform||'')+'.';
+      showUploadReminder(msg);
+      if('Notification' in window&&Notification.permission==='granted'){
+        const notification=new Notification('Nalyto — Pengingat Upload',{body:msg,icon:'./icon.svg',tag:key});
+        notification.onclick=()=>{window.focus();document.querySelector('[data-page="planner"]')?.click();notification.close()};
+      }
+    }
+  });
+}
+function showUploadReminder(msg){
+  let el=document.getElementById('gsUploadReminder');
+  if(!el){
+    el=document.createElement('div');el.id='gsUploadReminder';
+    el.style.cssText='position:fixed;right:18px;bottom:18px;z-index:10001;width:min(390px,calc(100vw - 36px));box-sizing:border-box;background:#111c30;color:#eaf0ff;border:1px solid #30415c;border-left:4px solid #f59e0b;border-radius:15px;padding:14px 16px;box-shadow:0 18px 50px rgba(0,0,0,.42);font-size:12px;line-height:1.6';
+    document.body.appendChild(el);
+  }
+  el.innerHTML='<b style="display:block;margin-bottom:5px;color:#fff;font-size:13px">🔔 Waktunya Upload Konten</b><div style="color:#d8e2f3;overflow-wrap:anywhere">'+esc(msg)+'</div><div style="display:flex;justify-content:flex-end"><button onclick="this.parentElement.parentElement.remove()" style="margin-top:9px;border:0;background:#635bff;color:#fff;padding:7px 11px;border-radius:8px;font-weight:700;cursor:pointer">Tutup</button></div>';
+}
 function checkValidationReminders(){
   if(!Array.isArray(plans)||!plans.length)return;
   const now=Date.now();
@@ -2028,6 +2069,7 @@ function openPlanModal(plan){
   document.getElementById('planValidationTime').value=plan?._meta?.validationTime||'16:00';
   updatePlanValidationMode();
   document.getElementById('planReminderBefore').value=plan?._meta?.reminderBefore||'1h';
+  document.getElementById('planUploadReminderBefore').value=plan?._meta?.uploadReminderBefore||'at';
   document.getElementById('planPublishedAt').value=localDateTimeLabel(plan?._meta?.publishedAt);
   renderPlanSlides(plan?.slides||[]);
   updatePlanFormatFields();
@@ -2089,7 +2131,8 @@ async function savePlan(e){
   const validationMode=document.getElementById('planValidationMode').value||'duration';
   const validationTime=document.getElementById('planValidationTime').value||'16:00';
   const reminderBefore=document.getElementById('planReminderBefore').value||'1h';
-  const meta={instagramUrl:instagramUrl||'',previewUrl:previewUrl||'',copywriting,slides,uploaded:previous?.uploaded||false,linkedContentId:previous?.linkedContentId||null,previousStatus:previous?._meta?.previousStatus||previous?.status||selectedStatus,uiStatus:selectedStatus,validationMinutes,validationMode,validationTime,publishedAt:previous?._meta?.publishedAt||null,reminderBefore};
+  const uploadReminderBefore=document.getElementById('planUploadReminderBefore').value||'at';
+  const meta={instagramUrl:instagramUrl||'',previewUrl:previewUrl||'',copywriting,slides,uploaded:previous?.uploaded||false,linkedContentId:previous?.linkedContentId||null,previousStatus:previous?._meta?.previousStatus||previous?.status||selectedStatus,uiStatus:selectedStatus,validationMinutes,validationMode,validationTime,publishedAt:previous?._meta?.publishedAt||null,reminderBefore,uploadReminderBefore};
   const payload={workspace_id:workspace.id,created_by:currentUser.id,planned_date:document.getElementById('planDate').value||null,planned_time:document.getElementById('planTime').value||null,platform:document.getElementById('planPlatform').value,title:topic,topic,pillar:document.getElementById('planPillar').value.trim()||'General',format:document.getElementById('planFormat').value,hook:document.getElementById('planHook').value,cta:document.getElementById('planCTA').value.trim()||'Save',status:statusForDb,notes:writeGsMeta(document.getElementById('planNotes').value.trim(),meta)};
   const result=id?await db.from('content_plans').update(payload).eq('id',id).eq('workspace_id',workspace.id):await db.from('content_plans').insert(payload);
   if(result.error){alert('Gagal menyimpan planner: '+result.error.message);return}
@@ -2525,8 +2568,10 @@ render=async function(){await _oldRender();renderGroupsMatrix(averages());render
 
 init();
 setInterval(checkValidationReminders,30000);
+setInterval(checkUploadReminders,15000);
 setInterval(updatePlannerDeadlines,1000);
 setTimeout(checkValidationReminders,3000);
+setTimeout(checkUploadReminders,4000);
 function applyGrowthTheme(){const night=localStorage.getItem('gs_theme_mode')==='night';document.body.classList.toggle('gs-night',night);const b=document.getElementById('themeModeBtn');if(b)b.textContent=night?'☀️ Day Mode':'🌙 Night Mode';const meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.content=night?'#0b1220':'#101828'}
 function toggleGrowthTheme(){const night=document.body.classList.contains('gs-night');localStorage.setItem('gs_theme_mode',night?'day':'night');applyGrowthTheme()}
 function openValidationMetrics(planId){const p=plans.find(x=>String(x.id)===String(planId));if(!p||!p.linkedContentId){alert('Konten belum terhubung ke Content Database. Tandai Upload terlebih dahulu.');return}const x=data.find(v=>String(v.id)===String(p.linkedContentId));if(!x){alert('Konten database tidak ditemukan. Coba refresh data workspace.');return}document.getElementById('validationPlanId').value=String(planId);document.getElementById('validationMetricsSubtitle').textContent=(p.topic||p.title||'Konten')+' · '+(p.platform||'')+' · deadline '+(validationReadyAt(p)?.toLocaleString('id-ID',{dateStyle:'medium',timeStyle:'short'})||'belum ditentukan');[['vmReach','reach'],['vmViews','views'],['vmImpressions','impressions'],['vmLikes','likes'],['vmComments','comments'],['vmShares','shares'],['vmSaves','saves'],['vmProfile','profile'],['vmLeads','leads']].forEach(([id,k])=>document.getElementById(id).value=x[k]??'');document.getElementById('validationMetricsModal').classList.add('open')}
