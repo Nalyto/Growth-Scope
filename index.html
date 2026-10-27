@@ -191,6 +191,34 @@ body{background:var(--gs-bg)}
 @keyframes welcomeCardOut{to{opacity:0;transform:translateY(-8px) scale(.98)}}
 .app.welcome-blur{filter:blur(12px);transform:scale(.995);transition:filter .45s ease,transform .45s ease}
 @media(max-width:760px){.account-popover{position:fixed;right:12px;top:72px;width:min(300px,calc(100vw - 24px))}.profile-menu.open .account-popover{display:block}}
+
+/* Performance Overview detail */
+.performance-detail-card{overflow:hidden}
+.performance-detail-heading{align-items:flex-start;gap:16px;flex-wrap:wrap}
+.performance-controls{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.performance-controls label{font-size:10px;color:#718096;font-weight:800}
+.performance-controls select{border:1px solid #e5e9f2;border-radius:9px;padding:8px 10px;background:#fff;color:#172033;font:inherit;font-size:11px;max-width:150px}
+.performance-kpi-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:14px 0}
+.performance-kpi{border:1px solid #e8ebf2;border-radius:13px;padding:13px;background:linear-gradient(135deg,#fff,#fafbff);min-width:0}
+.performance-kpi .k-label{font-size:9px;letter-spacing:.8px;text-transform:uppercase;color:#8792a5;font-weight:900}
+.performance-kpi .k-value{font-size:22px;font-weight:900;letter-spacing:-.5px;color:#172033;margin-top:5px;overflow-wrap:anywhere}
+.performance-kpi .k-compare{font-size:10px;color:#718096;margin-top:5px;line-height:1.5}
+.performance-kpi .k-compare.up{color:#15803d}.performance-kpi .k-compare.down{color:#b91c1c}
+.performance-chart-wrap{width:100%;height:250px;position:relative;border:1px solid #edf0f6;border-radius:13px;padding:8px;box-sizing:border-box}
+#performanceDetailChart{display:block;width:100%;height:100%}
+.performance-detail-columns{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-top:12px}
+.performance-insight-panel{border:1px solid #e8ebf2;border-radius:13px;padding:14px;min-width:0;background:#fff}
+.performance-panel-title{font-size:12px;font-weight:900;margin-bottom:10px;color:#172033}
+.performance-driver{padding:10px 0;border-bottom:1px solid #edf0f5;font-size:11px;line-height:1.6}
+.performance-driver:last-child{border-bottom:0;padding-bottom:0}
+.performance-driver strong{font-size:12px}.performance-driver .mini-stat{display:block;margin-top:3px;line-height:1.5}
+.performance-signal{display:inline-flex;padding:3px 7px;border-radius:99px;font-size:9px;font-weight:900;margin-left:5px;background:#f1f5f9;color:#475569}
+.performance-signal.good{background:#dcfce7;color:#166534}.performance-signal.warn{background:#fef3c7;color:#92400e}
+.performance-footnote{font-size:10px;line-height:1.6;color:#8792a5;margin-top:12px}
+.performance-empty{padding:12px;border-radius:10px;background:#f8fafc;color:#718096;font-size:11px;line-height:1.6}
+@media(max-width:950px){.performance-kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.performance-detail-columns{grid-template-columns:1fr}}
+@media(max-width:760px){.performance-detail-card{padding:14px}.performance-detail-heading{display:block}.performance-controls{margin-top:12px;display:grid;grid-template-columns:auto 1fr;align-items:center}.performance-controls select{max-width:none;width:100%;box-sizing:border-box}.performance-kpi .k-value{font-size:19px}.performance-chart-wrap{height:220px;padding:4px}.performance-insight-panel{padding:12px}}
+
 </style>
 
 <meta charset="UTF-8">
@@ -933,6 +961,23 @@ body.gs-night #calendarGrid>div>div{background:#121e32!important;color:#dce5f3!i
   </div>
   <div class="two section">    <div class="card"><div class="section-title"><h2>Performance Overview</h2></div><canvas id="chart" height="110"></canvas></div>
     <div class="card"><div class="section-title"><h2>Top Content</h2></div><div id="topContent"></div></div>
+  </div>
+  <div class="card section performance-detail-card" id="performanceDetail">
+    <div class="section-title performance-detail-heading"><div><h2>Performance Overview · Detail</h2><div class="mini-stat">Pantau tren, bandingkan periode, dan cari pola konten yang berkaitan dengan perubahan performa.</div></div>
+      <div class="performance-controls">
+        <label for="performancePeriod">Periode</label>
+        <select id="performancePeriod" onchange="renderPerformanceOverview()"><option value="7">7 hari</option><option value="30" selected>30 hari</option><option value="90">90 hari</option><option value="all">Semua data</option></select>
+        <label for="performanceMetric">Grafik</label>
+        <select id="performanceMetric" onchange="renderPerformanceOverview()"><option value="reach">Reach</option><option value="views">Views</option><option value="interactions">Total interaksi</option><option value="er">Engagement rate</option></select>
+      </div>
+    </div>
+    <div id="performanceKpis" class="performance-kpi-grid"></div>
+    <div class="performance-chart-wrap"><canvas id="performanceDetailChart" aria-label="Grafik tren performa konten"></canvas></div>
+    <div class="performance-detail-columns">
+      <div class="performance-insight-panel"><div class="performance-panel-title">Pola yang berkaitan dengan performa</div><div id="performanceDrivers"></div></div>
+      <div class="performance-insight-panel"><div class="performance-panel-title">Apa yang perlu dilakukan?</div><div id="performanceActions"></div></div>
+    </div>
+    <div class="performance-footnote">Analisis ini menggunakan data konten yang tersimpan di Nalyto. Pola menunjukkan hubungan, bukan bukti penyebab pasti. Insight Instagram/TikTok dan platform lain akan lebih lengkap setelah integrasi API aktif.</div>
   </div>
   <div class="three section">
     <div class="card"><div class="section-title"><h2>Best Pillar</h2></div><div id="bestPillar" class="empty">No data</div></div>
@@ -1835,7 +1880,7 @@ async function render(){
   data.forEach(calc); const a=averages(); data.forEach(x=>{x.score=score(x,a);x.diagnosis=diagnosis(x,a)});
   document.getElementById('mContent').textContent=data.length; document.getElementById('mReach').textContent=(data.reduce((s,x)=>s+n(x.reach),0)/1000).toFixed(1)+'K'; document.getElementById('mER').textContent=pct(a.er); document.getElementById('mScore').textContent=data.length?Math.round(avg(data.map(x=>x.score))):0;
   document.getElementById('aLike').textContent=pct(a.likeRate);document.getElementById('aComment').textContent=pct(a.commentRate);document.getElementById('aShare').textContent=pct(a.shareRate);document.getElementById('aSave').textContent=pct(a.saveRate);
-  renderTable(a);renderGroups();renderDashboard();renderRecs(a);renderPlanner();renderRanking();renderAIScore();renderSmartRecommendation();
+  renderTable(a);renderGroups();renderDashboard();renderPerformanceOverview();renderRecs(a);renderPlanner();renderRanking();renderAIScore();renderSmartRecommendation();
 }
 function renderTable(a){
   const tb=document.getElementById('contentTable');
@@ -1862,6 +1907,142 @@ function renderPostTypeAnalytics(){const el=document.getElementById('postTypeAna
 function best(key){if(!data.length)return'No data';const map={};data.forEach(x=>(map[x[key]||'Unknown']??=[]).push(x.er));return Object.entries(map).sort((a,b)=>avg(b[1])-avg(a[1]))[0]?.[0]||'No data'}
 function renderDashboard(){document.getElementById('bestPillar').innerHTML=data.length?'<b>'+esc(best('pillar'))+'</b>':'No data';document.getElementById('bestFormat').innerHTML=data.length?'<b>'+esc(best('format'))+'</b>':'No data';document.getElementById('bestHook').innerHTML=data.length?'<b>'+esc(best('hook'))+'</b>':'No data';const top=data.slice().sort((a,b)=>b.score-a.score).slice(0,5);document.getElementById('topContent').innerHTML=top.length?top.map((x,i)=>`<div style="padding:10px 0;border-bottom:1px solid #e7ebf2"><b>#${i+1} · ${esc(x.title)}</b><div style="font-size:12px;color:#718096">${esc(x.format)} · Score ${x.score} · ER ${pct(x.er)} ${x.instagramUrl?'· <a href="'+esc(x.instagramUrl)+'" target="_blank" rel="noopener">Instagram</a>':''}</div></div>`).join(''):'<div class="empty">No data</div>';drawChart()}
 function drawChart(){const c=document.getElementById('chart');if(!c)return;const ctx=c.getContext('2d');const d=data.slice().reverse().slice(-12);ctx.clearRect(0,0,c.width,c.height);if(!d.length){ctx.font='14px system-ui';ctx.fillStyle='#718096';ctx.fillText('Tambahkan konten untuk melihat grafik.',20,40);return}const w=c.width,h=c.height,p=25,max=Math.max(...d.map(x=>x.reach),1);ctx.strokeStyle='#e7ebf2';ctx.beginPath();ctx.moveTo(p,10);ctx.lineTo(p,h-25);ctx.lineTo(w-10,h-25);ctx.stroke();const step=(w-p-20)/Math.max(d.length-1,1);ctx.strokeStyle='#635bff';ctx.lineWidth=3;ctx.beginPath();d.forEach((x,i)=>{const X=p+i*step,Y=(h-25)-(x.reach/max)*(h-45);i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)});ctx.stroke();d.forEach((x,i)=>{const X=p+i*step,Y=(h-25)-(x.reach/max)*(h-45);ctx.fillStyle='#635bff';ctx.beginPath();ctx.arc(X,Y,3,0,Math.PI*2);ctx.fill()})}
+
+function performanceDate(item){
+  const raw=String(item?.date||'').slice(0,10);
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(raw))return null;
+  const d=new Date(raw+'T12:00:00');
+  return Number.isNaN(d.getTime())?null:d;
+}
+function performanceMetricValue(item,metric){
+  if(metric==='views')return n(item.views);
+  if(metric==='interactions')return n(item.likes)+n(item.comments)+n(item.shares)+n(item.saves)+n(item.reposts);
+  if(metric==='er')return n(item.er)*100;
+  return n(item.reach);
+}
+function performanceNumber(value){
+  const v=Number(value)||0;
+  if(Math.abs(v)>=1000000)return (v/1000000).toFixed(1)+'M';
+  if(Math.abs(v)>=1000)return (v/1000).toFixed(1)+'K';
+  return Math.round(v).toLocaleString('id-ID');
+}
+function performanceCompare(current,previous,format){
+  if(!previous || previous===0)return {text:'Belum ada pembanding yang cukup',cls:''};
+  const change=((current-previous)/Math.abs(previous))*100;
+  const sign=change>0?'+':'';
+  return {text:sign+change.toFixed(1)+'% vs periode sebelumnya',cls:change>0?'up':change<0?'down':''};
+}
+function performanceGroups(items,key){
+  const map={};
+  items.forEach(x=>{const name=String(x[key]||'Belum diisi').trim()||'Belum diisi';(map[name]??=[]).push(x)});
+  return Object.entries(map).map(([name,rows])=>({name,rows,count:rows.length,reach:avg(rows.map(x=>n(x.reach))),er:avg(rows.map(x=>n(x.er))),views:avg(rows.map(x=>n(x.views)))})).sort((a,b)=>b.er-a.er);
+}
+function renderPerformanceOverview(){
+  const kpis=document.getElementById('performanceKpis'),drivers=document.getElementById('performanceDrivers'),actions=document.getElementById('performanceActions');
+  const canvas=document.getElementById('performanceDetailChart');
+  if(!kpis||!drivers||!actions||!canvas)return;
+  const period=document.getElementById('performancePeriod')?.value||'30';
+  const metric=document.getElementById('performanceMetric')?.value||'reach';
+  const now=new Date();now.setHours(23,59,59,999);
+  const days=period==='all'?null:Number(period);
+  const start=days?new Date(now.getTime()-(days-1)*86400000):null;
+  const previousStart=days?new Date(now.getTime()-(days*2-1)*86400000):null;
+  const dated=data.map(x=>({...x,_performanceDate:performanceDate(x)}));
+  const valid=dated.filter(x=>x._performanceDate);
+  const current=period==='all'?data.slice():valid.filter(x=>x._performanceDate>=start&&x._performanceDate<=now);
+  const previous=days?valid.filter(x=>x._performanceDate>=previousStart&&x._performanceDate<start):[];
+  const interactions=rows=>rows.reduce((sum,x)=>sum+n(x.likes)+n(x.comments)+n(x.shares)+n(x.saves)+n(x.reposts),0);
+  const sum= (rows,key)=>rows.reduce((total,x)=>total+n(x[key]),0);
+  const avgER=rows=>avg(rows.map(x=>n(x.er)));
+  const compareRows=[
+    {label:'Total Reach',value:sum(current,'reach'),prev:sum(previous,'reach'),type:'sum'},
+    {label:'Total Views',value:sum(current,'views'),prev:sum(previous,'views'),type:'sum'},
+    {label:'Total Interaksi',value:interactions(current),prev:interactions(previous),type:'sum'},
+    {label:'Rata-rata ER',value:avgER(current)*100,prev:avgER(previous)*100,type:'rate'}
+  ];
+  kpis.innerHTML=compareRows.map(k=>{
+    const c=days?performanceCompare(k.value,k.prev):{text:'Ringkasan seluruh data tersimpan',cls:''};
+    const val=k.type==='rate'?k.value.toFixed(2)+'%':performanceNumber(k.value);
+    return '<div class="performance-kpi"><div class="k-label">'+esc(k.label)+'</div><div class="k-value">'+val+'</div><div class="k-compare '+c.cls+'">'+esc(c.text)+'</div></div>';
+  }).join('');
+  const labels={reach:'Reach',views:'Views',interactions:'Total interaksi',er:'Engagement rate'};
+  const chartRows=current.filter(x=>performanceDate(x)).slice().sort((a,b)=>performanceDate(a)-performanceDate(b));
+  const byDate={};
+  chartRows.forEach(x=>{const key=String(x.date).slice(0,10);(byDate[key]??=[]).push(x)});
+  let points=Object.entries(byDate).map(([date,rows])=>({date, value:metric==='er'?avgER(rows)*100:rows.reduce((s,x)=>s+performanceMetricValue(x,metric),0)}));
+  if(points.length>18){
+    const step=Math.ceil(points.length/18);
+    points=Array.from({length:Math.ceil(points.length/step)},(_,i)=>{
+      const batch=points.slice(i*step,(i+1)*step);
+      return {date:batch[0]?.date||'',value:metric==='er'?avg(batch.map(x=>x.value)):batch.reduce((s,x)=>s+x.value,0),range:batch.length>1};
+    });
+  }
+  const ctx=canvas.getContext('2d');
+  const rect=canvas.getBoundingClientRect(),dpr=window.devicePixelRatio||1;
+  const width=Math.max(280,Math.round(rect.width*dpr)),height=Math.max(160,Math.round(rect.height*dpr));
+  if(canvas.width!==width||canvas.height!==height){canvas.width=width;canvas.height=height}
+  ctx.clearRect(0,0,width,height);
+  const pad={left:48,right:16,top:18,bottom:35},plotW=width-pad.left-pad.right,plotH=height-pad.top-pad.bottom;
+  ctx.font=(11*dpr)+'px system-ui';ctx.textBaseline='middle';
+  if(!points.length){
+    ctx.fillStyle='#718096';ctx.textAlign='center';ctx.fillText('Belum ada data bertanggal pada periode ini.',width/2,height/2);
+  }else{
+    const max=Math.max(...points.map(p=>p.value),1);
+    for(let i=0;i<4;i++){
+      const y=pad.top+plotH*i/3;
+      ctx.strokeStyle='#e8ebf2';ctx.lineWidth=1*dpr;ctx.beginPath();ctx.moveTo(pad.left,y);ctx.lineTo(width-pad.right,y);ctx.stroke();
+      ctx.fillStyle='#8792a5';ctx.textAlign='right';const label=max*(1-i/3);
+      ctx.fillText(metric==='er'?label.toFixed(1)+'%':performanceNumber(label),pad.left-8*dpr,y);
+    }
+    const coords=points.map((p,i)=>({x:pad.left+(points.length===1?plotW/2:i*plotW/(points.length-1)),y:pad.top+plotH-(p.value/max)*plotH,p}));
+    ctx.strokeStyle='#635bff';ctx.lineWidth=2.5*dpr;ctx.beginPath();coords.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.stroke();
+    coords.forEach((p,i)=>{
+      ctx.fillStyle='#635bff';ctx.beginPath();ctx.arc(p.x,p.y,3*dpr,0,Math.PI*2);ctx.fill();
+      if(i===0||i===coords.length-1||i%Math.ceil(coords.length/5)===0){
+        ctx.fillStyle='#718096';ctx.textAlign='center';ctx.font=(9*dpr)+'px system-ui';
+        ctx.fillText(p.p.date.slice(5),p.x,height-15*dpr);
+      }
+    });
+  }
+  const subtitle=period==='all'?'seluruh data bertanggal':'periode '+period+' hari terakhir';
+  const enough=current.length>=3;
+  const formatGroups=performanceGroups(current,'format').filter(g=>g.count>=2);
+  const pillarGroups=performanceGroups(current,'pillar').filter(g=>g.count>=2);
+  const hookGroups=performanceGroups(current,'hook').filter(g=>g.count>=2);
+  const driversHtml=[];
+  if(!current.length){
+    driversHtml.push('<div class="performance-empty">Belum ada konten pada '+esc(subtitle)+'. Pilih periode lebih panjang atau tambahkan tanggal konten yang benar.</div>');
+  }else{
+    const bestFormat=formatGroups[0];
+    const bestPillar=pillarGroups[0];
+    const bestHook=hookGroups.sort((a,b)=>b.reach-a.reach)[0];
+    if(bestFormat)driversHtml.push('<div class="performance-driver"><strong>Format dengan ER rata-rata tertinggi: '+esc(bestFormat.name)+'</strong><span class="performance-signal good">'+bestFormat.count+' konten</span><span class="mini-stat">Rata-rata ER '+(bestFormat.er*100).toFixed(2)+'% · rata-rata reach '+performanceNumber(bestFormat.reach)+'. Ini pola pada data saat ini, bukan jaminan hasil berikutnya.</span></div>');
+    if(bestPillar)driversHtml.push('<div class="performance-driver"><strong>Pillar dengan ER tertinggi: '+esc(bestPillar.name)+'</strong><span class="performance-signal">'+bestPillar.count+' konten</span><span class="mini-stat">ER rata-rata '+(bestPillar.er*100).toFixed(2)+'% dari '+bestPillar.count+' konten yang tercatat.</span></div>');
+    if(bestHook)driversHtml.push('<div class="performance-driver"><strong>Hook dengan reach rata-rata tertinggi: '+esc(bestHook.name)+'</strong><span class="performance-signal">'+bestHook.count+' konten</span><span class="mini-stat">Rata-rata reach '+performanceNumber(bestHook.reach)+'. Periksa contoh kontennya untuk mencari pola yang bisa diuji ulang.</span></div>');
+    if(!driversHtml.length)driversHtml.push('<div class="performance-empty">Data belum cukup untuk membandingkan format, pillar, atau hook. Usahakan minimal dua konten pada setiap kategori.</div>');
+  }
+  drivers.innerHTML=driversHtml.join('');
+  const actionsHtml=[];
+  if(!current.length){
+    actionsHtml.push('<div class="performance-empty">Tambahkan atau sinkronkan data konten terlebih dahulu agar Nalyto dapat membuat rekomendasi.</div>');
+  }else{
+    if(!enough)actionsHtml.push('<div class="performance-driver"><strong>Kumpulkan data pembanding</strong><span class="mini-stat">Ada '+current.length+' konten dalam periode ini. Tambahkan lebih banyak postingan supaya pola tidak terlalu dipengaruhi satu konten.</span></div>');
+    const a=averagesForRows(current);
+    const scale=current.filter(x=>n(x.reach)>=a.reach&&n(x.er)>=a.er);
+    const hidden=current.filter(x=>n(x.reach)<a.reach&&n(x.er)>=a.er);
+    const optimize=current.filter(x=>n(x.reach)>=a.reach&&n(x.er)<a.er);
+    if(scale.length)actionsHtml.push('<div class="performance-driver"><strong>Uji ulang pola konten SCALE</strong><span class="mini-stat">'+scale.length+' konten berada di atas atau setara rata-rata reach dan ER. Bandingkan topik, format, dan hook sebelum mengulang pendekatannya.</span></div>');
+    if(hidden.length)actionsHtml.push('<div class="performance-driver"><strong>Perluas distribusi Hidden Gem</strong><span class="mini-stat">'+hidden.length+' konten punya ER relatif tinggi tetapi reach di bawah rata-rata. Uji judul/hook atau distribusi berbeda.</span></div>');
+    if(optimize.length)actionsHtml.push('<div class="performance-driver"><strong>Perbaiki konten dengan reach tinggi</strong><span class="mini-stat">'+optimize.length+' konten punya reach relatif tinggi tetapi ER di bawah rata-rata. Tinjau relevansi pesan, opening, dan CTA.</span></div>');
+    if(!actionsHtml.length)actionsHtml.push('<div class="performance-empty">Belum terlihat pola yang cukup kuat. Pantau lagi setelah ada tambahan data.</div>');
+    if(days&&previous.length)actionsHtml.unshift('<div class="performance-driver"><strong>Perbandingan periode</strong><span class="mini-stat">'+current.length+' konten sekarang dibanding '+previous.length+' konten pada periode sebelumnya. Perubahan metrik belum tentu disebabkan oleh satu faktor saja.</span></div>');
+  }
+  actions.innerHTML=actionsHtml.join('');
+}
+function averagesForRows(rows){
+  return {reach:avg(rows.map(x=>n(x.reach))),er:avg(rows.map(x=>n(x.er)))};
+}
+
 function renderGroupsLegacy(){return null}
 function renderMatrixGroup(id,items){document.getElementById(id).innerHTML=items.length?items.slice(0,8).map(x=>`<div class="tag">${esc(x.title)}</div>`).join(''):'<div style="font-size:12px;margin-top:8px">No data</div>'}
 function renderGroupsMatrix(a){const groups={scale:[],gem:[],opt:[],rework:[]};data.forEach(x=>groups[{"SCALE":'scale','HIDDEN GEM':'gem','OPTIMIZE':'opt','REWORK':'rework'}[diagnosis(x,a)]].push(x));renderMatrixGroup('scaleList',groups.scale);renderMatrixGroup('gemList',groups.gem);renderMatrixGroup('optList',groups.opt);renderMatrixGroup('reworkList',groups.rework)}
