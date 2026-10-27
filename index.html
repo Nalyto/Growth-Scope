@@ -966,7 +966,7 @@ body.gs-night #calendarGrid>div>div{background:#121e32!important;color:#dce5f3!i
     <div class="section-title performance-detail-heading"><div><h2>Performance Overview · Detail</h2><div class="mini-stat">Pantau tren, bandingkan periode, dan cari pola konten yang berkaitan dengan perubahan performa.</div></div>
       <div class="performance-controls">
         <label for="performancePeriod">Periode</label>
-        <select id="performancePeriod" onchange="renderPerformanceOverview()"><option value="7">7 hari</option><option value="30" selected>30 hari</option><option value="90">90 hari</option><option value="all">Semua data</option></select>
+        <select id="performancePeriod" onchange="renderPerformanceOverview()"><option value="7">7 hari</option><option value="30">30 hari</option><option value="90">90 hari</option><option value="all" selected>Semua data</option></select>
         <label for="performanceMetric">Grafik</label>
         <select id="performanceMetric" onchange="renderPerformanceOverview()"><option value="reach">Reach</option><option value="views">Views</option><option value="interactions">Total interaksi</option><option value="er">Engagement rate</option></select>
       </div>
@@ -1945,8 +1945,8 @@ function renderPerformanceOverview(){
   const metric=document.getElementById('performanceMetric')?.value||'reach';
   const now=new Date();now.setHours(23,59,59,999);
   const days=period==='all'?null:Number(period);
-  const start=days?new Date(now.getTime()-(days-1)*86400000):null;
-  const previousStart=days?new Date(now.getTime()-(days*2-1)*86400000):null;
+  const start=days?new Date(now.getFullYear(),now.getMonth(),now.getDate()-(days-1)):null;
+  const previousStart=days?new Date(now.getFullYear(),now.getMonth(),now.getDate()-(days*2-1)):null;
   const dated=data.map(x=>({...x,_performanceDate:performanceDate(x)}));
   const valid=dated.filter(x=>x._performanceDate);
   const current=period==='all'?data.slice():valid.filter(x=>x._performanceDate>=start&&x._performanceDate<=now);
