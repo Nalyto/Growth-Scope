@@ -191,6 +191,91 @@ body{background:var(--gs-bg)}
 @keyframes welcomeCardOut{to{opacity:0;transform:translateY(-8px) scale(.98)}}
 .app.welcome-blur{filter:blur(12px);transform:scale(.995);transition:filter .45s ease,transform .45s ease}
 @media(max-width:760px){.account-popover{position:fixed;right:12px;top:72px;width:min(300px,calc(100vw - 24px))}.profile-menu.open .account-popover{display:block}}
+<style id="nalyto-bank-content-ui-refresh-20261028">
+#bank .card{padding:clamp(16px,2.5vw,28px);overflow:hidden}
+#bank .section-title{align-items:center;margin-bottom:18px}
+#bank .section-title h2{font-size:clamp(21px,2.4vw,27px);letter-spacing:-.7px;color:var(--gs-ink,#172033);margin:0}
+#bank .section-title>div:first-child>div{font-size:13px!important;line-height:1.65;color:var(--gs-muted,#7b8799)!important;max-width:620px}
+#bank .section-title .pill{display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:7px 13px;border-radius:999px;background:#f0efff;color:#5146e5;font-weight:800;border:1px solid #dedbff}
+#bank .section-title .btn.primary{min-height:42px;padding:11px 16px;border-radius:12px;box-shadow:0 7px 18px rgba(99,91,255,.18)}
+#bank .notice{position:relative;padding:14px 16px 14px 48px;border:1px solid #dcd9ff;border-radius:14px;background:linear-gradient(110deg,#f7f6ff,#fbfcff);color:#4b5570;line-height:1.65;font-size:12px}
+#bank .notice:before{content:"↗";position:absolute;left:15px;top:14px;display:grid;place-items:center;width:23px;height:23px;border-radius:8px;background:#e8e6ff;color:#5548e8;font-weight:900}
+#bank .bank-toolbar{display:grid;grid-template-columns:minmax(220px,1.5fr) minmax(150px,.7fr) minmax(150px,.7fr);gap:10px;padding:12px;margin-bottom:16px;border:1px solid #e8ebf2;border-radius:16px;background:#f9faff}
+#bank .bank-toolbar input,#bank .bank-toolbar select{width:100%;min-width:0;min-height:43px;border:1px solid #e0e5ef;border-radius:11px;background:#fff;padding:10px 12px;color:#263247;font:inherit;font-size:12px;outline:none;box-sizing:border-box}
+#bank .bank-toolbar input:focus,#bank .bank-toolbar select:focus{border-color:#8a82ff;box-shadow:0 0 0 3px rgba(99,91,255,.1)}
+#bank .bank-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:stretch}
+#bank .bank-item{position:relative;display:flex;flex-direction:column;gap:13px;min-width:0;padding:18px;border:1px solid #e7eaf2;border-radius:17px;background:linear-gradient(160deg,#fff,#fcfcff);box-shadow:0 4px 14px rgba(23,32,51,.035);transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+#bank .bank-item:hover{transform:translateY(-2px);border-color:#d6d2ff;box-shadow:0 12px 30px rgba(46,42,120,.08)}
+#bank .bank-item-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+#bank .bank-item-top>div{min-width:0;flex:1}
+#bank .bank-item h3{margin:0;color:#172033;font-size:16px;line-height:1.45;letter-spacing:-.25px;overflow-wrap:anywhere}
+#bank .bank-count-note{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px;color:#77839a;font-size:11px;font-weight:700}
+#bank .bank-item-top .btn{flex:0 0 auto;padding:7px 11px;border-radius:9px;font-size:11px}
+#bank .bank-tags{display:flex;flex-wrap:wrap;gap:7px}
+#bank .bank-tag,#bank .bank-tags .pill{display:inline-flex;align-items:center;max-width:100%;padding:5px 9px;border:1px solid #e7e8f3;border-radius:999px;background:#f7f7ff;color:#5d5b85;font-size:10px;font-weight:800;white-space:normal;overflow-wrap:anywhere}
+#bank .bank-tags .pill{background:#eef6ff;border-color:#d9eaff;color:#35659a}
+#bank .bank-snippet{padding:11px 12px;border:1px solid #edf0f6;border-radius:12px;background:#f9fafc;min-width:0}
+#bank .bank-label{margin-bottom:6px;color:#7b8799;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:1px}
+#bank .bank-copy{font-size:12px;line-height:1.7;color:#475467;white-space:pre-wrap;overflow-wrap:anywhere}
+#bank .bank-item a{font-size:11px;font-weight:800;color:#554cf0;text-decoration:none;overflow-wrap:anywhere}
+#bank .bank-item a:hover{text-decoration:underline}
+#bank .bank-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:13px;border-top:1px solid #edf0f5}
+#bank .bank-actions .btn{flex:1 1 auto;justify-content:center;min-height:38px;padding:9px 11px;border-radius:10px;font-size:11px;font-weight:800}
+#bank .bank-actions .btn.primary{box-shadow:0 5px 14px rgba(99,91,255,.15)}
+#bank .bank-actions .btn.danger{background:#fff7f7;border-color:#f5dada;color:#b42318}
+#bank .bank-empty{grid-column:1/-1;padding:36px 20px;border:1px dashed #d7dcec;border-radius:16px;background:#fafbff;color:#77839a;text-align:center;line-height:1.7}
+#bankModal .modal-box{border:1px solid #e5e8f2;border-radius:22px;padding:0;overflow:auto}
+#bankModal .modal-head{padding:22px 24px 18px;background:linear-gradient(120deg,#f7f6ff,#fff);border-bottom:1px solid #eceef6}
+#bankModal .modal-head h2{font-size:22px;letter-spacing:-.5px;color:#172033}
+#bankModal .modal-head p{color:#758198!important;line-height:1.6}
+#bankModal #bankForm{padding:0 24px 24px}
+#bankModal #bankForm .form{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+#bankModal #bankForm .field{min-width:0}
+#bankModal #bankForm .field label{display:block;margin-bottom:7px;color:#475467;font-size:11px;font-weight:800}
+#bankModal #bankForm input,#bankModal #bankForm select,#bankModal #bankForm textarea{width:100%;box-sizing:border-box;border:1px solid #e0e5ef;border-radius:10px;background:#fff;padding:11px 12px;color:#263247;font:inherit;font-size:12px;outline:none}
+#bankModal #bankForm input:focus,#bankModal #bankForm select:focus,#bankModal #bankForm textarea:focus{border-color:#8a82ff;box-shadow:0 0 0 3px rgba(99,91,255,.1)}
+#bankModal #bankForm textarea{resize:vertical;line-height:1.65}
+#bankModal #bankForm .field-full{grid-column:1/-1}
+#bankModal #bankForm .form-actions{position:sticky;bottom:-24px;display:flex;justify-content:flex-end;gap:9px;margin:20px -24px -24px;padding:14px 24px;background:rgba(255,255,255,.96);border-top:1px solid #eceef5;backdrop-filter:blur(12px)}
+#bankModal #bankForm .form-actions .btn{min-height:40px;border-radius:10px;padding:10px 16px}
+body.gs-night #bank .section-title h2{color:#f1f5fb}
+body.gs-night #bank .section-title>div:first-child>div{color:#aebbd0!important}
+body.gs-night #bank .notice{background:linear-gradient(110deg,#1a2140,#142139);border-color:#3d4772;color:#d4dcf1}
+body.gs-night #bank .notice:before{background:#302d65;color:#c9c5ff}
+body.gs-night #bank .bank-toolbar{background:#111c30;border-color:#2c3c56}
+body.gs-night #bank .bank-toolbar input,body.gs-night #bank .bank-toolbar select{background:#0c1628;border-color:#354761;color:#e7eefb;color-scheme:dark}
+body.gs-night #bank .bank-item{background:linear-gradient(160deg,#142139,#101a2c);border-color:#2e405c;box-shadow:none}
+body.gs-night #bank .bank-item:hover{border-color:#655df0}
+body.gs-night #bank .bank-item h3{color:#f1f5fb}
+body.gs-night #bank .bank-count-note{color:#a7b5ca}
+body.gs-night #bank .bank-tag,body.gs-night #bank .bank-tags .pill{background:#202746;border-color:#394469;color:#d1d5ff}
+body.gs-night #bank .bank-snippet{background:#101a2c;border-color:#2b3d57}
+body.gs-night #bank .bank-label{color:#a4b1c7}
+body.gs-night #bank .bank-copy{color:#d0d9e8}
+body.gs-night #bank .bank-actions{border-top-color:#2a3b55}
+body.gs-night #bank .bank-actions .btn.danger{background:#301b29;border-color:#5a3040;color:#ffb9c5}
+body.gs-night #bank .bank-empty{background:#111c30;border-color:#3b4b68;color:#aebbd0}
+body.gs-night #bankModal .modal-box{background:#101a2c;border-color:#2e405c;color:#e7eefb}
+body.gs-night #bankModal .modal-head{background:linear-gradient(120deg,#142139,#1a2440);border-color:#2c3c56}
+body.gs-night #bankModal .modal-head h2{color:#f1f5fb}
+body.gs-night #bankModal .modal-head p{color:#aebbd0!important}
+body.gs-night #bankModal #bankForm{background:#101a2c}
+body.gs-night #bankModal #bankForm .field label{color:#bdcbe0}
+body.gs-night #bankModal #bankForm input,body.gs-night #bankModal #bankForm select,body.gs-night #bankModal #bankForm textarea{background:#0c1628;border-color:#3a4d69;color:#f1f5fb;color-scheme:dark}
+body.gs-night #bankModal #bankForm .form-actions{background:rgba(13,23,40,.97);border-top-color:#30415c}
+@media(max-width:900px){#bank .bank-grid{grid-template-columns:1fr}}
+@media(max-width:760px){
+#bank .card{padding:14px}#bank .section-title{align-items:flex-start}
+#bank .section-title>div:first-child{min-width:0;flex:1 1 100%}
+#bank .section-title>div:last-child{width:100%;justify-content:space-between}
+#bank .bank-toolbar{grid-template-columns:1fr;padding:10px}
+#bank .bank-item{padding:14px;gap:11px}#bank .bank-item h3{font-size:15px}
+#bank .bank-actions .btn{flex:1 1 calc(50% - 8px)}
+#bankModal .modal-head{padding:18px 16px}#bankModal #bankForm{padding:0 16px 16px}
+#bankModal #bankForm .form{grid-template-columns:1fr}#bankModal #bankForm .field-full{grid-column:auto}
+#bankModal #bankForm .form-actions{margin:18px -16px -16px;padding:12px 16px}
+}
+</style>
 </style>
 
 <meta charset="UTF-8">
@@ -2877,3 +2962,5 @@ body:not(.gs-night) #planner .table-wrap::-webkit-scrollbar-thumb{background:#aa
 body:not(.gs-night) #planner .table-wrap .muted,
 body:not(.gs-night) #planner .table-wrap small{color:#66758c!important}
 </style>
+
+
