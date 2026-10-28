@@ -2627,6 +2627,19 @@ async function importCSV(event){
 const _oldRender=render;
 render=async function(){await _oldRender();renderGroupsMatrix(averages());renderRanking()};
 
+
+
+init();
+setInterval(checkValidationReminders,30000);
+setInterval(checkUploadReminders,15000);
+setInterval(updatePlannerDeadlines,1000);
+setTimeout(checkValidationReminders,3000);
+setTimeout(checkUploadReminders,4000);
+function applyGrowthTheme(){const night=localStorage.getItem('gs_theme_mode')==='night';document.body.classList.toggle('gs-night',night);const b=document.getElementById('themeModeBtn');if(b)b.textContent=night?'☀️ Day Mode':'🌙 Night Mode';const meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.content=night?'#0b1220':'#101828'}
+function toggleGrowthTheme(){const night=document.body.classList.contains('gs-night');localStorage.setItem('gs_theme_mode',night?'day':'night');applyGrowthTheme()}
+function openValidationMetrics(planId){const p=plans.find(x=>String(x.id)===String(planId));if(!p||!p.linkedContentId){alert('Konten belum terhubung ke Content Database. Tandai Upload terlebih dahulu.');return}const x=data.find(v=>String(v.id)===String(p.linkedContentId));if(!x){alert('Konten database tidak ditemukan. Coba refresh data workspace.');return}document.getElementById('validationPlanId').value=String(planId);document.getElementById('validationMetricsSubtitle').textContent=(p.topic||p.title||'Konten')+' · '+(p.platform||'')+' · deadline '+(validationReadyAt(p)?.toLocaleString('id-ID',{dateStyle:'medium',timeStyle:'short'})||'belum ditentukan');[['vmReach','reach'],['vmViews','views'],['vmImpressions','impressions'],['vmLikes','likes'],['vmComments','comments'],['vmShares','shares'],['vmSaves','saves'],['vmProfile','profile'],['vmLeads','leads']].forEach(([id,k])=>document.getElementById(id).value=x[k]??'');document.getElementById('validationMetricsModal').classList.add('open')}
+function closeValidationMetrics(){document.getElementById('validationMetricsModal')?.classList.remove('open')}
+async function saveValidationMetrics(e){e.preventDefault();const id=document.getElementById('validationPlanId').value,p=plans.find(x=>String(x.id)===String(id));if(!p?.linkedContentId){alert('Relasi konten tidak ditemukan.');return}const vals={};[['vmReach','reach'],['vmViews','views'],['vmImpressions','impressions'],['vmLikes','likes'],['vmComments','comments'],['vmShares','shares'],['vmSaves','saves'],['vmProfile','profile_visits'],['vmLeads','leads']].forEach(([field,key])=>{const raw=document.getElementById(field).value;if(raw.trim()!=='')vals[key]=Math.max(0,Number(raw)||0)});if(!Object.keys(vals).length){alert('Isi minimal satu metrik.');return}const {error}=await db.from('contents').update(vals).eq('id',p.linkedContentId).eq('workspace_id',workspace.id);if(error){alert('Gagal menyimpan metrics: '+error.message);return}closeValidationMetrics();await loadCloudData();showPage('planner');alert('Data Validation berhasil disimpan. Metrik konten sudah diperbarui.')}
 /* Bank Content — items remain unscheduled in content_plans with bankOnly metadata. */
 function isBankOnlyPlan(p){return p?._meta?.bankOnly===true}
 function getBankContents(){return plans.filter(isBankOnlyPlan).slice().sort((a,b)=>String(b._meta?.bankUpdatedAt||'').localeCompare(String(a._meta?.bankUpdatedAt||'')))}
@@ -2723,17 +2736,6 @@ function scheduleBankContent(id){
   form.dataset.schedulingBankId=String(p.id);
 }
 
-init();
-setInterval(checkValidationReminders,30000);
-setInterval(checkUploadReminders,15000);
-setInterval(updatePlannerDeadlines,1000);
-setTimeout(checkValidationReminders,3000);
-setTimeout(checkUploadReminders,4000);
-function applyGrowthTheme(){const night=localStorage.getItem('gs_theme_mode')==='night';document.body.classList.toggle('gs-night',night);const b=document.getElementById('themeModeBtn');if(b)b.textContent=night?'☀️ Day Mode':'🌙 Night Mode';const meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.content=night?'#0b1220':'#101828'}
-function toggleGrowthTheme(){const night=document.body.classList.contains('gs-night');localStorage.setItem('gs_theme_mode',night?'day':'night');applyGrowthTheme()}
-function openValidationMetrics(planId){const p=plans.find(x=>String(x.id)===String(planId));if(!p||!p.linkedContentId){alert('Konten belum terhubung ke Content Database. Tandai Upload terlebih dahulu.');return}const x=data.find(v=>String(v.id)===String(p.linkedContentId));if(!x){alert('Konten database tidak ditemukan. Coba refresh data workspace.');return}document.getElementById('validationPlanId').value=String(planId);document.getElementById('validationMetricsSubtitle').textContent=(p.topic||p.title||'Konten')+' · '+(p.platform||'')+' · deadline '+(validationReadyAt(p)?.toLocaleString('id-ID',{dateStyle:'medium',timeStyle:'short'})||'belum ditentukan');[['vmReach','reach'],['vmViews','views'],['vmImpressions','impressions'],['vmLikes','likes'],['vmComments','comments'],['vmShares','shares'],['vmSaves','saves'],['vmProfile','profile'],['vmLeads','leads']].forEach(([id,k])=>document.getElementById(id).value=x[k]??'');document.getElementById('validationMetricsModal').classList.add('open')}
-function closeValidationMetrics(){document.getElementById('validationMetricsModal')?.classList.remove('open')}
-async function saveValidationMetrics(e){e.preventDefault();const id=document.getElementById('validationPlanId').value,p=plans.find(x=>String(x.id)===String(id));if(!p?.linkedContentId){alert('Relasi konten tidak ditemukan.');return}const vals={};[['vmReach','reach'],['vmViews','views'],['vmImpressions','impressions'],['vmLikes','likes'],['vmComments','comments'],['vmShares','shares'],['vmSaves','saves'],['vmProfile','profile_visits'],['vmLeads','leads']].forEach(([field,key])=>{const raw=document.getElementById(field).value;if(raw.trim()!=='')vals[key]=Math.max(0,Number(raw)||0)});if(!Object.keys(vals).length){alert('Isi minimal satu metrik.');return}const {error}=await db.from('contents').update(vals).eq('id',p.linkedContentId).eq('workspace_id',workspace.id);if(error){alert('Gagal menyimpan metrics: '+error.message);return}closeValidationMetrics();await loadCloudData();showPage('planner');alert('Data Validation berhasil disimpan. Metrik konten sudah diperbarui.')}
 applyGrowthTheme();
 </script>
 
