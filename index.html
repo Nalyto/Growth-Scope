@@ -2191,7 +2191,7 @@ function openPlanModal(plan){
   document.getElementById('planForm').reset();
   document.getElementById('planEditId').value=plan?.id||'';
   document.getElementById('planModalTitle').textContent=plan?'Edit Planner Idea':'Add Planner Idea';
-  document.getElementById('planDate').value=plan?.date||new Date().toISOString().slice(0,10);
+  document.getElementById('planDate').value=plan?._meta?.bankOnly?'':(plan?.date||new Date().toISOString().slice(0,10));
   document.getElementById('planForm').dataset.schedulingBankId='';
   document.getElementById('planDate').required=true;
   document.getElementById('planTime').value=plan?.time||'';
