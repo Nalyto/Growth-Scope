@@ -2145,7 +2145,7 @@ function renderPlanner(){
   const tb=document.getElementById('plannerTable');
   const scheduledPlans=plans.filter(p=>!isBankOnlyPlan(p));
   if(!scheduledPlans.length){tb.innerHTML='<tr><td colspan="13" class="empty">Belum ada planner. Klik “+ Add Idea” untuk membuat jadwal.</td></tr>';return}
-  const overview=plannerDeadlineOverviewFor(scheduledPlans);
+  const overview=plannerDeadlineOverview();
   const oc=document.getElementById('plannerDeadlineOverview');
   if(oc){
     const c=overview.upcoming?countdownParts(overview.upcoming.d):null;
