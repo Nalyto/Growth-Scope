@@ -860,6 +860,7 @@ body.gs-night #calendarGrid>div>div{background:#121e32!important;color:#dce5f3!i
     <button data-page="recommendations"><span class="nav-icon">✧</span><span>Recommendations</span></button>
     <button data-page="calendar"><span class="nav-icon">📅</span><span>Calendar</span></button>
     <button data-page="planner"><span class="nav-icon">▣</span><span>Content Planner</span></button>
+    <button data-page="bank"><span class="nav-icon">▤</span><span>Bank Content</span></button>
     <button data-page="ranking"><span class="nav-icon">↕</span><span>Content Ranking</span></button>
     <button data-page="workspace"><span class="nav-icon">♙</span><span>Workspace</span></button>
   </nav>
@@ -1054,6 +1055,22 @@ body.gs-night #calendarGrid>div>div{background:#121e32!important;color:#dce5f3!i
  </div>
 </section>
 
+<section id="bank" class="page">
+ <div class="card">
+  <div class="section-title" style="gap:12px;flex-wrap:wrap">
+   <div><h2>Bank Content</h2><div style="font-size:12px;color:#718096;margin-top:4px">Tempat menyimpan ide, materi, hook, dan copywriting sebelum diberi jadwal.</div></div>
+   <div style="display:flex;gap:8px;flex-wrap:wrap"><span class="pill" id="bankContentCount">0 konten</span><button class="btn primary" type="button" onclick="openBankModal()">＋ Tambah Konten</button></div>
+  </div>
+  <div class="notice" style="margin-bottom:14px"><b>Alur kerja:</b> ide tanpa tanggal tetap di Bank Content. Klik <b>Jadwalkan</b> untuk memindahkannya ke Content Planner. Data copywriting dan materi akan ikut terbawa.</div>
+  <div class="bank-toolbar">
+   <input id="bankSearch" type="search" placeholder="Cari judul, hook, copywriting..." oninput="renderBankContent()">
+   <select id="bankPlatformFilter" onchange="renderBankContent()"><option value="ALL">Semua platform</option><option>Instagram</option><option>TikTok</option><option>Facebook</option><option>YouTube</option><option>LinkedIn</option></select>
+   <select id="bankFormatFilter" onchange="renderBankContent()"><option value="ALL">Semua format</option><option>Carousel</option><option>Reels</option><option>Single Image</option><option>Story</option><option>Video</option></select>
+  </div>
+  <div id="bankContentGrid" class="bank-grid"><div class="empty">Belum ada ide di Bank Content. Tambahkan konten pertamamu.</div></div>
+ </div>
+</section>
+
 <section id="ranking" class="page">
  <div class="card">
   <div class="section-title"><div><h2>Content Ranking</h2><div style="font-size:12px;color:#718096;margin-top:4px">Urut otomatis dari konten dengan performa terbaik sampai terendah berdasarkan Score.</div></div><span class="pill good" id="rankingCount">0 konten</span></div>
@@ -1143,6 +1160,7 @@ body.gs-night #calendarGrid>div>div{background:#121e32!important;color:#dce5f3!i
   <button data-mobile-page="database"><span>▣</span>Content</button>
   <button data-mobile-page="analytics"><span>◈</span>Analytics</button>
   <button data-mobile-page="planner"><span>☷</span>Planner</button>
+  <button data-mobile-page="bank"><span>▤</span>Bank</button>
   <button type="button" onclick="toggleMobileMore()"><span>•••</span>More</button>
 </nav>
 <div class="mobile-more-panel" id="mobileMorePanel">
@@ -1150,6 +1168,7 @@ body.gs-night #calendarGrid>div>div{background:#121e32!important;color:#dce5f3!i
   <button class="mobile-action-feature" onclick="toggleWorkspaceMenu(event);toggleMobileMore()">⌂ Workspace</button>
   <button class="mobile-action-feature" onclick="toggleAccountMenu(event);toggleMobileMore()">◉ Akun</button>
   <button onclick="openWorkspaceModal();toggleMobileMore()">＋ Tambah Workspace</button>
+  <button onclick="mobileNavigate('bank')">▤ Bank Content</button>
   <button onclick="mobileNavigate('matrix')">✦ Performance Matrix</button>
   <button onclick="mobileNavigate('recommendations')">◎ Recommendations</button>
   <button onclick="mobileNavigate('ranking')">↕ Content Ranking</button>
@@ -1230,6 +1249,29 @@ body.gs-night #calendarGrid>div>div{background:#121e32!important;color:#dce5f3!i
   <div class="form-actions"><button type="button" class="btn light" onclick="closeModal()">Cancel</button><button class="btn primary">Save Content</button></div>
  </form>
 </div>
+</div>
+
+
+<div class="modal" id="bankModal">
+ <div class="modal-box">
+  <div class="modal-head"><div><h2 id="bankModalTitle">Tambah Bank Content</h2><p style="margin:5px 0 0;color:#718096;font-size:12px">Simpan ide dan copywriting tanpa jadwal upload.</p></div><button class="btn light" type="button" onclick="closeBankModal()">✕</button></div>
+  <form id="bankForm" onsubmit="saveBankContent(event)">
+   <input type="hidden" id="bankEditId" value="">
+   <div class="form" style="margin-top:18px">
+    <div class="field"><label>Judul / Topic *</label><input id="bankTopic" required placeholder="Contoh: 5 kesalahan saat interview"></div>
+    <div class="field"><label>Platform</label><select id="bankPlatform"><option>Instagram</option><option>TikTok</option><option>Facebook</option><option>YouTube</option><option>LinkedIn</option></select></div>
+    <div class="field"><label>Content Pillar</label><input id="bankPillar" placeholder="Contoh: Education"></div>
+    <div class="field"><label>Format</label><select id="bankFormat"><option>Carousel</option><option>Reels</option><option>Single Image</option><option>Story</option><option>Video</option></select></div>
+    <div class="field"><label>Hook</label><input id="bankHook" placeholder="Pembuka konten"></div>
+    <div class="field"><label>CTA</label><input id="bankCTA" placeholder="Contoh: Simpan postingan ini"></div>
+    <div class="field field-full"><label>Copywriting / Caption</label><textarea id="bankCopywriting" rows="6" placeholder="Tulis copywriting yang akan dipakai nanti..."></textarea></div>
+    <div class="field field-full"><label>Ide materi / isi slide (opsional)</label><textarea id="bankBody" rows="5" placeholder="Outline materi, urutan slide, poin video, atau catatan kreatif"></textarea></div>
+    <div class="field"><label>Link referensi / preview (opsional)</label><input id="bankPreviewUrl" type="url" placeholder="https://..."></div>
+    <div class="field"><label>Catatan internal (opsional)</label><input id="bankNotes" placeholder="Catatan tambahan"></div>
+   </div>
+   <div class="form-actions"><button class="btn light" type="button" onclick="closeBankModal()">Batal</button><button class="btn primary" type="submit">Simpan ke Bank</button></div>
+  </form>
+ </div>
 </div>
 
 <div class="modal" id="validationMetricsModal"><div class="modal-box"><div class="modal-head"><div><h2>Data Validation</h2><p id="validationMetricsSubtitle" style="margin:5px 0 0;color:#718096;font-size:12px">Masukkan performa konten setelah upload.</p></div><button class="btn light" type="button" onclick="closeValidationMetrics()">✕</button></div><form id="validationMetricsForm" onsubmit="saveValidationMetrics(event)"><input type="hidden" id="validationPlanId"><div class="form" style="grid-template-columns:repeat(3,1fr);gap:12px"><div class="field"><label>Reach</label><input id="vmReach" type="number" min="0" step="1"></div><div class="field"><label>Views</label><input id="vmViews" type="number" min="0" step="1"></div><div class="field"><label>Impressions</label><input id="vmImpressions" type="number" min="0" step="1"></div><div class="field"><label>Likes</label><input id="vmLikes" type="number" min="0" step="1"></div><div class="field"><label>Comments</label><input id="vmComments" type="number" min="0" step="1"></div><div class="field"><label>Shares</label><input id="vmShares" type="number" min="0" step="1"></div><div class="field"><label>Saves</label><input id="vmSaves" type="number" min="0" step="1"></div><div class="field"><label>Profile Visits</label><input id="vmProfile" type="number" min="0" step="1"></div><div class="field"><label>Leads</label><input id="vmLeads" type="number" min="0" step="1"></div></div><div class="notice" style="margin-top:12px">Isi sesuai data yang tersedia di platform. Metrik yang tidak tersedia boleh dikosongkan.</div><div class="form-actions"><button class="btn light" type="button" onclick="closeValidationMetrics()">Batal</button><button class="btn primary" id="validationMetricsSaveBtn">Simpan Metrics</button></div></form></div></div>
@@ -1831,7 +1873,106 @@ document.addEventListener('click',e=>{
   if(menu && !menu.contains(e.target))menu.classList.remove('open');
 });
 
-async function render(){
+async 
+
+/* Bank Content — items remain unscheduled in content_plans with bankOnly metadata. */
+function isBankOnlyPlan(p){return p?._meta?.bankOnly===true}
+function getBankContents(){return plans.filter(isBankOnlyPlan).slice().sort((a,b)=>String(b._meta?.bankUpdatedAt||'').localeCompare(String(a._meta?.bankUpdatedAt||'')))}
+function openBankModal(item){
+  document.getElementById('bankForm').reset();
+  document.getElementById('bankEditId').value=item?.id||'';
+  document.getElementById('bankModalTitle').textContent=item?'Edit Bank Content':'Tambah Bank Content';
+  document.getElementById('bankTopic').value=item?.topic||item?.title||'';
+  document.getElementById('bankPlatform').value=item?.platform||'Instagram';
+  document.getElementById('bankPillar').value=item?.pillar||'General';
+  document.getElementById('bankFormat').value=item?.format||'Carousel';
+  document.getElementById('bankHook').value=item?.hook||'';
+  document.getElementById('bankCTA').value=item?.cta||'';
+  document.getElementById('bankCopywriting').value=item?._meta?.copywriting||item?.copywriting||'';
+  document.getElementById('bankBody').value=item?._meta?.bankBody||'';
+  document.getElementById('bankPreviewUrl').value=item?.previewUrl||item?._meta?.previewUrl||'';
+  document.getElementById('bankNotes').value=item?.notes||'';
+  document.getElementById('bankModal').classList.add('open');
+}
+function closeBankModal(){document.getElementById('bankModal')?.classList.remove('open')}
+async function saveBankContent(e){
+  e.preventDefault();
+  if(!workspace||!currentUser){alert('Workspace belum siap. Silakan login kembali.');return}
+  const id=document.getElementById('bankEditId').value;
+  const topic=document.getElementById('bankTopic').value.trim();
+  if(!topic){alert('Judul/topic wajib diisi.');return}
+  const previewUrl=document.getElementById('bankPreviewUrl').value.trim();
+  if(previewUrl&&!/^https?:\/\//i.test(previewUrl)){alert('Link referensi harus diawali http:// atau https://');return}
+  const old=plans.find(p=>String(p.id)===String(id));
+  const meta={
+    ...(old?._meta||{}),
+    bankOnly:true,
+    bankBody:document.getElementById('bankBody').value.trim(),
+    copywriting:document.getElementById('bankCopywriting').value.trim(),
+    previewUrl,
+    bankUpdatedAt:new Date().toISOString(),
+    uploaded:false,
+    linkedContentId:null,
+    uiStatus:'idea'
+  };
+  const payload={
+    workspace_id:workspace.id,created_by:currentUser.id,planned_date:null,planned_time:null,
+    platform:document.getElementById('bankPlatform').value,
+    title:topic,topic,pillar:document.getElementById('bankPillar').value.trim()||'General',
+    format:document.getElementById('bankFormat').value,hook:document.getElementById('bankHook').value.trim()||'',
+    cta:document.getElementById('bankCTA').value.trim()||'',status:'idea',
+    notes:writeGsMeta(document.getElementById('bankNotes').value.trim(),meta)
+  };
+  const result=id
+    ?await db.from('content_plans').update(payload).eq('id',id).eq('workspace_id',workspace.id)
+    :await db.from('content_plans').insert(payload);
+  if(result.error){alert('Gagal menyimpan Bank Content: '+result.error.message);return}
+  closeBankModal();
+  await loadCloudData();
+  showPage('bank');
+}
+function renderBankContent(){
+  const grid=document.getElementById('bankContentGrid');if(!grid)return;
+  const search=(document.getElementById('bankSearch')?.value||'').trim().toLowerCase();
+  const platform=document.getElementById('bankPlatformFilter')?.value||'ALL';
+  const format=document.getElementById('bankFormatFilter')?.value||'ALL';
+  const items=getBankContents().filter(x=>{
+    const m=x._meta||{};
+    const hay=[x.topic,x.title,x.pillar,x.hook,x.cta,x.notes,m.copywriting,m.bankBody].join(' ').toLowerCase();
+    return (!search||hay.includes(search))&&(platform==='ALL'||x.platform===platform)&&(format==='ALL'||x.format===format);
+  });
+  const count=document.getElementById('bankContentCount');if(count)count.textContent=getBankContents().length+' konten';
+  if(!items.length){grid.innerHTML='<div class="empty bank-empty">'+(getBankContents().length?'Tidak ada konten yang cocok dengan pencarian/filter.':'Belum ada ide di Bank Content. Tambahkan konten pertamamu.')+'</div>';return}
+  grid.innerHTML=items.map(x=>{
+    const meta=x._meta||{};
+    const copy=meta.copywriting||x.copywriting||'';
+    const body=meta.bankBody||'';
+    const preview=x.previewUrl||meta.previewUrl||'';
+    const clip=s=>String(s||'').trim().slice(0,380);
+    return '<article class="bank-item"><div class="bank-item-top"><div><h3>'+esc(x.topic||x.title||'Tanpa judul')+'</h3><div class="bank-count-note">'+esc(x.platform||'Instagram')+' · '+esc(x.format||'')+'</div></div><button class="btn light" type="button" onclick="editBankContent(\''+String(x.id).replace(/'/g,'\\\\\'')+'\')">Edit</button></div><div class="bank-tags"><span class="bank-tag">'+esc(x.pillar||'General')+'</span>'+(x.hook?'<span class="pill">'+esc(x.hook)+'</span>':'')+'</div>'+(copy?'<div class="bank-snippet"><div class="bank-label">Copywriting</div><div class="bank-copy">'+esc(clip(copy))+(copy.length>380?'…':'')+'</div></div>':'<div class="bank-snippet"><div class="bank-label">Copywriting</div><div class="bank-copy" style="color:#8a95a8">Belum ada copywriting.</div></div>')+(body?'<div class="bank-snippet"><div class="bank-label">Ide materi</div><div class="bank-copy">'+esc(clip(body))+(body.length>380?'…':'')+'</div></div>':'')+(preview?'<div><a href="'+esc(preview)+'" target="_blank" rel="noopener">↗ Buka referensi / preview</a></div>':'')+'<div class="bank-actions"><button class="btn light" type="button" onclick="editBankContent(\''+String(x.id).replace(/'/g,'\\\\\'')+'\')">Ubah</button><button class="btn primary" type="button" onclick="scheduleBankContent(\''+String(x.id).replace(/'/g,'\\\\\'')+'\')">Jadwalkan →</button><button class="btn danger" type="button" onclick="deleteBankContent(\''+String(x.id).replace(/'/g,'\\\\\'')+'\')">Hapus</button></div></article>';
+  }).join('');
+}
+function editBankContent(id){const p=getBankContents().find(x=>String(x.id)===String(id));if(p)openBankModal(p)}
+async function deleteBankContent(id){
+  const p=getBankContents().find(x=>String(x.id)===String(id));if(!p)return;
+  if(!confirm('Hapus item Bank Content "'+(p.topic||p.title||'Konten')+'"? Tindakan ini tidak bisa dibatalkan.'))return;
+  const {error}=await db.from('content_plans').delete().eq('id',id).eq('workspace_id',workspace.id);
+  if(error){alert('Gagal menghapus Bank Content: '+error.message);return}
+  await loadCloudData();showPage('bank');
+}
+function scheduleBankContent(id){
+  const p=getBankContents().find(x=>String(x.id)===String(id));if(!p)return;
+  openPlanModal(p);
+  document.getElementById('planDate').value='';
+  document.getElementById('planTime').value='';
+  document.getElementById('planSchedulePreview').insertAdjacentHTML('afterbegin','<div class="notice" style="grid-column:1/-1">Pilih tanggal dan jam upload untuk memasukkan konten ini ke Content Planner.</div>');
+  document.getElementById('planDate').required=true;
+  const form=document.getElementById('planForm');
+  form.dataset.schedulingBankId=String(p.id);
+}
+
+function render(){
+  if(document.getElementById('bankContentGrid'))renderBankContent();
   data.forEach(calc); const a=averages(); data.forEach(x=>{x.score=score(x,a);x.diagnosis=diagnosis(x,a)});
   document.getElementById('mContent').textContent=data.length; document.getElementById('mReach').textContent=(data.reduce((s,x)=>s+n(x.reach),0)/1000).toFixed(1)+'K'; document.getElementById('mER').textContent=pct(a.er); document.getElementById('mScore').textContent=data.length?Math.round(avg(data.map(x=>x.score))):0;
   document.getElementById('aLike').textContent=pct(a.likeRate);document.getElementById('aComment').textContent=pct(a.commentRate);document.getElementById('aShare').textContent=pct(a.shareRate);document.getElementById('aSave').textContent=pct(a.saveRate);
@@ -1994,21 +2135,23 @@ function updatePlannerDeadlines(){
   });
 }
 function plannerDeadlineOverview(){
-  const upcoming=plans.map(p=>({p,d:uploadDeadline(p)})).filter(x=>x.d&&!x.p.uploaded&&x.d.getTime()>Date.now()).sort((a,b)=>a.d-b.d)[0];
-  const active=plans.filter(p=>p.uploaded&&validationReadyAt(p)&&validationReadyAt(p).getTime()>Date.now()).length;
-  const due=plans.filter(p=>{const d=uploadDeadline(p);return d&&!p.uploaded&&d.getTime()<=Date.now()}).length;
+  const scheduled=plans.filter(p=>!isBankOnlyPlan(p));
+  const upcoming=scheduled.map(p=>({p,d:uploadDeadline(p)})).filter(x=>x.d&&!x.p.uploaded&&x.d.getTime()>Date.now()).sort((a,b)=>a.d-b.d)[0];
+  const active=scheduled.filter(p=>p.uploaded&&validationReadyAt(p)&&validationReadyAt(p).getTime()>Date.now()).length;
+  const due=scheduled.filter(p=>{const d=uploadDeadline(p);return d&&!p.uploaded&&d.getTime()<=Date.now()}).length;
   return {upcoming,active,due};
 }
 function renderPlanner(){
   const tb=document.getElementById('plannerTable');
-  if(!plans.length){tb.innerHTML='<tr><td colspan="13" class="empty">Belum ada planner. Klik “+ Add Idea” untuk membuat jadwal.</td></tr>';return}
-  const overview=plannerDeadlineOverview();
+  const scheduledPlans=plans.filter(p=>!isBankOnlyPlan(p));
+  if(!scheduledPlans.length){tb.innerHTML='<tr><td colspan="13" class="empty">Belum ada planner. Klik “+ Add Idea” untuk membuat jadwal.</td></tr>';return}
+  const overview=plannerDeadlineOverviewFor(scheduledPlans);
   const oc=document.getElementById('plannerDeadlineOverview');
   if(oc){
     const c=overview.upcoming?countdownParts(overview.upcoming.d):null;
-    oc.innerHTML=`<div class="deadline-card"><div class="kicker">Next Upload</div><div class="big">${overview.upcoming?esc(overview.upcoming.p.topic||overview.upcoming.p.title||'Konten'):'Tidak ada'}</div><div class="small">${c?esc(c.text)+' · '+overview.upcoming.d.toLocaleString('id-ID',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}):'Semua jadwal aman'}</div></div><div class="deadline-card"><div class="kicker">Scheduled</div><div class="big">${plans.filter(p=>!p.uploaded&&uploadDeadline(p)).length}</div><div class="small">Konten menunggu upload</div></div><div class="deadline-card"><div class="kicker">Validating</div><div class="big">${overview.active}</div><div class="small">Sedang mengumpulkan data</div></div><div class="deadline-card"><div class="kicker">Overdue</div><div class="big">${overview.due}</div><div class="small">Belum ditandai upload</div></div>`;
+    oc.innerHTML=`<div class="deadline-card"><div class="kicker">Next Upload</div><div class="big">${overview.upcoming?esc(overview.upcoming.p.topic||overview.upcoming.p.title||'Konten'):'Tidak ada'}</div><div class="small">${c?esc(c.text)+' · '+overview.upcoming.d.toLocaleString('id-ID',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}):'Semua jadwal aman'}</div></div><div class="deadline-card"><div class="kicker">Scheduled</div><div class="big">${plans.filter(p=>!isBankOnlyPlan(p)&&!p.uploaded&&uploadDeadline(p)).length}</div><div class="small">Konten menunggu upload</div></div><div class="deadline-card"><div class="kicker">Validating</div><div class="big">${overview.active}</div><div class="small">Sedang mengumpulkan data</div></div><div class="deadline-card"><div class="kicker">Overdue</div><div class="big">${overview.due}</div><div class="small">Belum ditandai upload</div></div>`;
   }
-  tb.innerHTML=plans.map(x=>{const d=uploadDeadline(x),c=countdownParts(d);return `<tr>
+  tb.innerHTML=scheduledPlans.map(x=>{const d=uploadDeadline(x),c=countdownParts(d);return `<tr>
     <td><b>${esc(x.date||'-')}</b>${x.time?`<div style="font-size:11px;color:#718096">${esc(x.time)}</div>`:''}</td>
     <td><b>${esc(x.topic||x.title||'-')}</b><br><span style="font-size:11px;color:#718096">${esc(x.platform||'')}</span></td>
     <td>${esc(x.pillar)}</td><td>${esc(x.format)}</td><td>${esc(x.hook)}</td><td>${esc(x.cta)}</td>
@@ -2051,6 +2194,8 @@ function openPlanModal(plan){
   document.getElementById('planEditId').value=plan?.id||'';
   document.getElementById('planModalTitle').textContent=plan?'Edit Planner Idea':'Add Planner Idea';
   document.getElementById('planDate').value=plan?.date||new Date().toISOString().slice(0,10);
+  document.getElementById('planForm').dataset.schedulingBankId='';
+  document.getElementById('planDate').required=true;
   document.getElementById('planTime').value=plan?.time||'';
   document.getElementById('planPlatform').value=plan?.platform||'Instagram';
   document.getElementById('planTopic').value=plan?.topic||plan?.title||'';
@@ -2112,7 +2257,11 @@ function getPlanSlides(){return Array.from(document.querySelectorAll('#planSlide
 function editPlan(id){const p=plans.find(x=>String(x.id)===String(id));if(p)openPlanModal(p)}
 async function savePlan(e){
   e.preventDefault(); if(!workspace||!currentUser)return;
+  const schedulingBankId=document.getElementById('planForm').dataset.schedulingBankId||'';
   const id=document.getElementById('planEditId').value;
+  const bankSource=schedulingBankId?getBankContents().find(p=>String(p.id)===String(schedulingBankId)):null;
+  if(schedulingBankId&&!bankSource){alert('Item Bank Content tidak ditemukan. Muat ulang data lalu coba lagi.');return}
+  if(schedulingBankId&&!document.getElementById('planDate').value){alert('Pilih tanggal terlebih dahulu untuk menjadwalkan konten.');return}
   const topic=document.getElementById('planTopic').value.trim();
   if(!topic){alert('Topic wajib diisi.');return}
   const selectedStatus=document.getElementById('planStatus').value;
@@ -2134,9 +2283,18 @@ async function savePlan(e){
   const uploadReminderBefore=document.getElementById('planUploadReminderBefore').value||'at';
   const meta={instagramUrl:instagramUrl||'',previewUrl:previewUrl||'',copywriting,slides,uploaded:previous?.uploaded||false,linkedContentId:previous?.linkedContentId||null,previousStatus:previous?._meta?.previousStatus||previous?.status||selectedStatus,uiStatus:selectedStatus,validationMinutes,validationMode,validationTime,publishedAt:previous?._meta?.publishedAt||null,reminderBefore,uploadReminderBefore};
   const payload={workspace_id:workspace.id,created_by:currentUser.id,planned_date:document.getElementById('planDate').value||null,planned_time:document.getElementById('planTime').value||null,platform:document.getElementById('planPlatform').value,title:topic,topic,pillar:document.getElementById('planPillar').value.trim()||'General',format:document.getElementById('planFormat').value,hook:document.getElementById('planHook').value,cta:document.getElementById('planCTA').value.trim()||'Save',status:statusForDb,notes:writeGsMeta(document.getElementById('planNotes').value.trim(),meta)};
-  const result=id?await db.from('content_plans').update(payload).eq('id',id).eq('workspace_id',workspace.id):await db.from('content_plans').insert(payload);
+  let result;
+  if(schedulingBankId){
+    const scheduleMeta={...meta,bankOnly:false,bankBody:bankSource?._meta?.bankBody||'',copywriting,previewUrl:previewUrl||'',bankSourceId:schedulingBankId,bankUpdatedAt:new Date().toISOString()};
+    payload.notes=writeGsMeta(document.getElementById('planNotes').value.trim(),scheduleMeta);
+    result=await db.from('content_plans').update(payload).eq('id',schedulingBankId).eq('workspace_id',workspace.id);
+  }else{
+    result=id?await db.from('content_plans').update(payload).eq('id',id).eq('workspace_id',workspace.id):await db.from('content_plans').insert(payload);
+  }
   if(result.error){alert('Gagal menyimpan planner: '+result.error.message);return}
+  document.getElementById('planForm').dataset.schedulingBankId='';
   closePlanModal(); await loadCloudData();
+  if(schedulingBankId){showPage('planner');alert('Konten berhasil dipindahkan ke Content Planner. Copywriting dan materi tetap tersimpan.');}
 }
 async function addPlan(){openPlanModal()}
 function renderWorkspace(){
@@ -2328,7 +2486,7 @@ function renderCalendar(){
  for(let day=1;day<=last.getDate();day++){const d=new Date(y,m,day),key=calendarFormatDate(d),today=calendarFormatDate(new Date())===key,items=plans.filter(p=>p.date===key).sort((a,b)=>String(a.time||'').localeCompare(String(b.time||'')));h+='<div style="min-height:125px;background:#fff;border:1px solid '+(today?'#635bff':'#e8ebf2')+';border-radius:10px;padding:7px;overflow:hidden"><div style="font-size:11px;font-weight:900;color:'+(today?'#635bff':'#172033')+'">'+day+(today?' · Today':'')+'</div>'+items.map(p=>'<button type="button" onclick="editPlan(\''+String(p.id).replace(/'/g,"\\'")+'\')" style="display:block;width:100%;text-align:left;border:0;border-left:3px solid #635bff;background:#f8fafc;border-radius:7px;padding:7px;margin-top:5px;cursor:pointer"><b style="display:block;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+esc(p.topic||p.title||'Untitled')+'</b><span style="font-size:9px;color:#7b8799">'+esc(p.time||'')+' · '+esc(p.format||'')+'</span></button>').join('')+'</div>'}
  h+='</div>';grid.innerHTML=h;
 }
-function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));const titles={dashboard:'Dashboard',database:'Content Database',analytics:'Content Analytics',matrix:'Performance Matrix',recommendations:'Recommendations',ai:'AI Studio',planner:'Content Planner',calendar:'Content Calendar',ranking:'Content Ranking',workspace:'Workspace'};document.getElementById('pageTitle').textContent=titles[id]||id;if(id==='ranking')renderRanking();if(id==='calendar')renderCalendar()}
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));const titles={dashboard:'Dashboard',database:'Content Database',analytics:'Content Analytics',matrix:'Performance Matrix',recommendations:'Recommendations',ai:'AI Studio',planner:'Content Planner',bank:'Bank Content',calendar:'Content Calendar',ranking:'Content Ranking',workspace:'Workspace'};document.getElementById('pageTitle').textContent=titles[id]||id;if(id==='ranking')renderRanking();if(id==='calendar')renderCalendar();if(id==='bank')renderBankContent()}
 document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
 function mobileNavigate(id){
   showPage(id);
@@ -2579,6 +2737,35 @@ function closeValidationMetrics(){document.getElementById('validationMetricsModa
 async function saveValidationMetrics(e){e.preventDefault();const id=document.getElementById('validationPlanId').value,p=plans.find(x=>String(x.id)===String(id));if(!p?.linkedContentId){alert('Relasi konten tidak ditemukan.');return}const vals={};[['vmReach','reach'],['vmViews','views'],['vmImpressions','impressions'],['vmLikes','likes'],['vmComments','comments'],['vmShares','shares'],['vmSaves','saves'],['vmProfile','profile_visits'],['vmLeads','leads']].forEach(([field,key])=>{const raw=document.getElementById(field).value;if(raw.trim()!=='')vals[key]=Math.max(0,Number(raw)||0)});if(!Object.keys(vals).length){alert('Isi minimal satu metrik.');return}const {error}=await db.from('contents').update(vals).eq('id',p.linkedContentId).eq('workspace_id',workspace.id);if(error){alert('Gagal menyimpan metrics: '+error.message);return}closeValidationMetrics();await loadCloudData();showPage('planner');alert('Data Validation berhasil disimpan. Metrik konten sudah diperbarui.')}
 applyGrowthTheme();
 </script>
+
+<style id="nalyto-bank-content">
+#bank .bank-toolbar{display:grid;grid-template-columns:minmax(220px,1fr) 190px 190px;gap:10px;margin:0 0 16px}
+#bank .bank-toolbar input,#bank .bank-toolbar select{min-width:0;width:100%;box-sizing:border-box;padding:11px 12px;border:1px solid var(--line,#e8ebf2);border-radius:10px;background:var(--panel,#fff);color:var(--ink,#172033)}
+#bank .bank-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+#bank .bank-item{min-width:0;border:1px solid var(--line,#e8ebf2);border-radius:15px;padding:15px;background:var(--panel,#fff);display:flex;flex-direction:column;gap:10px;box-shadow:0 5px 18px rgba(23,32,51,.035)}
+#bank .bank-item-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+#bank .bank-item h3{margin:0;font-size:15px;line-height:1.4;overflow-wrap:anywhere}
+#bank .bank-tags{display:flex;gap:6px;flex-wrap:wrap}
+#bank .bank-tag{display:inline-flex;align-items:center;padding:4px 7px;border-radius:7px;background:#f0efff;color:#554cf0;font-size:10px;font-weight:800}
+#bank .bank-label{font-size:9px;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--muted,#7b8799);margin-bottom:3px}
+#bank .bank-copy{white-space:pre-wrap;overflow-wrap:anywhere;color:var(--ink,#172033);font-size:12px;line-height:1.65;max-height:150px;overflow:auto}
+#bank .bank-snippet{padding:10px;border-radius:10px;background:var(--bg,#f5f7fb);min-width:0}
+#bank .bank-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:auto;padding-top:3px}
+#bank .bank-actions .btn{flex:1;justify-content:center;min-width:90px}
+#bank .bank-empty{grid-column:1/-1}
+#bank .bank-count-note{font-size:11px;color:var(--muted,#7b8799)}
+#bankModal{z-index:10060!important}
+#bankModal .modal-box{max-width:800px}
+#bankModal .form{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+#bankModal .field-full{grid-column:1/-1}
+@media(max-width:1050px){#bank .bank-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){#bank .bank-toolbar{grid-template-columns:1fr}#bank .bank-grid{grid-template-columns:1fr}#bankModal .form{grid-template-columns:1fr!important}#bankModal .field-full{grid-column:auto}}
+body.gs-night #bank .bank-item{background:#142139;border-color:#30435e;color:#e7eefb}
+body.gs-night #bank .bank-snippet{background:#0c1628}
+body.gs-night #bank .bank-copy{color:#e7eefb}
+body.gs-night #bank .bank-tag{background:#282650;color:#cbc7ff}
+</style>
+
 </body>
 </html>
 
