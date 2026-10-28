@@ -1873,8 +1873,6 @@ document.addEventListener('click',e=>{
   if(menu && !menu.contains(e.target))menu.classList.remove('open');
 });
 
-async 
-
 /* Bank Content — items remain unscheduled in content_plans with bankOnly metadata. */
 function isBankOnlyPlan(p){return p?._meta?.bankOnly===true}
 function getBankContents(){return plans.filter(isBankOnlyPlan).slice().sort((a,b)=>String(b._meta?.bankUpdatedAt||'').localeCompare(String(a._meta?.bankUpdatedAt||'')))}
@@ -1971,7 +1969,7 @@ function scheduleBankContent(id){
   form.dataset.schedulingBankId=String(p.id);
 }
 
-function render(){
+async function render(){
   if(document.getElementById('bankContentGrid'))renderBankContent();
   data.forEach(calc); const a=averages(); data.forEach(x=>{x.score=score(x,a);x.diagnosis=diagnosis(x,a)});
   document.getElementById('mContent').textContent=data.length; document.getElementById('mReach').textContent=(data.reduce((s,x)=>s+n(x.reach),0)/1000).toFixed(1)+'K'; document.getElementById('mER').textContent=pct(a.er); document.getElementById('mScore').textContent=data.length?Math.round(avg(data.map(x=>x.score))):0;
