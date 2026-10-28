@@ -2189,11 +2189,12 @@ async function savePlan(e){
   if(schedulingBankId){
     const scheduleMeta={...meta,bankOnly:false,bankBody:bankSource?._meta?.bankBody||'',copywriting,previewUrl:previewUrl||'',bankSourceId:schedulingBankId,bankUpdatedAt:new Date().toISOString()};
     payload.notes=writeGsMeta(document.getElementById('planNotes').value.trim(),scheduleMeta);
-    result=await db.from('content_plans').update(payload).eq('id',schedulingBankId).eq('workspace_id',workspace.id);
+    result=await db.from('content_plans').update(payload).eq('id',schedulingBankId).eq('workspace_id',workspace.id).select('id').maybeSingle();
   }else{
     result=id?await db.from('content_plans').update(payload).eq('id',id).eq('workspace_id',workspace.id):await db.from('content_plans').insert(payload);
   }
   if(result.error){alert('Gagal menyimpan planner: '+result.error.message);return}
+  if(schedulingBankId&&!result.data){alert('Konten tidak ditemukan atau tidak bisa diperbarui pada workspace ini. Data Bank Content tetap dipertahankan.');return}
   document.getElementById('planForm').dataset.schedulingBankId='';
   closePlanModal(); await loadCloudData();
   if(schedulingBankId){showPage('planner');alert('Konten berhasil dipindahkan ke Content Planner. Copywriting dan materi tetap tersimpan.');}
