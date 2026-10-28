@@ -2723,7 +2723,6 @@ function scheduleBankContent(id){
   document.getElementById('planDate').required=true;
   const form=document.getElementById('planForm');
   form.dataset.schedulingBankId=String(p.id);
-  document.getElementById('planForm').onsubmit=savePlan;
 }
 
 init();
