@@ -941,6 +941,7 @@ body.gs-night #calendarGrid>div>div{background:#121e32!important;color:#dce5f3!i
     <button class="active" data-page="dashboard"><span class="nav-icon">⌂</span><span>Dashboard</span></button>
     <button data-page="database"><span class="nav-icon">▦</span><span>Content Database</span></button>
     <button data-page="analytics"><span class="nav-icon">◫</span><span>Content Analytics</span></button>
+<button data-page="reports"><span class="nav-icon">▤</span><span>Insight Report</span></button>
     <button data-page="matrix"><span class="nav-icon">✦</span><span>Performance Matrix</span></button>
     <button data-page="recommendations"><span class="nav-icon">✧</span><span>Recommendations</span></button>
     <button data-page="calendar"><span class="nav-icon">📅</span><span>Calendar</span></button>
@@ -1055,6 +1056,7 @@ body.gs-night #calendarGrid>div>div{background:#121e32!important;color:#dce5f3!i
  <div class="card section"><div class="section-title"><h2>Original vs Posting Ulang</h2><span class="mini-stat">Perbandingan performa</span></div><div id="postTypeAnalytics"></div></div>
 </section>
 
+<section id="reports" class="page"><div class="card"><div class="section-title"><h2>Insight Report</h2><span class="mini-stat">REPORT CENTER</span></div><div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px"><label>Periode<select id="reportPeriod" onchange="reportPeriodChanged()"><option value="month">Bulanan</option><option value="quarter">Kuartalan</option><option value="year">Tahunan</option><option value="custom">Custom</option></select></label><label id="reportMonthWrap">Bulan<select id="reportMonth" onchange="renderInsightReport()"></select></label><label id="reportYearWrap">Tahun<input id="reportYear" type="number" onchange="renderInsightReport()"></label><label id="reportStartWrap" style="display:none">Mulai<input id="reportStart" type="date" onchange="renderInsightReport()"></label><label id="reportEndWrap" style="display:none">Sampai<input id="reportEnd" type="date" onchange="renderInsightReport()"></label></div><div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap"><button class="btn primary" onclick="saveInsightReport()">Save Report</button><button class="btn" onclick="exportInsightCSV()">Export CSV</button><button class="btn" onclick="window.print()">Print / PDF</button></div><p id="reportPeriodLabel" class="mini-stat"></p></div><div id="reportKpis" class="grid section" style="grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px"></div><div class="two section"><div class="card"><h2>Platform Comparison</h2><div id="reportPlatforms"></div></div><div class="card"><h2>Period Comparison</h2><div id="reportComparison"></div></div></div><div class="two section"><div class="card"><h2>Top Performing Content</h2><div id="reportTopContent"></div></div><div class="card"><h2>Evaluation & Recommendations</h2><div id="reportInsights"></div></div></div><div class="card section"><h2>Saved Report History</h2><div id="reportHistory"></div></div><p class="mini-stat">Laporan membaca data Content Database. Data sumber tidak diubah. Riwayat tersimpan lokal pada browser ini.</p></section>
 <section id="matrix" class="page">
  <div class="card">
   <div class="section-title"><h2>Content Performance Matrix</h2></div>
@@ -1254,6 +1256,7 @@ body.gs-night #calendarGrid>div>div{background:#121e32!important;color:#dce5f3!i
   <button class="mobile-action-feature" onclick="toggleAccountMenu(event);toggleMobileMore()">◉ Akun</button>
   <button onclick="openWorkspaceModal();toggleMobileMore()">＋ Tambah Workspace</button>
   <button onclick="mobileNavigate('bank')">▤ Bank Content</button>
+<button onclick="mobileNavigate('reports')">▤ Insight Report</button>
   <button onclick="mobileNavigate('matrix')">✦ Performance Matrix</button>
   <button onclick="mobileNavigate('recommendations')">◎ Recommendations</button>
   <button onclick="mobileNavigate('ranking')">↕ Content Ranking</button>
