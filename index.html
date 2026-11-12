@@ -1370,6 +1370,14 @@ const { createClient } = supabase;
 const db = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
 let data = [];
+(function initInsightReport(){
+ const month=document.getElementById('reportMonth');if(!month)return;const now=new Date();
+ month.innerHTML=Array.from({length:12},(_,i)=>'<option value="'+i+'">'+new Date(2020,i,1).toLocaleDateString('id-ID',{month:'long'})+'</option>').join('');month.value=now.getMonth();
+ const year=document.getElementById('reportYear');if(year)year.value=now.getFullYear();
+ const start=document.getElementById('reportStart'),end=document.getElementById('reportEnd');
+ if(start)start.value=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-01';
+ if(end)end.value=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0');
+})();
 let plans = [];let workspace = null;
 let currentWorkspaceRole = null;
 let currentUser = null;
@@ -2477,7 +2485,65 @@ function renderCalendar(){
  for(let day=1;day<=last.getDate();day++){const d=new Date(y,m,day),key=calendarFormatDate(d),today=calendarFormatDate(new Date())===key,items=plans.filter(p=>p.date===key).sort((a,b)=>String(a.time||'').localeCompare(String(b.time||'')));h+='<div style="min-height:125px;background:#fff;border:1px solid '+(today?'#635bff':'#e8ebf2')+';border-radius:10px;padding:7px;overflow:hidden"><div style="font-size:11px;font-weight:900;color:'+(today?'#635bff':'#172033')+'">'+day+(today?' · Today':'')+'</div>'+items.map(p=>'<button type="button" onclick="editPlan(\''+String(p.id).replace(/'/g,"\\'")+'\')" style="display:block;width:100%;text-align:left;border:0;border-left:3px solid #635bff;background:#f8fafc;border-radius:7px;padding:7px;margin-top:5px;cursor:pointer"><b style="display:block;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+esc(p.topic||p.title||'Untitled')+'</b><span style="font-size:9px;color:#7b8799">'+esc(p.time||'')+' · '+esc(p.format||'')+'</span></button>').join('')+'</div>'}
  h+='</div>';grid.innerHTML=h;
 }
-function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));const titles={dashboard:'Dashboard',database:'Content Database',analytics:'Content Analytics',matrix:'Performance Matrix',recommendations:'Recommendations',ai:'AI Studio',planner:'Content Planner',bank:'Bank Content',calendar:'Content Calendar',ranking:'Content Ranking',workspace:'Workspace'};document.getElementById('pageTitle').textContent=titles[id]||id;if(id==='ranking')renderRanking();if(id==='calendar')renderCalendar();if(id==='bank')renderBankContent();if(id==='bank')renderBankContent()}
+function insightRange(){
+ const mode=document.getElementById('reportPeriod').value,year=Number(document.getElementById('reportYear').value)||new Date().getFullYear(),month=Number(document.getElementById('reportMonth').value)||0;
+ let start='',end='',label='';
+ if(mode==='custom'){start=document.getElementById('reportStart').value;end=document.getElementById('reportEnd').value;label=start+' — '+end;}
+ else if(mode==='year'){start=year+'-01-01';end=year+'-12-31';label='Tahun '+year;}
+ else if(mode==='quarter'){const q=Math.floor(month/3),m=q*3;start=year+'-'+String(m+1).padStart(2,'0')+'-01';end=year+'-'+String(m+3).padStart(2,'0')+'-'+String(new Date(year,m+3,0).getDate()).padStart(2,'0');label='Q'+(q+1)+' '+year;}
+ else{start=year+'-'+String(month+1).padStart(2,'0')+'-01';end=year+'-'+String(month+1).padStart(2,'0')+'-'+String(new Date(year,month+1,0).getDate()).padStart(2,'0');label=new Date(year,month,1).toLocaleDateString('id-ID',{month:'long',year:'numeric'});}
+ return {mode,start,end,label};
+}
+function reportPeriodChanged(){
+ const mode=document.getElementById('reportPeriod').value,custom=mode==='custom';
+ document.getElementById('reportMonthWrap').style.display=(custom||mode==='year')?'none':'';
+ document.getElementById('reportYearWrap').style.display=custom?'none':'';
+ document.getElementById('reportStartWrap').style.display=custom?'':'none';
+ document.getElementById('reportEndWrap').style.display=custom?'':'none';
+ renderInsightReport();
+}
+function insightRows(r){return data.filter(x=>{const d=String(x.date||'').slice(0,10);return d&&d>=r.start&&d<=r.end;}).map(x=>{const z=calc({...x});z.score=score(z);return z;});}
+function insightTotals(rows){
+ const sum=k=>rows.reduce((a,x)=>a+n(x[k]),0),eng=rows.reduce((a,x)=>a+n(x.likes)+n(x.comments)+n(x.shares)+n(x.saves)+n(x.reposts),0),reach=sum('reach');
+ return {posts:rows.length,reach,views:sum('views'),engagements:eng,er:reach?eng/reach:0};
+}
+function insightCard(label,value){return '<div class="card"><div class="label">'+esc(label)+'</div><div class="value">'+esc(String(value))+'</div></div>';}
+function renderInsightReport(){
+ const root=document.getElementById('reportKpis');if(!root)return;
+ const r=insightRange(),rows=r.start&&r.end?insightRows(r):[],t=insightTotals(rows);
+ document.getElementById('reportPeriodLabel').textContent='Periode: '+r.label+' · '+rows.length+' konten ditemukan';
+ root.innerHTML=insightCard('TOTAL CONTENT',t.posts)+insightCard('TOTAL REACH',t.reach.toLocaleString('id-ID'))+insightCard('TOTAL ENGAGEMENT',t.engagements.toLocaleString('id-ID'))+insightCard('ENGAGEMENT RATE',(t.er*100).toFixed(2)+'%')+insightCard('TOTAL VIEWS',t.views.toLocaleString('id-ID'));
+ const groups={};rows.forEach(x=>{const p=x.platform||'Tidak diketahui';if(!groups[p])groups[p]=[];groups[p].push(x);});const platforms=Object.keys(groups);
+ document.getElementById('reportPlatforms').innerHTML=platforms.length?'<div class="table-wrap"><table class="table"><thead><tr><th>Platform</th><th>Konten</th><th>Reach</th><th>Engagement</th><th>ER</th></tr></thead><tbody>'+platforms.map(p=>{const z=insightTotals(groups[p]);return '<tr><td>'+esc(p)+'</td><td>'+z.posts+'</td><td>'+z.reach.toLocaleString('id-ID')+'</td><td>'+z.engagements.toLocaleString('id-ID')+'</td><td>'+(z.er*100).toFixed(2)+'%</td></tr>';}).join('')+'</tbody></table></div>':'<p class="mini-stat">Belum ada data pada periode ini.</p>';
+ const sd=r.start?new Date(r.start+'T00:00:00'):new Date(),ed=r.end?new Date(r.end+'T00:00:00'):sd,dur=Math.max(1,Math.round((ed-sd)/86400000)+1),pe=new Date(sd);pe.setDate(pe.getDate()-1);const ps=new Date(pe);ps.setDate(ps.getDate()-dur+1);
+ const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'),prev=insightTotals(insightRows({start:iso(ps),end:iso(pe)}));
+ const delta=(a,b)=>b?(((a-b)/b)*100).toFixed(1)+'%':(a?'Baru':'0%');
+ document.getElementById('reportComparison').innerHTML='<div class="table-wrap"><table class="table"><thead><tr><th>Metrik</th><th>Periode ini</th><th>Sebelumnya</th><th>Perubahan</th></tr></thead><tbody>'+[['Konten',t.posts,prev.posts],['Reach',t.reach,prev.reach],['Engagement',t.engagements,prev.engagements],['ER',(t.er*100).toFixed(2)+'%',(prev.er*100).toFixed(2)+'%']].map(a=>'<tr><td>'+a[0]+'</td><td>'+a[1]+'</td><td>'+a[2]+'</td><td>'+delta(Number(String(a[1]).replace('%','')),Number(String(a[2]).replace('%','')) )+'</td></tr>').join('')+'</tbody></table></div><p class="mini-stat">Pembanding: '+iso(ps)+' — '+iso(pe)+'</p>';
+ const top=rows.slice().sort((a,b)=>b.score-a.score).slice(0,5);
+ document.getElementById('reportTopContent').innerHTML=top.length?'<div class="table-wrap"><table class="table"><thead><tr><th>Konten</th><th>Platform</th><th>Reach</th><th>ER</th><th>Score</th></tr></thead><tbody>'+top.map(x=>'<tr><td>'+esc(x.title||x.topic||'Untitled')+'</td><td>'+esc(x.platform||'-')+'</td><td>'+n(x.reach).toLocaleString('id-ID')+'</td><td>'+(x.er*100).toFixed(2)+'%</td><td>'+x.score+'</td></tr>').join('')+'</tbody></table></div>':'<p class="mini-stat">Belum ada konten untuk dievaluasi.</p>';
+ const notes=[];if(!rows.length)notes.push('Belum ada data pada periode ini. Tambahkan atau impor data di Content Database.');else{const best=platforms.map(p=>({name:p,...insightTotals(groups[p])})).sort((a,b)=>b.engagements-a.engagements)[0];if(best)notes.push('Platform dengan total engagement terbanyak: '+best.name+'.');if(t.er)notes.push('Engagement rate periode ini '+(t.er*100).toFixed(2)+'%. Bandingkan dengan periode sebelumnya.');if(top[0])notes.push('Konten dengan score tertinggi: '+(top[0].title||top[0].topic||'Untitled')+'. Pelajari hook, format, dan pillar-nya.');if(!t.reach)notes.push('Data reach belum tersedia; lengkapi metrik reach agar ER dapat dihitung.');}
+ document.getElementById('reportInsights').innerHTML='<ul style="padding-left:20px;margin:0">'+notes.map(x=>'<li style="margin-bottom:9px">'+esc(x)+'</li>').join('')+'</ul>';renderInsightHistory();
+}
+function insightKey(){return 'nalyto_insight_reports_'+(workspace?.id||currentUser?.id||'local');}
+function readInsightHistory(){try{return JSON.parse(localStorage.getItem(insightKey())||'[]');}catch(e){return [];}}
+function saveInsightReport(){
+ const r=insightRange(),rows=r.start&&r.end?insightRows(r):[];if(!rows.length){alert('Tidak ada data pada periode yang dipilih.');return;}
+ const item={id:Date.now(),label:r.label,start:r.start,end:r.end,savedAt:new Date().toISOString(),totals:insightTotals(rows),rows:rows.map(x=>({date:x.date,title:x.title,topic:x.topic,platform:x.platform,pillar:x.pillar,format:x.format,reach:n(x.reach),views:n(x.views),likes:n(x.likes),comments:n(x.comments),shares:n(x.shares),saves:n(x.saves),reposts:n(x.reposts),er:n(x.er),score:x.score}))};
+ const h=readInsightHistory();h.unshift(item);try{localStorage.setItem(insightKey(),JSON.stringify(h.slice(0,36)));renderInsightHistory();alert('Laporan tersimpan pada browser ini.');}catch(e){alert('Gagal menyimpan laporan. Penyimpanan browser mungkin penuh.');}
+}
+function renderInsightHistory(){
+ const el=document.getElementById('reportHistory');if(!el)return;const h=readInsightHistory();
+ el.innerHTML=h.length?'<div class="table-wrap"><table class="table"><thead><tr><th>Periode</th><th>Konten</th><th>Reach</th><th>Engagement</th><th>Disimpan</th><th>Aksi</th></tr></thead><tbody>'+h.map(x=>'<tr><td>'+esc(x.label)+'</td><td>'+n(x.totals.posts)+'</td><td>'+n(x.totals.reach).toLocaleString('id-ID')+'</td><td>'+n(x.totals.engagements).toLocaleString('id-ID')+'</td><td>'+esc(new Date(x.savedAt).toLocaleDateString('id-ID'))+'</td><td><button class="btn" onclick="exportSavedInsight('+Number(x.id)+')">Export</button></td></tr>').join('')+'</tbody></table></div>':'<p class="mini-stat">Belum ada laporan tersimpan.</p>';
+}
+function downloadInsightRows(rows,name){
+ const cols=['date','title','platform','pillar','format','reach','views','likes','comments','shares','saves','reposts','er','score'];
+ const csv=[cols.join(','),...rows.map(x=>cols.map(k=>'"'+String(x[k]??'').replace(/"/g,'""')+'"').join(','))].join('\r\n');
+ const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));a.download=name+'.csv';a.click();URL.revokeObjectURL(a.href);
+}
+function exportInsightCSV(){const r=insightRange();downloadInsightRows(insightRows(r),'nalyto-insight-'+r.start+'-'+r.end);}
+function exportSavedInsight(id){const x=readInsightHistory().find(y=>y.id===id);if(x)downloadInsightRows(x.rows,'nalyto-report-'+x.start+'-'+x.end);}
+
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));const titles={dashboard:'Dashboard',database:'Content Database',analytics:'Content Analytics',reports:'Insight Report',matrix:'Performance Matrix',recommendations:'Recommendations',ai:'AI Studio',planner:'Content Planner',bank:'Bank Content',calendar:'Content Calendar',ranking:'Content Ranking',workspace:'Workspace'};document.getElementById('pageTitle').textContent=titles[id]||id;if(id==='reports')reportPeriodChanged();if(id==='ranking')renderRanking();if(id==='calendar')renderCalendar();if(id==='bank')renderBankContent();if(id==='bank')renderBankContent()}
 document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
 function mobileNavigate(id){
   showPage(id);
